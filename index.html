@@ -14,29 +14,26 @@
 
 <body>
 
-<div id="container">
+<div class="container">
 
-    <img src="assets/logo.png" id="logo">
+    <img src="assets/logo.png" class="logo" alt="Dark Cache Logo">
 
     <h1>La búsqueda del<br>Caché Oscuro</h1>
 
-    <p class="subtitle">
-        Una aventura de geocaching
-    </p>
+    <div class="language-selector">
+        <button>CAT</button>
+        <button>ESP</button>
+        <button>ENG</button>
+    </div>
 
-    <div class="chapter">Capítulo I</div>
-
-    <div class="chapter">Capítulo II</div>
-
-    <div class="chapter">Capítulo III</div>
-
-    <div class="chapter">Capítulo IV</div>
-
-    <footer>
-        © 2026
-    </footer>
+    <div class="chapter" onclick="location.href='play.html?chapter=1'">
+        Capítulo I
+    </div>
 
 </div>
 
+<script src="app.js"></script>
+
 </body>
+
 </html>
