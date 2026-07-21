@@ -136,44 +136,6 @@ function setLanguage(lang){
     location.reload();
 }
 
-async function loadList(){
-
-    const puzzles =
-        await (
-            await fetch(
-                "chaptera/index.json"
-            )
-        ).json();
-
-    const container =
-        document.getElementById(
-            "list"
-        );
-
-    container.innerHTML = "";
-
-    puzzles.forEach(chapter => {
-
-        const link =
-            document.createElement("a");
-
-        link.className =
-            "chapter";
-
-        link.href =
-            `play.html?p=${chapter.id}`;
-
-        link.textContent =
-            chapter.title[language];
-
-        container.appendChild(
-            link
-        );
-    });
-}
-
-loadList();
-
 </script>
 
 </body>
