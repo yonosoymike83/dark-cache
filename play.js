@@ -1,23 +1,41 @@
-const introTexts = [
+const introTexts=[
 
-    "Dicen que algunos geocachés son imposibles de encontrar.",
+"Dicen que algunos geocachés son imposibles de encontrar.",
 
-    "Otros...",
+"Otros...",
 
-    "que nunca debieron ocultarse.",
+"que nunca debieron ocultarse.",
 
-    "Hasta que una conversación cambió mi vida.",
+"Durante años pensé que solo eran historias.",
 
-    "Aquella noche escuché un nombre...",
+"Hasta aquella noche.",
 
-    "El Caché Oscuro."
+"Alguien pronunció un nombre en voz baja.",
+
+"El Caché Oscuro.",
+
+"Nadie quiso hablar demasiado.",
+
+"Solo me dijeron una cosa...",
+
+"Busca al viejo tendero."
 
 ];
 
-startIntro(introTexts, ()=>{
+startIntro(
 
-    const intro = document.getElementById("intro");
+introTexts,
 
-    intro.innerHTML = "<h1>CAPÍTULO I</h1><h2>El viejo tendero</h2>";
+"CAPÍTULO I",
 
-});
+"El viejo tendero",
+
+()=>{
+
+    document.getElementById("intro").innerHTML="ESCENA 1";
+
+    document.getElementById("intro").style.opacity=1;
+
+}
+
+);
