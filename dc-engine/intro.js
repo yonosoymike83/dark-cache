@@ -3,6 +3,7 @@ function startIntro(texts, onFinish){
     const intro = document.getElementById("intro");
 
     let index = 0;
+    let locked = false;
 
     function show(){
 
@@ -13,13 +14,19 @@ function startIntro(texts, onFinish){
             intro.textContent = texts[index];
             intro.style.opacity = 1;
 
-        },500);
+            locked = false;
+
+        },700);
 
     }
 
     show();
 
     document.body.onclick = ()=>{
+
+        if(locked) return;
+
+        locked = true;
 
         intro.style.opacity = 0;
 
@@ -41,7 +48,9 @@ function startIntro(texts, onFinish){
             intro.textContent = texts[index];
             intro.style.opacity = 1;
 
-        },500);
+            locked = false;
+
+        },700);
 
     };
 
