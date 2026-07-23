@@ -22,7 +22,9 @@ function startIntro(texts, title, subtitle, onFinish) {
     // Primera frase
     show(texts[0]);
 
+    setTimeout(() => {
     document.body.onclick = next;
+}, 100);
 
     function next() {
 
