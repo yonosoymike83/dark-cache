@@ -1,47 +1,23 @@
-const intro = document.getElementById("intro");
+const introTexts = [
 
-const texts = [
     "Dicen que algunos geocachés son imposibles de encontrar.",
+
     "Otros...",
-    "que nunca debieron ocultarse."
+
+    "que nunca debieron ocultarse.",
+
+    "Hasta que una conversación cambió mi vida.",
+
+    "Aquella noche escuché un nombre...",
+
+    "El Caché Oscuro."
+
 ];
 
-let current = 0;
+startIntro(introTexts, ()=>{
 
-function showText() {
+    const intro = document.getElementById("intro");
 
-    intro.style.opacity = 0;
-
-    setTimeout(() => {
-
-        intro.textContent = texts[current];
-        intro.style.opacity = 1;
-
-    }, 700);
-
-}
-
-showText();
-
-document.body.addEventListener("click", () => {
-
-    current++;
-
-    if (current >= texts.length) {
-
-        intro.style.opacity = 0;
-
-        setTimeout(() => {
-
-            intro.textContent = "CAPÍTULO I\n\nEl viejo tendero";
-            intro.style.whiteSpace = "pre-line";
-            intro.style.opacity = 1;
-
-        }, 700);
-
-        return;
-    }
-
-    showText();
+    intro.innerHTML = "<h1>CAPÍTULO I</h1><h2>El viejo tendero</h2>";
 
 });
