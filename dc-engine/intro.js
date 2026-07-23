@@ -19,13 +19,6 @@ function startIntro(texts, title, subtitle, onFinish) {
 
     }
 
-    // Primera frase
-    show(texts[0]);
-
-    setTimeout(() => {
-    document.body.onclick = next;
-}, 100);
-
     function next() {
 
         if (locked) return;
@@ -34,7 +27,6 @@ function startIntro(texts, title, subtitle, onFinish) {
 
         current++;
 
-        // Quedan frases
         if (current < texts.length) {
 
             show(texts[current]);
@@ -43,11 +35,10 @@ function startIntro(texts, title, subtitle, onFinish) {
         }
 
         // Ya no quedan frases
-        document.body.onclick = null;
+        document.removeEventListener("click", next);
 
         intro.style.opacity = 0;
 
-        // Pantalla negra durante 1 segundo
         setTimeout(() => {
 
             intro.innerHTML = `
@@ -58,24 +49,42 @@ function startIntro(texts, title, subtitle, onFinish) {
             intro.style.opacity = 1;
 
             // Esperar a que el jugador pulse
-            document.body.onclick = () => {
+            setTimeout(() => {
 
-                document.body.onclick = null;
+                document.addEventListener("click", startScene, {
+                    once: true
+                });
 
-                intro.style.opacity = 0;
-
-                setTimeout(() => {
-
-                    if (onFinish) {
-                        onFinish();
-                    }
-
-                }, 1000);
-
-            };
+            }, 200);
 
         }, 1000);
 
     }
+
+    function startScene() {
+
+        intro.style.opacity = 0;
+
+        setTimeout(() => {
+
+            if (onFinish) {
+
+                onFinish();
+
+            }
+
+        }, 1000);
+
+    }
+
+    // Mostrar la primera frase
+    show(texts[0]);
+
+    // Esperar un poco antes de permitir avanzar
+    setTimeout(() => {
+
+        document.addEventListener("click", next);
+
+    }, 300);
 
 }
