@@ -1,57 +1,97 @@
-function startIntro(texts, onFinish){
+function startIntro(texts, onFinish) {
 
     const intro = document.getElementById("intro");
 
-    let index = 0;
+    let current = 0;
     let locked = false;
 
-    function show(){
+    function showText() {
 
         intro.style.opacity = 0;
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
-            intro.textContent = texts[index];
+            intro.textContent = texts[current];
             intro.style.opacity = 1;
 
             locked = false;
 
-        },700);
+        }, 800);
 
     }
 
-    show();
+    showText();
 
-    document.body.onclick = ()=>{
+    document.body.onclick = () => {
 
-        if(locked) return;
+        if (locked) return;
 
         locked = true;
 
         intro.style.opacity = 0;
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
-            index++;
+            current++;
 
-            if(index >= texts.length){
+            if (current >= texts.length) {
 
                 document.body.onclick = null;
 
-                if(onFinish){
-                    onFinish();
-                }
+                // Un segundo de pantalla negra
+                setTimeout(() => {
+
+                    if (onFinish) {
+                        onFinish();
+                    }
+
+                }, 1000);
 
                 return;
             }
 
-            intro.textContent = texts[index];
+            intro.textContent = texts[current];
             intro.style.opacity = 1;
 
             locked = false;
 
-        },700);
+        }, 800);
 
     };
+
+}
+
+function showChapterTitle(title, subtitle, onFinish) {
+
+    const intro = document.getElementById("intro");
+
+    intro.style.opacity = 0;
+
+    setTimeout(() => {
+
+        intro.innerHTML = `
+            <div class="chapter-title">${title}</div>
+            <div class="chapter-subtitle">«${subtitle}»</div>
+        `;
+
+        intro.style.opacity = 1;
+
+        // El título permanece 6 segundos
+        setTimeout(() => {
+
+            intro.style.opacity = 0;
+
+            // Fundido a negro
+            setTimeout(() => {
+
+                if (onFinish) {
+                    onFinish();
+                }
+
+            }, 1000);
+
+        }, 6000);
+
+    }, 1000);
 
 }
