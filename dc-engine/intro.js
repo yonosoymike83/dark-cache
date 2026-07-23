@@ -1,80 +1,78 @@
-function startIntro(texts,title,subtitle,onFinish){
+function startIntro(texts, title, subtitle, onFinish) {
 
-    const intro=document.getElementById("intro");
+    const intro = document.getElementById("intro");
 
-    let current=0;
+    let current = 0;
+    let locked = false;
 
-    let locked=false;
+    function show(text) {
 
-    function show(text){
+        intro.style.opacity = 0;
 
-        intro.style.opacity=0;
+        setTimeout(() => {
 
-        setTimeout(()=>{
+            intro.innerHTML = text;
+            intro.style.opacity = 1;
+            locked = false;
 
-            intro.innerHTML=text;
-
-            intro.style.opacity=1;
-
-            locked=false;
-
-        },800);
+        }, 800);
 
     }
 
+    // Primera frase
     show(texts[0]);
 
-    document.body.onclick=next;
+    document.body.onclick = next;
 
-    function next(){
+    function next() {
 
-        if(locked)return;
+        if (locked) return;
 
-        locked=true;
+        locked = true;
 
         current++;
 
-        if(current<texts.length){
+        // Quedan frases
+        if (current < texts.length) {
 
             show(texts[current]);
-
             return;
 
         }
 
-        document.body.onclick=null;
+        // Ya no quedan frases
+        document.body.onclick = null;
 
-        intro.style.opacity=0;
+        intro.style.opacity = 0;
 
-        setTimeout(()=>{
+        // Pantalla negra durante 1 segundo
+        setTimeout(() => {
 
-            intro.innerHTML=`
-            <div class="chapter-title">${title}</div>
-
-            <div class="chapter-subtitle">«${subtitle}»</div>
-
-            <div class="continue">
-                Pulsa para continuar...
-            </div>
+            intro.innerHTML = `
+                <div class="chapter-title">${title}</div>
+                <div class="chapter-subtitle">«${subtitle}»</div>
             `;
 
-            intro.style.opacity=1;
+            intro.style.opacity = 1;
 
-            document.body.onclick=()=>{
+            // Esperar a que el jugador pulse
+            document.body.onclick = () => {
 
-                document.body.onclick=null;
+                document.body.onclick = null;
 
-                intro.style.opacity=0;
+                intro.style.opacity = 0;
 
-                setTimeout(()=>{
+                setTimeout(() => {
 
-                    if(onFinish)onFinish();
+                    if (onFinish) {
+                        onFinish();
+                    }
 
-                },1000);
+                }, 1000);
 
             };
 
-        },1000);
+        }, 1000);
 
     }
 
