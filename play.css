@@ -38,6 +38,8 @@ body{
 
     transition:opacity .8s;
 
+    display:none;
+
 }
 
 .chapter-title{
