@@ -70,7 +70,12 @@ if (savedPassword === PASSWORD) {
 
             localStorage.setItem("darkcache_password", PASSWORD);
 
-            startGame();
+            // Esperamos un instante para que termine el clic del botón
+            setTimeout(() => {
+
+                startGame();
+
+            }, 200);
 
         } else {
 
@@ -82,11 +87,20 @@ if (savedPassword === PASSWORD) {
 
     }
 
-    button.addEventListener("click", checkPassword);
+    button.addEventListener("click", function(e){
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        checkPassword();
+
+    });
 
     input.addEventListener("keydown", function(e) {
 
         if (e.key === "Enter") {
+
+            e.preventDefault();
 
             checkPassword();
 
