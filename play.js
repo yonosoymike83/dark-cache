@@ -45,4 +45,53 @@ function startGame() {
 
         () => {
 
-            intro.innerHTML = "
+            intro.innerHTML = "ESCENA 1";
+            intro.style.opacity = 1;
+
+        }
+
+    );
+
+}
+
+const savedPassword = localStorage.getItem("darkcache_password");
+
+if (savedPassword === PASSWORD) {
+
+    startGame();
+
+} else {
+
+    input.focus();
+
+    function checkPassword() {
+
+        if (input.value === PASSWORD) {
+
+            localStorage.setItem("darkcache_password", PASSWORD);
+
+            startGame();
+
+        } else {
+
+            error.textContent = "Contraseña incorrecta";
+            input.value = "";
+            input.focus();
+
+        }
+
+    }
+
+    button.addEventListener("click", checkPassword);
+
+    input.addEventListener("keydown", function(e) {
+
+        if (e.key === "Enter") {
+
+            checkPassword();
+
+        }
+
+    });
+
+}
