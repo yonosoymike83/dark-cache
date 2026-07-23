@@ -1,97 +1,81 @@
-function startIntro(texts, onFinish) {
+function startIntro(texts,title,subtitle,onFinish){
 
-    const intro = document.getElementById("intro");
+    const intro=document.getElementById("intro");
 
-    let current = 0;
-    let locked = false;
+    let current=0;
 
-    function showText() {
+    let locked=false;
 
-        intro.style.opacity = 0;
+    function show(text){
 
-        setTimeout(() => {
+        intro.style.opacity=0;
 
-            intro.textContent = texts[current];
-            intro.style.opacity = 1;
+        setTimeout(()=>{
 
-            locked = false;
+            intro.innerHTML=text;
 
-        }, 800);
+            intro.style.opacity=1;
+
+            locked=false;
+
+        },800);
 
     }
 
-    showText();
+    show(texts[0]);
 
-    document.body.onclick = () => {
+    document.body.onclick=next;
 
-        if (locked) return;
+    function next(){
 
-        locked = true;
+        if(locked)return;
 
-        intro.style.opacity = 0;
+        locked=true;
 
-        setTimeout(() => {
+        current++;
 
-            current++;
+        if(current<texts.length){
 
-            if (current >= texts.length) {
+            show(texts[current]);
 
-                document.body.onclick = null;
+            return;
 
-                // Un segundo de pantalla negra
-                setTimeout(() => {
+        }
 
-                    if (onFinish) {
-                        onFinish();
-                    }
+        document.body.onclick=null;
 
-                }, 1000);
+        intro.style.opacity=0;
 
-                return;
-            }
+        setTimeout(()=>{
 
-            intro.textContent = texts[current];
-            intro.style.opacity = 1;
-
-            locked = false;
-
-        }, 800);
-
-    };
-
-}
-
-function showChapterTitle(title, subtitle, onFinish) {
-
-    const intro = document.getElementById("intro");
-
-    intro.style.opacity = 0;
-
-    setTimeout(() => {
-
-        intro.innerHTML = `
+            intro.innerHTML=`
             <div class="chapter-title">${title}</div>
+
             <div class="chapter-subtitle">«${subtitle}»</div>
-        `;
 
-        intro.style.opacity = 1;
+            <div class="continue">
+                Pulsa para continuar...
+            </div>
+            `;
 
-        // El título permanece 6 segundos
-        setTimeout(() => {
+            intro.style.opacity=1;
 
-            intro.style.opacity = 0;
+            document.body.onclick=()=>{
 
-            // Fundido a negro
-            setTimeout(() => {
+                document.body.onclick=null;
 
-                if (onFinish) {
-                    onFinish();
-                }
+                intro.style.opacity=0;
 
-            }, 1000);
+                setTimeout(()=>{
 
-        }, 6000);
+                    if(onFinish)onFinish();
 
-    }, 1000);
+                },1000);
+
+            };
+
+        },1000);
+
+    }
 
 }
