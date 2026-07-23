@@ -73,7 +73,6 @@ body{
 #passwordScreen{
 
     position:fixed;
-
     inset:0;
 
     background:#050505;
@@ -81,8 +80,9 @@ body{
     display:flex;
 
     justify-content:center;
-
     align-items:center;
+
+    z-index:1000;
 
 }
 
