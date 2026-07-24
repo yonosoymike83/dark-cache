@@ -12,15 +12,15 @@ const introTexts = [
 
     "Hasta aquella noche.",
 
-    "Alguien pronunció un nombre en voz baja.",
+    "Alguien pronunció un nombre en voz baja...",
 
     "El Caché Oscuro.",
 
-    "Nadie quiso hablar demasiado.",
+    "Y se hizo el silencio,  nadie quiso seguir hablando...",
 
-    "Solo me dijeron una cosa...",
+    "pero yo insisti, aunque solo para oir:",
 
-    "Busca al viejo tendero."
+    "La tienda del viejo Bug."
 
 ];
 
