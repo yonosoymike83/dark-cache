@@ -41,7 +41,7 @@ function startGame() {
 
         "CAPÍTULO I",
 
-        "El viejo tendero",
+        "La Tienda del viejo Bug",
 
         () => {
 
