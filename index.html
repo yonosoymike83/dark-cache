@@ -100,7 +100,7 @@ h1{
     <div id="list">
 
         <div class="chapter"
-             onclick="startChapter(1)">
+             onclick="location.href='play.html?chapter=1'">
             Capítulo I
         </div>
 
@@ -109,36 +109,6 @@ h1{
 </div>
 
 <script>
-
-async function enterGameMode(){
-
-    // Pantalla completa
-    if(document.documentElement.requestFullscreen){
-
-        try{
-            await document.documentElement.requestFullscreen();
-        }catch(e){}
-
-    }
-
-    // Bloquear orientación en horizontal
-    if(screen.orientation && screen.orientation.lock){
-
-        try{
-            await screen.orientation.lock("landscape");
-        }catch(e){}
-
-    }
-
-}
-
-async function startChapter(chapter){
-
-    await enterGameMode();
-
-    window.location.href = "play.html?chapter=" + chapter;
-
-}
 
 let language =
     localStorage.getItem("language");
