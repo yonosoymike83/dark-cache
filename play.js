@@ -28,13 +28,44 @@ const passwordScreen = document.getElementById("passwordScreen");
 const input = document.getElementById("passwordInput");
 const button = document.getElementById("passwordButton");
 const error = document.getElementById("passwordError");
+
+const startScreen = document.getElementById("startScreen");
+const startButton = document.getElementById("startButton");
+
 const intro = document.getElementById("intro");
 const scene = document.getElementById("scene");
 
-function startGame() {
+async function enterGameMode(){
 
-    passwordScreen.style.display = "none";
-    intro.style.display = "block";
+    // Pantalla completa
+    if(document.documentElement.requestFullscreen){
+
+        try{
+            await document.documentElement.requestFullscreen();
+        }catch(e){
+            console.log("Fullscreen no disponible");
+        }
+
+    }
+
+    // Bloquear orientación
+    if(screen.orientation && screen.orientation.lock){
+
+        try{
+            await screen.orientation.lock("landscape");
+        }catch(e){
+            console.log("No se pudo bloquear la orientación");
+        }
+
+    }
+
+}
+
+function startGame(){
+
+    startScreen.style.display="none";
+
+    intro.style.display="block";
 
     startIntro(
 
@@ -46,11 +77,12 @@ function startGame() {
 
         function(){
 
-            intro.style.display = "none";
+            intro.style.display="none";
 
-            scene.style.display = "block";
+            scene.style.display="block";
 
-            scene.style.backgroundImage = "url('assets/images/escena01.png')";
+            scene.style.backgroundImage =
+                "url('assets/images/escena01.png')";
 
         }
 
@@ -58,33 +90,49 @@ function startGame() {
 
 }
 
-const savedPassword = localStorage.getItem("darkcache_password");
+function showStartScreen(){
 
-if (savedPassword === PASSWORD) {
+    passwordScreen.style.display="none";
+
+    startScreen.style.display="flex";
+
+}
+
+async function beginAdventure(){
+
+    await enterGameMode();
 
     startGame();
 
-} else {
+}
+
+const savedPassword =
+    localStorage.getItem("darkcache_password");
+
+if(savedPassword===PASSWORD){
+
+    showStartScreen();
+
+}else{
 
     input.focus();
 
-    function checkPassword() {
+    function checkPassword(){
 
-        if (input.value === PASSWORD) {
+        if(input.value===PASSWORD){
 
-            localStorage.setItem("darkcache_password", PASSWORD);
+            localStorage.setItem(
+                "darkcache_password",
+                PASSWORD
+            );
 
-            setTimeout(() => {
+            showStartScreen();
 
-                startGame();
+        }else{
 
-            }, 200);
+            error.textContent="Contraseña incorrecta";
 
-        } else {
-
-            error.textContent = "Contraseña incorrecta";
-
-            input.value = "";
+            input.value="";
 
             input.focus();
 
@@ -92,7 +140,7 @@ if (savedPassword === PASSWORD) {
 
     }
 
-    button.addEventListener("click", function(e){
+    button.addEventListener("click",function(e){
 
         e.preventDefault();
         e.stopPropagation();
@@ -101,9 +149,9 @@ if (savedPassword === PASSWORD) {
 
     });
 
-    input.addEventListener("keydown", function(e){
+    input.addEventListener("keydown",function(e){
 
-        if (e.key === "Enter") {
+        if(e.key==="Enter"){
 
             e.preventDefault();
 
@@ -114,3 +162,9 @@ if (savedPassword === PASSWORD) {
     });
 
 }
+
+startButton.addEventListener("click",function(){
+
+    beginAdventure();
+
+});
