@@ -2,11 +2,11 @@ const PASSWORD = "negro_oscuro";
 
 const introTexts = [
 
-    "Dicen que algunos geocachés son imposibles de encontrar.",
+    "Dicen que algunos cachés son imposibles de encontrar.",
 
     "Otros...",
 
-    "que nunca debieron ocultarse.",
+    "que nunca debieron haberse ocultado.",
 
     "Durante años pensé que solo eran historias.",
 
@@ -31,7 +31,31 @@ const error = document.getElementById("passwordError");
 const intro = document.getElementById("intro");
 const scene = document.getElementById("scene");
 
-function startGame() {
+async function enterGameMode() {
+
+    // Pantalla completa
+    if (document.documentElement.requestFullscreen) {
+        try {
+            await document.documentElement.requestFullscreen();
+        } catch (e) {
+            console.log("Fullscreen no disponible");
+        }
+    }
+
+    // Intentar bloquear la orientación
+    if (screen.orientation && screen.orientation.lock) {
+        try {
+            await screen.orientation.lock("landscape");
+        } catch (e) {
+            console.log("No se pudo bloquear la orientación");
+        }
+    }
+
+}
+
+async function startGame() {
+
+    await enterGameMode();
 
     passwordScreen.style.display = "none";
     intro.style.display = "block";
@@ -103,7 +127,7 @@ if (savedPassword === PASSWORD) {
 
     input.addEventListener("keydown", function(e){
 
-        if(e.key === "Enter"){
+        if (e.key === "Enter") {
 
             e.preventDefault();
 
@@ -113,4 +137,4 @@ if (savedPassword === PASSWORD) {
 
     });
 
-}
+        }
