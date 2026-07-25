@@ -16,11 +16,11 @@ const introTexts = [
 
     "El Caché Oscuro.",
 
-    "Y se hizo el silencio,  nadie quiso seguir hablando...",
+    "Y se hizo el silencio, nadie quiso seguir hablando...",
 
-    "pero yo insisti, aunque solo para oir:",
+    "Pero yo insistí, aunque solo para oír:",
 
-    "La tienda del viejo Bug."
+    "La Tienda del Viejo Bug."
 
 ];
 
@@ -29,6 +29,7 @@ const input = document.getElementById("passwordInput");
 const button = document.getElementById("passwordButton");
 const error = document.getElementById("passwordError");
 const intro = document.getElementById("intro");
+const scene = document.getElementById("scene");
 
 function startGame() {
 
@@ -41,12 +42,15 @@ function startGame() {
 
         "CAPÍTULO I",
 
-        "La Tienda del viejo Bug",
+        "La Tienda del Viejo Bug",
 
-        () => {
+        function(){
 
-            intro.innerHTML = "ESCENA 1";
-            intro.style.opacity = 1;
+            intro.style.display = "none";
+
+            scene.style.display = "block";
+
+            scene.style.backgroundImage = "url('assets/images/escena01.png')";
 
         }
 
@@ -70,7 +74,6 @@ if (savedPassword === PASSWORD) {
 
             localStorage.setItem("darkcache_password", PASSWORD);
 
-            // Esperamos un instante para que termine el clic del botón
             setTimeout(() => {
 
                 startGame();
@@ -80,7 +83,9 @@ if (savedPassword === PASSWORD) {
         } else {
 
             error.textContent = "Contraseña incorrecta";
+
             input.value = "";
+
             input.focus();
 
         }
@@ -96,9 +101,9 @@ if (savedPassword === PASSWORD) {
 
     });
 
-    input.addEventListener("keydown", function(e) {
+    input.addEventListener("keydown", function(e){
 
-        if (e.key === "Enter") {
+        if(e.key === "Enter"){
 
             e.preventDefault();
 
