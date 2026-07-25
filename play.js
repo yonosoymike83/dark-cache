@@ -31,31 +31,7 @@ const error = document.getElementById("passwordError");
 const intro = document.getElementById("intro");
 const scene = document.getElementById("scene");
 
-async function enterGameMode() {
-
-    // Pantalla completa
-    if (document.documentElement.requestFullscreen) {
-        try {
-            await document.documentElement.requestFullscreen();
-        } catch (e) {
-            console.log("Fullscreen no disponible");
-        }
-    }
-
-    // Intentar bloquear la orientación
-    if (screen.orientation && screen.orientation.lock) {
-        try {
-            await screen.orientation.lock("landscape");
-        } catch (e) {
-            console.log("No se pudo bloquear la orientación");
-        }
-    }
-
-}
-
-async function startGame() {
-
-    await enterGameMode();
+function startGame() {
 
     passwordScreen.style.display = "none";
     intro.style.display = "block";
@@ -137,4 +113,4 @@ if (savedPassword === PASSWORD) {
 
     });
 
-        }
+}
