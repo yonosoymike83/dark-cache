@@ -63,9 +63,9 @@ async function enterGameMode(){
 
 function startGame(){
 
-    startScreen.style.display="none";
+    startScreen.style.display = "none";
 
-    intro.style.display="block";
+    intro.style.display = "block";
 
     startIntro(
 
@@ -77,12 +77,20 @@ function startGame(){
 
         function(){
 
-            intro.style.display="none";
+            intro.style.display = "none";
 
-            scene.style.display="block";
+            scene.style.opacity = "0";
 
             scene.style.backgroundImage =
                 "url('assets/images/escena01.png')";
+
+            scene.style.display = "block";
+
+            requestAnimationFrame(function(){
+
+                scene.style.opacity = "1";
+
+            });
 
         }
 
@@ -92,9 +100,9 @@ function startGame(){
 
 function showStartScreen(){
 
-    passwordScreen.style.display="none";
+    passwordScreen.style.display = "none";
 
-    startScreen.style.display="flex";
+    startScreen.style.display = "flex";
 
 }
 
@@ -106,10 +114,9 @@ async function beginAdventure(){
 
 }
 
-const savedPassword =
-    localStorage.getItem("darkcache_password");
+const savedPassword = localStorage.getItem("darkcache_password");
 
-if(savedPassword===PASSWORD){
+if(savedPassword === PASSWORD){
 
     showStartScreen();
 
@@ -119,7 +126,7 @@ if(savedPassword===PASSWORD){
 
     function checkPassword(){
 
-        if(input.value===PASSWORD){
+        if(input.value === PASSWORD){
 
             localStorage.setItem(
                 "darkcache_password",
@@ -130,9 +137,9 @@ if(savedPassword===PASSWORD){
 
         }else{
 
-            error.textContent="Contraseña incorrecta";
+            error.textContent = "Contraseña incorrecta";
 
-            input.value="";
+            input.value = "";
 
             input.focus();
 
@@ -140,7 +147,7 @@ if(savedPassword===PASSWORD){
 
     }
 
-    button.addEventListener("click",function(e){
+    button.addEventListener("click", function(e){
 
         e.preventDefault();
         e.stopPropagation();
@@ -149,9 +156,9 @@ if(savedPassword===PASSWORD){
 
     });
 
-    input.addEventListener("keydown",function(e){
+    input.addEventListener("keydown", function(e){
 
-        if(e.key==="Enter"){
+        if(e.key === "Enter"){
 
             e.preventDefault();
 
@@ -163,7 +170,7 @@ if(savedPassword===PASSWORD){
 
 }
 
-startButton.addEventListener("click",function(){
+startButton.addEventListener("click", function(){
 
     beginAdventure();
 
