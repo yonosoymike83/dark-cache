@@ -183,3 +183,73 @@ body{
 
     background-color:#000;
 }
+
+#startScreen{
+
+    position:fixed;
+    inset:0;
+
+    background:#050505;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:1000;
+
+}
+
+#startButton{
+
+    padding:22px 60px;
+
+    background:#222;
+
+    color:white;
+
+    border:2px solid #777;
+
+    cursor:pointer;
+
+    font-family:'Silkscreen', monospace;
+
+    font-size:1.6rem;
+
+    letter-spacing:4px;
+
+    transition:.2s;
+
+    animation:startBlink 1.8s infinite;
+
+}
+
+#startButton:hover{
+
+    background:#333;
+
+    border-color:white;
+
+}
+
+#startButton:active{
+
+    transform:scale(.97);
+
+}
+
+@keyframes startBlink{
+
+    0%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.45;
+    }
+
+    100%{
+        opacity:1;
+    }
+
+}
