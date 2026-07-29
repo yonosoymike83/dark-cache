@@ -249,3 +249,33 @@ body{
     }
 
 }
+
+/* ===========================
+   HOTSPOTS
+=========================== */
+
+.hotspot{
+
+    position:absolute;
+
+    background:transparent;
+
+    border:2px solid transparent;
+
+    box-sizing:border-box;
+
+    cursor:pointer;
+
+    transition:border-color .25s;
+
+}
+
+@media (hover:hover){
+
+    .hotspot:hover{
+
+        border-color:rgba(255,255,255,.35);
+
+    }
+
+}
