@@ -35,15 +35,46 @@ const startButton = document.getElementById("startButton");
 const intro = document.getElementById("intro");
 const scene = document.getElementById("scene");
 
-// Sonido de lluvia
-const rain = new Audio("assets/sounds/rain.ogg");
+// -------------------- AUDIO --------------------
 
+const rain = new Audio("assets/sounds/rain.ogg");
 rain.loop = true;
 rain.volume = 0.65;
 
+const musicScene01 = new Audio("assets/music/escena01.mp3");
+musicScene01.loop = true;
+musicScene01.volume = 0;
+
+// -------------------- FUNCIONES --------------------
+
+function fadeVolume(audio, targetVolume, duration){
+
+    const startVolume = audio.volume;
+    const steps = 40;
+    const stepTime = duration / steps;
+    const delta = (targetVolume - startVolume) / steps;
+
+    let currentStep = 0;
+
+    const interval = setInterval(function(){
+
+        currentStep++;
+
+        audio.volume += delta;
+
+        if(currentStep >= steps){
+
+            audio.volume = targetVolume;
+            clearInterval(interval);
+
+        }
+
+    }, stepTime);
+
+}
+
 async function enterGameMode(){
 
-    // Pantalla completa
     if(document.documentElement.requestFullscreen){
 
         try{
@@ -54,7 +85,6 @@ async function enterGameMode(){
 
     }
 
-    // Bloquear orientación
     if(screen.orientation && screen.orientation.lock){
 
         try{
@@ -96,7 +126,11 @@ function startGame(){
 
                 scene.style.opacity = "1";
 
-                rain.volume = 0.35;
+                musicScene01.play();
+
+                fadeVolume(rain,0.35,2000);
+
+                fadeVolume(musicScene01,0.25,4000);
 
             });
 
@@ -165,7 +199,7 @@ if(savedPassword === PASSWORD){
 
     }
 
-    button.addEventListener("click", function(e){
+    button.addEventListener("click",function(e){
 
         e.preventDefault();
         e.stopPropagation();
@@ -174,9 +208,9 @@ if(savedPassword === PASSWORD){
 
     });
 
-    input.addEventListener("keydown", function(e){
+    input.addEventListener("keydown",function(e){
 
-        if(e.key === "Enter"){
+        if(e.key==="Enter"){
 
             e.preventDefault();
 
@@ -188,7 +222,7 @@ if(savedPassword === PASSWORD){
 
 }
 
-startButton.addEventListener("click", function(){
+startButton.addEventListener("click",function(){
 
     beginAdventure();
 
