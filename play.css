@@ -40,6 +40,8 @@ body{
 
     display:none;
 
+    z-index:100;
+
 }
 
 .chapter-title{
@@ -162,23 +164,67 @@ body{
 
 }
 
+/* ===========================
+   ESCENA
+=========================== */
+
 #scene{
 
     display:none;
 
     position:fixed;
+
     inset:0;
 
-    background-repeat:no-repeat;
-    background-position:center;
-    background-size:contain;
-    background-color:#000;
+    background:#000;
+
+    overflow:hidden;
 
     opacity:0;
 
     transition:opacity 1.5s ease;
 
 }
+
+/* Imagen de la escena */
+
+#sceneImage{
+
+    position:absolute;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    max-width:100%;
+
+    max-height:100%;
+
+    object-fit:contain;
+
+    user-select:none;
+
+    -webkit-user-drag:none;
+
+    pointer-events:none;
+
+}
+
+/* Capa de hotspots */
+
+#hotspotLayer{
+
+    position:absolute;
+
+    pointer-events:none;
+
+}
+
+/* ===========================
+   PANTALLA INICIO
+=========================== */
 
 #startScreen{
 
@@ -236,17 +282,11 @@ body{
 
 @keyframes startBlink{
 
-    0%{
-        opacity:1;
-    }
+    0%{opacity:1;}
 
-    50%{
-        opacity:.45;
-    }
+    50%{opacity:.45;}
 
-    100%{
-        opacity:1;
-    }
+    100%{opacity:1;}
 
 }
 
@@ -258,13 +298,15 @@ body{
 
     position:absolute;
 
-    background:transparent;
+    box-sizing:border-box;
 
     border:2px solid transparent;
 
-    box-sizing:border-box;
+    background:transparent;
 
     cursor:pointer;
+
+    pointer-events:auto;
 
     transition:border-color .25s;
 
