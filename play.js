@@ -35,6 +35,12 @@ const startButton = document.getElementById("startButton");
 const intro = document.getElementById("intro");
 const scene = document.getElementById("scene");
 
+// Sonido de lluvia
+const rain = new Audio("assets/sounds/rain.ogg");
+
+rain.loop = true;
+rain.volume = 0.65;
+
 async function enterGameMode(){
 
     // Pantalla completa
@@ -90,6 +96,8 @@ function startGame(){
 
                 scene.style.opacity = "1";
 
+                rain.volume = 0.35;
+
             });
 
         }
@@ -109,6 +117,16 @@ function showStartScreen(){
 async function beginAdventure(){
 
     await enterGameMode();
+
+    try{
+
+        await rain.play();
+
+    }catch(e){
+
+        console.log("No se pudo reproducir la lluvia");
+
+    }
 
     startGame();
 
