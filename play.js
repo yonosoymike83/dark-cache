@@ -33,7 +33,16 @@ const startScreen = document.getElementById("startScreen");
 const startButton = document.getElementById("startButton");
 
 const intro = document.getElementById("intro");
+
 const scene = document.getElementById("scene");
+const sceneImage = document.getElementById("sceneImage");
+const hotspotLayer = document.getElementById("hotspotLayer");
+
+const hotspots = new HotspotManager(
+    scene,
+    sceneImage,
+    hotspotLayer
+);
 
 // -------------------- AUDIO --------------------
 
@@ -47,7 +56,7 @@ musicScene01.volume = 0;
 
 // -------------------- FUNCIONES --------------------
 
-function fadeVolume(audio, targetVolume, duration){
+function fadeVolume(audio,targetVolume,duration){
 
     const startVolume = audio.volume;
     const steps = 40;
@@ -65,11 +74,12 @@ function fadeVolume(audio, targetVolume, duration){
         if(currentStep >= steps){
 
             audio.volume = targetVolume;
+
             clearInterval(interval);
 
         }
 
-    }, stepTime);
+    },stepTime);
 
 }
 
@@ -78,9 +88,13 @@ async function enterGameMode(){
     if(document.documentElement.requestFullscreen){
 
         try{
+
             await document.documentElement.requestFullscreen();
+
         }catch(e){
+
             console.log("Fullscreen no disponible");
+
         }
 
     }
@@ -88,9 +102,13 @@ async function enterGameMode(){
     if(screen.orientation && screen.orientation.lock){
 
         try{
+
             await screen.orientation.lock("landscape");
+
         }catch(e){
+
             console.log("No se pudo bloquear la orientación");
+
         }
 
     }
@@ -117,22 +135,44 @@ function startGame(){
 
             scene.style.opacity = "0";
 
-            scene.style.backgroundImage =
-                "url('assets/images/escena01.png')";
-
             scene.style.display = "block";
 
-            requestAnimationFrame(function(){
+            sceneImage.src = "assets/images/escena01.png";
 
-                scene.style.opacity = "1";
+            sceneImage.onload = function(){
 
-                musicScene01.play();
+                hotspots.clear();
 
-                fadeVolume(rain,0.35,2000);
+                hotspots.add({
 
-                fadeVolume(musicScene01,0.25,4000);
+                    id:"shop",
 
-            });
+                    x:69.7,
+                    y:26.5,
+                    width:12.5,
+                    height:42,
+
+                    click:function(){
+
+                        alert("Entrar en la tienda");
+
+                    }
+
+                });
+
+                requestAnimationFrame(function(){
+
+                    scene.style.opacity = "1";
+
+                    musicScene01.play();
+
+                    fadeVolume(rain,0.35,2000);
+
+                    fadeVolume(musicScene01,0.25,4000);
+
+                });
+
+            };
 
         }
 
@@ -181,8 +221,11 @@ if(savedPassword === PASSWORD){
         if(input.value === PASSWORD){
 
             localStorage.setItem(
+
                 "darkcache_password",
+
                 PASSWORD
+
             );
 
             showStartScreen();
@@ -202,6 +245,7 @@ if(savedPassword === PASSWORD){
     button.addEventListener("click",function(e){
 
         e.preventDefault();
+
         e.stopPropagation();
 
         checkPassword();
