@@ -1,26 +1,27 @@
-class SceneManager{
+class SceneManager {
 
-    constructor(scene, sceneImage, hotspotManager){
+    constructor(scene, sceneImage, hotspotManager, audioManager) {
 
         this.scene = scene;
         this.sceneImage = sceneImage;
         this.hotspots = hotspotManager;
+        this.audio = audioManager;
 
         this.currentScene = null;
 
     }
 
-    async load(sceneData){
+    async load(sceneData) {
 
         this.currentScene = sceneData;
 
-        // Oculta la escena
+        // Ocultar escena
         this.scene.style.opacity = "0";
 
-        // Limpia hotspots anteriores
+        // Eliminar hotspots anteriores
         this.hotspots.clear();
 
-        // Carga la imagen
+        // Cargar imagen
         this.sceneImage.src = sceneData.image;
 
         await new Promise(resolve => {
@@ -29,13 +30,13 @@ class SceneManager{
 
         });
 
-        // Muestra la escena
+        // Mostrar escena
         this.scene.style.display = "block";
 
-        // Crea hotspots
-        if(sceneData.hotspots){
+        // Crear hotspots
+        if (sceneData.hotspots) {
 
-            sceneData.hotspots.forEach(hotspot=>{
+            sceneData.hotspots.forEach(hotspot => {
 
                 this.hotspots.add(hotspot);
 
@@ -43,10 +44,24 @@ class SceneManager{
 
         }
 
-        // Fade de entrada
-        requestAnimationFrame(()=>{
+        // Reproducir ambiente
+        if (sceneData.ambient) {
 
-            this.scene.style.opacity="1";
+            await this.audio.playAmbient(sceneData.ambient);
+
+        }
+
+        // Reproducir música
+        if (sceneData.music) {
+
+            await this.audio.playMusic(sceneData.music);
+
+        }
+
+        // Fade de entrada
+        requestAnimationFrame(() => {
+
+            this.scene.style.opacity = "1";
 
         });
 
