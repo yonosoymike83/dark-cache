@@ -103,6 +103,12 @@ async function beginAdventure() {
 
     await enterGameMode();
 
+    // Iniciar sonido ambiente durante la intro
+    await audioManager.playAmbientOnly(
+        Chapter01.startScene.ambient,
+        0.65
+    );
+
     startGame();
 
 }
