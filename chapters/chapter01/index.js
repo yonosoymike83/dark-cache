@@ -2,6 +2,8 @@ const Chapter01 = {
 
     id: "chapter01",
 
+    password: "negro_oscuro",
+
     title: "CAPÍTULO I",
 
     subtitle: "La Tienda del Viejo Bug",
