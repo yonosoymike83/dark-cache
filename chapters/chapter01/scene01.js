@@ -1,0 +1,30 @@
+const Scene01 = {
+
+    id: "scene01",
+
+    image: "assets/images/escena01.png",
+
+    music: "assets/music/escena01.mp3",
+
+    hotspots: [
+
+        {
+
+            id: "shop",
+
+            x: 69.7,
+            y: 26.5,
+            width: 12.5,
+            height: 42,
+
+            click() {
+
+                alert("Entrar en la tienda");
+
+            }
+
+        }
+
+    ]
+
+};
