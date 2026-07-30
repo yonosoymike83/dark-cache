@@ -38,11 +38,48 @@ const scene = document.getElementById("scene");
 const sceneImage = document.getElementById("sceneImage");
 const hotspotLayer = document.getElementById("hotspotLayer");
 
+// -------------------- MOTORES --------------------
+
 const hotspots = new HotspotManager(
     scene,
     sceneImage,
     hotspotLayer
 );
+
+const sceneManager = new SceneManager(
+    scene,
+    sceneImage,
+    hotspots
+);
+
+// -------------------- ESCENAS --------------------
+
+const Scene01 = {
+
+    image: "assets/images/escena01.png",
+
+    hotspots: [
+
+        {
+
+            id: "shop",
+
+            x: 69.7,
+            y: 26.5,
+            width: 12.5,
+            height: 42,
+
+            click() {
+
+                alert("Entrar en la tienda");
+
+            }
+
+        }
+
+    ]
+
+};
 
 // -------------------- AUDIO --------------------
 
@@ -56,7 +93,7 @@ musicScene01.volume = 0;
 
 // -------------------- FUNCIONES --------------------
 
-function fadeVolume(audio,targetVolume,duration){
+function fadeVolume(audio, targetVolume, duration){
 
     const startVolume = audio.volume;
     const steps = 40;
@@ -79,7 +116,7 @@ function fadeVolume(audio,targetVolume,duration){
 
         }
 
-    },stepTime);
+    }, stepTime);
 
 }
 
@@ -133,46 +170,15 @@ function startGame(){
 
             intro.style.display = "none";
 
-            scene.style.opacity = "0";
+            sceneManager.load(Scene01).then(function(){
 
-            scene.style.display = "block";
+                musicScene01.play();
 
-            sceneImage.src = "assets/images/escena01.png";
+                fadeVolume(rain, 0.35, 2000);
 
-            sceneImage.onload = function(){
+                fadeVolume(musicScene01, 0.25, 4000);
 
-                hotspots.clear();
-
-                hotspots.add({
-
-                    id:"shop",
-
-                    x:69.7,
-                    y:26.5,
-                    width:12.5,
-                    height:42,
-
-                    click:function(){
-
-                        alert("Entrar en la tienda");
-
-                    }
-
-                });
-
-                requestAnimationFrame(function(){
-
-                    scene.style.opacity = "1";
-
-                    musicScene01.play();
-
-                    fadeVolume(rain,0.35,2000);
-
-                    fadeVolume(musicScene01,0.25,4000);
-
-                });
-
-            };
+            });
 
         }
 
@@ -206,6 +212,8 @@ async function beginAdventure(){
 
 }
 
+// -------------------- CONTRASEÑA --------------------
+
 const savedPassword = localStorage.getItem("darkcache_password");
 
 if(savedPassword === PASSWORD){
@@ -221,11 +229,8 @@ if(savedPassword === PASSWORD){
         if(input.value === PASSWORD){
 
             localStorage.setItem(
-
                 "darkcache_password",
-
                 PASSWORD
-
             );
 
             showStartScreen();
@@ -242,19 +247,18 @@ if(savedPassword === PASSWORD){
 
     }
 
-    button.addEventListener("click",function(e){
+    button.addEventListener("click", function(e){
 
         e.preventDefault();
-
         e.stopPropagation();
 
         checkPassword();
 
     });
 
-    input.addEventListener("keydown",function(e){
+    input.addEventListener("keydown", function(e){
 
-        if(e.key==="Enter"){
+        if(e.key === "Enter"){
 
             e.preventDefault();
 
@@ -266,7 +270,9 @@ if(savedPassword === PASSWORD){
 
 }
 
-startButton.addEventListener("click",function(){
+// -------------------- INICIO --------------------
+
+startButton.addEventListener("click", function(){
 
     beginAdventure();
 
