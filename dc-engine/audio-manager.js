@@ -30,7 +30,6 @@ class AudioManager {
             if (currentStep >= steps) {
 
                 audio.volume = targetVolume;
-
                 clearInterval(interval);
 
             }
@@ -39,38 +38,16 @@ class AudioManager {
 
     }
 
-    async playAmbient(src, volume = 0.5) {
-
-        if (this.ambient.src !== new URL(src, document.baseURI).href) {
-
-            this.ambient.pause();
-
-            this.ambient.src = src;
-
-        }
-
-        try {
-
-            await this.ambient.play();
-
-            this.fade(this.ambient, volume, 1500);
-
-        } catch (e) {
-
-            console.log("No se pudo reproducir el sonido ambiente.");
-
-        }
-
-    }
-
     async playMusic(src, volume = 0.25) {
 
-        if (this.music.src !== new URL(src, document.baseURI).href) {
+        if (!src) return;
+
+        const url = new URL(src, document.baseURI).href;
+
+        if (this.music.src !== url) {
 
             this.music.pause();
-
             this.music.src = src;
-
             this.music.volume = 0;
 
         }
@@ -84,6 +61,34 @@ class AudioManager {
         } catch (e) {
 
             console.log("No se pudo reproducir la música.");
+
+        }
+
+    }
+
+    async playAmbient(src, volume = 0.35) {
+
+        if (!src) return;
+
+        const url = new URL(src, document.baseURI).href;
+
+        if (this.ambient.src !== url) {
+
+            this.ambient.pause();
+            this.ambient.src = src;
+            this.ambient.volume = 0;
+
+        }
+
+        try {
+
+            await this.ambient.play();
+
+            this.fade(this.ambient, volume, 2000);
+
+        } catch (e) {
+
+            console.log("No se pudo reproducir el ambiente.");
 
         }
 
