@@ -72,19 +72,53 @@ class AudioManager {
 
         const url = new URL(src, document.baseURI).href;
 
-        if (this.ambient.src !== url) {
+        // Si ya está sonando el mismo ambiente, solo cambia el volumen
+        if (this.ambient.src === url && !this.ambient.paused) {
 
-            this.ambient.pause();
-            this.ambient.src = src;
-            this.ambient.volume = 0;
+            this.fade(this.ambient, volume, 2000);
+            return;
 
         }
+
+        this.ambient.pause();
+        this.ambient.src = src;
+        this.ambient.volume = 0;
 
         try {
 
             await this.ambient.play();
 
             this.fade(this.ambient, volume, 2000);
+
+        } catch (e) {
+
+            console.log("No se pudo reproducir el ambiente.");
+
+        }
+
+    }
+
+    async playAmbientOnly(src, volume = 0.65) {
+
+        if (!src) return;
+
+        const url = new URL(src, document.baseURI).href;
+
+        // Si ya está sonando, solo ajusta el volumen
+        if (this.ambient.src === url && !this.ambient.paused) {
+
+            this.ambient.volume = volume;
+            return;
+
+        }
+
+        this.ambient.pause();
+        this.ambient.src = src;
+        this.ambient.volume = volume;
+
+        try {
+
+            await this.ambient.play();
 
         } catch (e) {
 
