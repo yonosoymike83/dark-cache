@@ -20,60 +20,26 @@ const hotspots = new HotspotManager(
     hotspotLayer
 );
 
+const audioManager = new AudioManager();
+
 const sceneManager = new SceneManager(
     scene,
     sceneImage,
-    hotspots
+    hotspots,
+    audioManager
 );
-
-// -------------------- AUDIO --------------------
-
-const rain = new Audio("assets/sounds/rain.ogg");
-rain.loop = true;
-rain.volume = 0.65;
-
-const music = new Audio();
-music.loop = true;
-music.volume = 0;
 
 // -------------------- FUNCIONES --------------------
 
-function fadeVolume(audio, targetVolume, duration){
+async function enterGameMode() {
 
-    const startVolume = audio.volume;
-    const steps = 40;
-    const stepTime = duration / steps;
-    const delta = (targetVolume - startVolume) / steps;
+    if (document.documentElement.requestFullscreen) {
 
-    let currentStep = 0;
-
-    const interval = setInterval(function(){
-
-        currentStep++;
-
-        audio.volume += delta;
-
-        if(currentStep >= steps){
-
-            audio.volume = targetVolume;
-
-            clearInterval(interval);
-
-        }
-
-    }, stepTime);
-
-}
-
-async function enterGameMode(){
-
-    if(document.documentElement.requestFullscreen){
-
-        try{
+        try {
 
             await document.documentElement.requestFullscreen();
 
-        }catch(e){
+        } catch (e) {
 
             console.log("Fullscreen no disponible");
 
@@ -81,13 +47,13 @@ async function enterGameMode(){
 
     }
 
-    if(screen.orientation && screen.orientation.lock){
+    if (screen.orientation && screen.orientation.lock) {
 
-        try{
+        try {
 
             await screen.orientation.lock("landscape");
 
-        }catch(e){
+        } catch (e) {
 
             console.log("No se pudo bloquear la orientación");
 
@@ -97,7 +63,7 @@ async function enterGameMode(){
 
 }
 
-function startGame(){
+function startGame() {
 
     startScreen.style.display = "none";
 
@@ -111,21 +77,13 @@ function startGame(){
 
         Chapter01.subtitle,
 
-        function(){
+        async function () {
 
             intro.style.display = "none";
 
-            sceneManager.load(Chapter01.startScene).then(function(){
-
-                music.src = Chapter01.startScene.music;
-
-                music.play();
-
-                fadeVolume(rain,0.35,2000);
-
-                fadeVolume(music,0.25,4000);
-
-            });
+            await sceneManager.load(
+                Chapter01.startScene
+            );
 
         }
 
@@ -133,7 +91,7 @@ function startGame(){
 
 }
 
-function showStartScreen(){
+function showStartScreen() {
 
     passwordScreen.style.display = "none";
 
@@ -141,19 +99,9 @@ function showStartScreen(){
 
 }
 
-async function beginAdventure(){
+async function beginAdventure() {
 
     await enterGameMode();
-
-    try{
-
-        await rain.play();
-
-    }catch(e){
-
-        console.log("No se pudo reproducir la lluvia");
-
-    }
 
     startGame();
 
@@ -163,29 +111,26 @@ async function beginAdventure(){
 
 const savedPassword = localStorage.getItem("darkcache_password");
 
-if(savedPassword === Chapter01.password){
+if (savedPassword === Chapter01.password) {
 
     showStartScreen();
 
-}else{
+} else {
 
     input.focus();
 
-    function checkPassword(){
+    function checkPassword() {
 
-        if(input.value === Chapter01.password){
+        if (input.value === Chapter01.password) {
 
             localStorage.setItem(
-
                 "darkcache_password",
-
                 Chapter01.password
-
             );
 
             showStartScreen();
 
-        }else{
+        } else {
 
             error.textContent = "Contraseña incorrecta";
 
@@ -197,19 +142,18 @@ if(savedPassword === Chapter01.password){
 
     }
 
-    button.addEventListener("click",function(e){
+    button.addEventListener("click", function (e) {
 
         e.preventDefault();
-
         e.stopPropagation();
 
         checkPassword();
 
     });
 
-    input.addEventListener("keydown",function(e){
+    input.addEventListener("keydown", function (e) {
 
-        if(e.key==="Enter"){
+        if (e.key === "Enter") {
 
             e.preventDefault();
 
@@ -223,7 +167,7 @@ if(savedPassword === Chapter01.password){
 
 // -------------------- INICIO --------------------
 
-startButton.addEventListener("click",function(){
+startButton.addEventListener("click", function () {
 
     beginAdventure();
 
