@@ -1,29 +1,3 @@
-const PASSWORD = "negro_oscuro";
-
-const introTexts = [
-
-    "Dicen que algunos cachés son imposibles de encontrar.",
-
-    "Otros...",
-
-    "que nunca debieron haberse ocultado.",
-
-    "Durante años pensé que solo eran historias.",
-
-    "Hasta aquella noche.",
-
-    "Alguien pronunció un nombre en voz baja...",
-
-    "El Caché Oscuro.",
-
-    "Y se hizo el silencio, nadie quiso seguir hablando...",
-
-    "Pero yo insistí, aunque solo para oír:",
-
-    "La Tienda del Viejo Bug."
-
-];
-
 const passwordScreen = document.getElementById("passwordScreen");
 const input = document.getElementById("passwordInput");
 const button = document.getElementById("passwordButton");
@@ -52,44 +26,15 @@ const sceneManager = new SceneManager(
     hotspots
 );
 
-// -------------------- ESCENAS --------------------
-
-const Scene01 = {
-
-    image: "assets/images/escena01.png",
-
-    hotspots: [
-
-        {
-
-            id: "shop",
-
-            x: 69.7,
-            y: 26.5,
-            width: 12.5,
-            height: 42,
-
-            click() {
-
-                alert("Entrar en la tienda");
-
-            }
-
-        }
-
-    ]
-
-};
-
 // -------------------- AUDIO --------------------
 
 const rain = new Audio("assets/sounds/rain.ogg");
 rain.loop = true;
 rain.volume = 0.65;
 
-const musicScene01 = new Audio("assets/music/escena01.mp3");
-musicScene01.loop = true;
-musicScene01.volume = 0;
+const music = new Audio();
+music.loop = true;
+music.volume = 0;
 
 // -------------------- FUNCIONES --------------------
 
@@ -160,23 +105,25 @@ function startGame(){
 
     startIntro(
 
-        introTexts,
+        Chapter01.intro,
 
-        "CAPÍTULO I",
+        Chapter01.title,
 
-        "La Tienda del Viejo Bug",
+        Chapter01.subtitle,
 
         function(){
 
             intro.style.display = "none";
 
-            sceneManager.load(Scene01).then(function(){
+            sceneManager.load(Chapter01.startScene).then(function(){
 
-                musicScene01.play();
+                music.src = Chapter01.startScene.music;
 
-                fadeVolume(rain, 0.35, 2000);
+                music.play();
 
-                fadeVolume(musicScene01, 0.25, 4000);
+                fadeVolume(rain,0.35,2000);
+
+                fadeVolume(music,0.25,4000);
 
             });
 
@@ -216,7 +163,7 @@ async function beginAdventure(){
 
 const savedPassword = localStorage.getItem("darkcache_password");
 
-if(savedPassword === PASSWORD){
+if(savedPassword === Chapter01.password){
 
     showStartScreen();
 
@@ -226,11 +173,14 @@ if(savedPassword === PASSWORD){
 
     function checkPassword(){
 
-        if(input.value === PASSWORD){
+        if(input.value === Chapter01.password){
 
             localStorage.setItem(
+
                 "darkcache_password",
-                PASSWORD
+
+                Chapter01.password
+
             );
 
             showStartScreen();
@@ -247,18 +197,19 @@ if(savedPassword === PASSWORD){
 
     }
 
-    button.addEventListener("click", function(e){
+    button.addEventListener("click",function(e){
 
         e.preventDefault();
+
         e.stopPropagation();
 
         checkPassword();
 
     });
 
-    input.addEventListener("keydown", function(e){
+    input.addEventListener("keydown",function(e){
 
-        if(e.key === "Enter"){
+        if(e.key==="Enter"){
 
             e.preventDefault();
 
@@ -272,7 +223,7 @@ if(savedPassword === PASSWORD){
 
 // -------------------- INICIO --------------------
 
-startButton.addEventListener("click", function(){
+startButton.addEventListener("click",function(){
 
     beginAdventure();
 
