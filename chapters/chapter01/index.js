@@ -30,6 +30,6 @@ const Chapter01 = {
 
     ],
 
-    firstScene: Scene01
+    startScene: Scene01
 
 };
