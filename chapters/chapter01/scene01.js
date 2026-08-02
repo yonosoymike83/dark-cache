@@ -23,7 +23,20 @@ const Scene01 = {
 
             click() {
 
-                alert("Entrar en la tienda");
+                dialog.show(
+
+                    DialogEnterShop,
+
+                    function(){
+
+                        // Más adelante:
+                        // sceneManager.load(Scene02);
+
+                        console.log("Entrar en la tienda");
+
+                    }
+
+                );
 
             }
 
