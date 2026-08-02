@@ -10,6 +10,13 @@ class DialogManager {
         this.index = 0;
         this.onFinish = null;
 
+        this.isTyping = false;
+        this.typingTimer = null;
+        this.fullText = "";
+
+        // Velocidad (ms por letra)
+        this.speed = 28;
+
         this.box.addEventListener("click", () => {
 
             this.next();
@@ -40,13 +47,68 @@ class DialogManager {
 
         const line = this.dialog[this.index];
 
-        this.speaker.textContent = line.speaker || "";
+        if (line.speaker) {
 
-        this.text.textContent = line.text || "";
+            this.speaker.style.display = "block";
+            this.speaker.textContent = line.speaker;
+
+        } else {
+
+            this.speaker.style.display = "none";
+
+        }
+
+        this.typeText(line.text || "");
+
+    }
+
+    typeText(text) {
+
+        clearInterval(this.typingTimer);
+
+        this.fullText = text;
+        this.text.textContent = "";
+
+        this.isTyping = true;
+
+        let i = 0;
+
+        this.typingTimer = setInterval(() => {
+
+            this.text.textContent = text.substring(0, i + 1) + "▋";
+
+            i++;
+
+            if (i >= text.length) {
+
+                clearInterval(this.typingTimer);
+
+                this.text.textContent = text;
+
+                this.isTyping = false;
+
+            }
+
+        }, this.speed);
 
     }
 
     next() {
+
+        // Si todavía está escribiendo,
+        // mostrar la frase completa.
+
+        if (this.isTyping) {
+
+            clearInterval(this.typingTimer);
+
+            this.text.textContent = this.fullText;
+
+            this.isTyping = false;
+
+            return;
+
+        }
 
         this.index++;
 
@@ -69,6 +131,10 @@ class DialogManager {
     }
 
     hide() {
+
+        clearInterval(this.typingTimer);
+
+        this.isTyping = false;
 
         this.box.style.opacity = "0";
 
