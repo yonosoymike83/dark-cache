@@ -10,11 +10,7 @@ const Chapter01 = {
 
     intro: [
 
-        "Dicen que algunos cachés son imposibles de encontrar.",
-
-        "Otros...",
-
-        "que nunca debieron haberse ocultado.",
+        "Dicen que algunos cachés nunca debieron haberse escondido.",
 
         "Durante años pensé que solo eran historias.",
 
@@ -22,13 +18,23 @@ const Chapter01 = {
 
         "Alguien pronunció un nombre en voz baja...",
 
-        "El Caché Oscuro.",
+        "El Caché Oscuro",
 
-        "Y se hizo el silencio, nadie quiso seguir hablando...",
+        "Y se hizo el silencio.",
 
-        "Pero yo insistí, aunque solo para oír:",
+        "Yo insistí, pero nadie quiso seguir hablando...",
 
-        "La Tienda del Viejo Bug."
+        "Entonces me di cuenta de que alguien me observaba desde el otro lado de la sala."
+
+        "Cuando nuestras miradas se cruzaron, se dio la vuelta y desapareció entre la gente."
+
+        "Intenté seguirle..."
+
+        "...pero se había esfumado."
+
+        "Resignado, me disponía a marcharme cuando vi algo en el suelo."
+
+        "Una vieja tarjeta de visita, sucia y pisoteada."
 
     ],
 
