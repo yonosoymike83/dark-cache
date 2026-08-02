@@ -18,21 +18,21 @@ const Chapter01 = {
 
         "Alguien pronunció un nombre en voz baja...",
 
-        "El Caché Oscuro",
+        "El Caché Oscuro.",
 
         "Y se hizo el silencio.",
 
         "Yo insistí, pero nadie quiso seguir hablando...",
 
-        "Entonces me di cuenta de que alguien me observaba desde el otro lado de la sala."
+        "Entonces me di cuenta de que alguien me observaba desde el otro lado de la sala.",
 
-        "Cuando nuestras miradas se cruzaron, se dio la vuelta y desapareció entre la gente."
+        "Cuando nuestras miradas se cruzaron, se dio la vuelta y desapareció entre la gente.",
 
-        "Intenté seguirle..."
+        "Intenté seguirle...",
 
-        "...pero se había esfumado."
+        "...pero se había esfumado.",
 
-        "Resignado, me disponía a marcharme cuando vi algo en el suelo."
+        "Resignado, me disponía a marcharme cuando vi algo en el suelo.",
 
         "Una vieja tarjeta de visita, sucia y pisoteada."
 
