@@ -22,6 +22,8 @@ const hotspots = new HotspotManager(
 
 const audioManager = new AudioManager();
 
+const dialog = new DialogManager();
+
 const sceneManager = new SceneManager(
     scene,
     sceneImage,
