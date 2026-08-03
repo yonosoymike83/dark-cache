@@ -419,3 +419,23 @@ body{
     }
 
 }
+
+/* ===========================
+   HOTSPOT EDITOR
+=========================== */
+
+.editor-mode .hotspot{
+
+    background:rgba(255,0,0,.28);
+
+    border:2px solid #ff4444;
+
+}
+
+.editor-mode .hotspot:hover{
+
+    background:rgba(255,120,120,.45);
+
+    border-color:white;
+
+}
