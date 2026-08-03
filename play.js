@@ -20,6 +20,10 @@ const hotspots = new HotspotManager(
     hotspotLayer
 );
 
+const hotspotEditor = new HotspotEditor(
+    hotspots
+);
+
 const audioManager = new AudioManager();
 
 const dialog = new DialogManager();
