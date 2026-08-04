@@ -6,6 +6,13 @@ class HotspotEditor {
 
         this.enabled = false;
 
+        this.dragging = false;
+
+        this.startX = 0;
+        this.startY = 0;
+
+        this.preview = null;
+
         document.addEventListener("keydown", (e) => {
 
             if (e.key === "F2") {
@@ -15,6 +22,32 @@ class HotspotEditor {
                 this.toggle();
 
             }
+
+        });
+
+        const scene = document.getElementById("scene");
+
+        scene.addEventListener("pointerdown", (e) => {
+
+            if (!this.enabled) return;
+
+            this.startDraw(e);
+
+        });
+
+        scene.addEventListener("pointermove", (e) => {
+
+            if (!this.enabled) return;
+
+            this.updateDraw(e);
+
+        });
+
+        scene.addEventListener("pointerup", (e) => {
+
+            if (!this.enabled) return;
+
+            this.finishDraw(e);
 
         });
 
@@ -33,6 +66,18 @@ class HotspotEditor {
             "Hotspot Editor:",
             this.enabled ? "ON" : "OFF"
         );
+
+    }
+
+    startDraw(e){
+
+    }
+
+    updateDraw(e){
+
+    }
+
+    finishDraw(e){
 
     }
 
