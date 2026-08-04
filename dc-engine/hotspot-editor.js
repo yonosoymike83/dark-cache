@@ -126,14 +126,43 @@ class HotspotEditor {
 
     }
 
-    finishDraw(e) {
+   finishDraw(e) {
 
         if (!this.dragging) return;
-
+    
         this.dragging = false;
+    
+        const rect = document
+            .getElementById("scene")
+            .getBoundingClientRect();
+    
+        const left = parseFloat(this.preview.style.left);
+        const top = parseFloat(this.preview.style.top);
+        const width = parseFloat(this.preview.style.width);
+        const height = parseFloat(this.preview.style.height);
+    
+        const x = (left / rect.width) * 100;
+        const y = (top / rect.height) * 100;
+        const w = (width / rect.width) * 100;
+        const h = (height / rect.height) * 100;
+    
+        console.clear();
+    
+        console.log(`{
+    
+        id: "nuevoHotspot",
+    
+        x: ${x.toFixed(2)},
+        y: ${y.toFixed(2)},
+        width: ${w.toFixed(2)},
+        height: ${h.toFixed(2)},
+    
+        click() {
+    
+        }
+    
+}`);
 
-        console.log("Hotspot creado.");
-
-    }
+}
 
 }
