@@ -439,3 +439,89 @@ body{
     border-color:white;
 
 }
+
+/* ===========================
+   PANEL EDITOR HOTSPOTS
+=========================== */
+
+#editorPanel{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:20px;
+
+    transform:translateX(-50%);
+
+    width:min(700px,90%);
+
+    background:rgba(10,10,10,.95);
+
+    border:2px solid #666;
+
+    padding:18px;
+
+    box-sizing:border-box;
+
+    display:none;
+
+    z-index:9999;
+
+}
+
+.editorTitle{
+
+    color:white;
+
+    margin-bottom:15px;
+
+    font-size:1rem;
+
+}
+
+#editorCode{
+
+    white-space:pre-wrap;
+
+    color:#6dff93;
+
+    font-size:.9rem;
+
+    margin:0;
+
+}
+
+.editorButtons{
+
+    margin-top:18px;
+
+    display:flex;
+
+    gap:12px;
+
+    justify-content:flex-end;
+
+}
+
+.editorButtons button{
+
+    background:#222;
+
+    color:white;
+
+    border:1px solid #666;
+
+    padding:10px 20px;
+
+    cursor:pointer;
+
+    font-family:'Silkscreen', monospace;
+
+}
+
+.editorButtons button:hover{
+
+    border-color:white;
+
+}
