@@ -13,6 +13,8 @@ class HotspotEditor {
 
         this.preview = null;
 
+        this.layer = document.getElementById("hotspotLayer");
+
         document.addEventListener("keydown", (e) => {
 
             if (e.key === "F2") {
@@ -25,9 +27,7 @@ class HotspotEditor {
 
         });
 
-        const scene = document.getElementById("scene");
-
-        scene.addEventListener("pointerdown", (e) => {
+        this.layer.addEventListener("pointerdown", (e) => {
 
             if (!this.enabled) return;
 
@@ -35,7 +35,7 @@ class HotspotEditor {
 
         });
 
-        scene.addEventListener("pointermove", (e) => {
+        this.layer.addEventListener("pointermove", (e) => {
 
             if (!this.enabled) return;
 
@@ -43,7 +43,7 @@ class HotspotEditor {
 
         });
 
-        scene.addEventListener("pointerup", (e) => {
+        this.layer.addEventListener("pointerup", (e) => {
 
             if (!this.enabled) return;
 
@@ -73,9 +73,7 @@ class HotspotEditor {
 
         this.dragging = true;
 
-        const rect = document
-            .getElementById("scene")
-            .getBoundingClientRect();
+        const rect = this.layer.getBoundingClientRect();
 
         this.startX = e.clientX - rect.left;
         this.startY = e.clientY - rect.top;
@@ -90,14 +88,13 @@ class HotspotEditor {
         this.preview.style.width = "0px";
         this.preview.style.height = "0px";
 
-        this.preview.style.background = "rgba(0,255,120,.20)";
+        this.preview.style.background = "rgba(0,255,120,.25)";
         this.preview.style.border = "2px solid #00ff66";
 
+        this.preview.style.boxSizing = "border-box";
         this.preview.style.pointerEvents = "none";
 
-        document
-            .getElementById("scene")
-            .appendChild(this.preview);
+        this.layer.appendChild(this.preview);
 
     }
 
@@ -105,9 +102,7 @@ class HotspotEditor {
 
         if (!this.dragging) return;
 
-        const rect = document
-            .getElementById("scene")
-            .getBoundingClientRect();
+        const rect = this.layer.getBoundingClientRect();
 
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -126,43 +121,58 @@ class HotspotEditor {
 
     }
 
-   finishDraw(e) {
+    async finishDraw() {
 
         if (!this.dragging) return;
-    
+
         this.dragging = false;
-    
-        const rect = document
-            .getElementById("scene")
-            .getBoundingClientRect();
-    
+
+        const rect = this.layer.getBoundingClientRect();
+
         const left = parseFloat(this.preview.style.left);
         const top = parseFloat(this.preview.style.top);
         const width = parseFloat(this.preview.style.width);
         const height = parseFloat(this.preview.style.height);
-    
+
         const x = (left / rect.width) * 100;
         const y = (top / rect.height) * 100;
         const w = (width / rect.width) * 100;
         const h = (height / rect.height) * 100;
-    
-        console.clear();
-    
-        console.log(`{
-    
-        id: "nuevoHotspot",
-    
-        x: ${x.toFixed(2)},
-        y: ${y.toFixed(2)},
-        width: ${w.toFixed(2)},
-        height: ${h.toFixed(2)},
-    
-        click() {
-    
-        }
-    
-}`);
 
-}
+        const code = `{
+
+    id: "nuevoHotspot",
+
+    x: ${x.toFixed(2)},
+    y: ${y.toFixed(2)},
+    width: ${w.toFixed(2)},
+    height: ${h.toFixed(2)},
+
+    click() {
+
+    }
+
+},`;
+
+        console.clear();
+        console.log(code);
+
+        try {
+
+            await navigator.clipboard.writeText(code);
+
+            console.log("📋 Hotspot copiado al portapapeles.");
+
+        } catch (e) {
+
+            console.log("No se pudo copiar al portapapeles.");
+
+        }
+
+        this.preview.remove();
+
+        this.preview = null;
+
+    }
 
 }
