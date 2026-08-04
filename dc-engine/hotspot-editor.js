@@ -15,6 +15,38 @@ class HotspotEditor {
 
         this.layer = document.getElementById("hotspotLayer");
 
+        // Panel del editor
+        
+        this.editorPanel = document.getElementById("editorPanel");
+        
+        this.editorCode = document.getElementById("editorCode");
+        
+        this.copyButton = document.getElementById("copyHotspotButton");
+        
+        this.closeButton = document.getElementById("closeEditorButton");
+        
+        this.copyButton.addEventListener("click", () => {
+        
+            navigator.clipboard.writeText(
+                this.editorCode.textContent
+            );
+        
+            this.copyButton.textContent = "✅ COPIADO";
+        
+            setTimeout(() => {
+        
+                this.copyButton.textContent = "📋 COPIAR";
+        
+            },1000);
+        
+        });
+
+this.closeButton.addEventListener("click", () => {
+
+    this.editorPanel.style.display = "none";
+
+});
+        
         document.addEventListener("keydown", (e) => {
 
             if (e.key === "F2") {
@@ -61,7 +93,13 @@ class HotspotEditor {
             "editor-mode",
             this.enabled
         );
-
+        
+        if (!this.enabled) {
+        
+            this.editorPanel.style.display = "none";
+        
+        }
+        
         console.log(
             "Hotspot Editor:",
             this.enabled ? "ON" : "OFF"
@@ -154,20 +192,9 @@ class HotspotEditor {
 
 },`;
 
-        console.clear();
-        console.log(code);
+        this.editorCode.textContent = code;
 
-        try {
-
-            await navigator.clipboard.writeText(code);
-
-            console.log("📋 Hotspot copiado al portapapeles.");
-
-        } catch (e) {
-
-            console.log("No se pudo copiar al portapapeles.");
-
-        }
+        this.editorPanel.style.display = "block";
 
         this.preview.remove();
 
