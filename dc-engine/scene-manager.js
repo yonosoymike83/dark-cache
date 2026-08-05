@@ -73,7 +73,8 @@ class SceneManager {
     updateHotspotLayer() {
 
         const layer = document.getElementById("hotspotLayer");
-
+        const editorLayer = document.getElementById("editorLayer");
+        
         const imageRect = this.sceneImage.getBoundingClientRect();
         const sceneRect = this.scene.getBoundingClientRect();
 
@@ -82,7 +83,13 @@ class SceneManager {
 
         layer.style.width = imageRect.width + "px";
         layer.style.height = imageRect.height + "px";
-
+        
+        editorLayer.style.left = layer.style.left;
+        editorLayer.style.top = layer.style.top;
+        
+        editorLayer.style.width = layer.style.width;
+        editorLayer.style.height = layer.style.height;
+        
     }
 
 }
