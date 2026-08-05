@@ -19,6 +19,8 @@ class HotspotEditor {
 
         this.selected = null;
 
+        this.resizing = false;
+
         // -------------------------
         // PANEL
         // -------------------------
@@ -113,6 +115,47 @@ class HotspotEditor {
 
         );
 
+        // -------------------------
+        // DOBLE CLICK
+        // -------------------------
+
+        this.scene.addEventListener(
+
+            "dblclick",
+
+            (e)=>{
+
+                if(!this.enabled) return;
+
+                if(!e.target.classList.contains("hotspot")) return;
+
+                const hotspot =
+                    this.hotspotManager.findByElement(
+                        e.target
+                    );
+
+                if(!hotspot) return;
+
+                const id = prompt(
+
+                    "ID del hotspot:",
+
+                    hotspot.id
+
+                );
+
+                if(id && id.trim()!=""){
+
+                    hotspot.id = id.trim();
+
+                    this.select(hotspot);
+
+                }
+
+            }
+
+        );
+        
     }
 
     //================================================
@@ -151,120 +194,151 @@ class HotspotEditor {
 
     pointerDown(e){
 
-        if(!this.enabled) return;
+    if(!this.enabled) return;
 
-        // ¿Ha pulsado un hotspot?
+    // ¿Ha pulsado un hotspot?
 
-        if(e.target.classList.contains("hotspot")){
+    if(e.target.classList.contains("hotspot")){
 
-            const hotspot =
-                this.hotspotManager.findByElement(
-                    e.target
-                );
+        const hotspot =
+            this.hotspotManager.findByElement(
+                e.target
+            );
 
-            if(!hotspot) return;
+        if(!hotspot) return;
 
-            this.select(hotspot);
+        this.select(hotspot);
 
-            this.moving=true;
-            this.dragging=false;
+        this.dragging = false;
 
-            return;
+        if(e.altKey){
+
+            this.resizing = true;
+
+        }else{
+
+            this.moving = true;
 
         }
 
-        // Crear hotspot nuevo
-
-        this.clearSelection();
-
-        this.dragging=true;
-
-        const rect =
-            this.layer.getBoundingClientRect();
-
-        this.startX=e.clientX-rect.left;
-        this.startY=e.clientY-rect.top;
-
-        this.preview=document.createElement("div");
-
-        this.preview.style.position="absolute";
-
-        this.preview.style.left=this.startX+"px";
-        this.preview.style.top=this.startY+"px";
-
-        this.preview.style.width="0px";
-        this.preview.style.height="0px";
-
-        this.preview.style.background=
-            "rgba(0,255,120,.25)";
-
-        this.preview.style.border=
-            "2px solid #00ff66";
-
-        this.preview.style.boxSizing="border-box";
-
-        this.preview.style.pointerEvents="none";
-
-        this.layer.appendChild(this.preview);
+        return;
 
     }
+
+    // Crear hotspot nuevo
+
+    this.clearSelection();
+
+    this.dragging = true;
+
+    const rect =
+        this.layer.getBoundingClientRect();
+
+    this.startX = e.clientX - rect.left;
+    this.startY = e.clientY - rect.top;
+
+    this.preview = document.createElement("div");
+
+    this.preview.style.position = "absolute";
+
+    this.preview.style.left = this.startX + "px";
+    this.preview.style.top = this.startY + "px";
+
+    this.preview.style.width = "0px";
+    this.preview.style.height = "0px";
+
+    this.preview.style.background =
+        "rgba(0,255,120,.25)";
+
+    this.preview.style.border =
+        "2px solid #00ff66";
+
+    this.preview.style.boxSizing = "border-box";
+
+    this.preview.style.pointerEvents = "none";
+
+    this.layer.appendChild(this.preview);
+
+}
 
     //================================================
 
     pointerMove(e){
-
+    
         if(!this.enabled) return;
-
+    
         const rect =
             this.layer.getBoundingClientRect();
-
+    
+        // -------------------
+        // REDIMENSIONAR
+        // -------------------
+    
+        if(this.resizing && this.selected){
+    
+            const x =
+                ((e.clientX - rect.left) / rect.width) * 100;
+    
+            const y =
+                ((e.clientY - rect.top) / rect.height) * 100;
+    
+            this.selected.width =
+                Math.max(1, x - this.selected.x);
+    
+            this.selected.height =
+                Math.max(1, y - this.selected.y);
+    
+            this.hotspotManager.update();
+    
+            this.updateCode();
+    
+            return;
+    
+        }
+    
         // -------------------
         // MOVER
         // -------------------
-
+    
         if(this.moving && this.selected){
-
-            this.selected.x=
-
-                ((e.clientX-rect.left)/rect.width)*100
-
-                - this.selected.width/2;
-
-            this.selected.y=
-
-                ((e.clientY-rect.top)/rect.height)*100
-
-                - this.selected.height/2;
-
+    
+            this.selected.x =
+                ((e.clientX - rect.left) / rect.width) * 100
+                - this.selected.width / 2;
+    
+            this.selected.y =
+                ((e.clientY - rect.top) / rect.height) * 100
+                - this.selected.height / 2;
+    
             this.hotspotManager.update();
-
+    
             this.updateCode();
-
+    
             return;
-
+    
         }
-
+    
         // -------------------
-        // DIBUJAR
+        // CREAR
         // -------------------
-
+    
         if(!this.dragging) return;
-
-        const x=e.clientX-rect.left;
-        const y=e.clientY-rect.top;
-
-        const left=Math.min(this.startX,x);
-        const top=Math.min(this.startY,y);
-
-        const width=Math.abs(x-this.startX);
-        const height=Math.abs(y-this.startY);
-
-        this.preview.style.left=left+"px";
-        this.preview.style.top=top+"px";
-
-        this.preview.style.width=width+"px";
-        this.preview.style.height=height+"px";
-
+    
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+    
+        const left = Math.min(this.startX, x);
+        const top = Math.min(this.startY, y);
+    
+        const width = Math.abs(x - this.startX);
+        const height = Math.abs(y - this.startY);
+    
+        this.preview.style.left = left + "px";
+        this.preview.style.top = top + "px";
+    
+        this.preview.style.width = width + "px";
+        this.preview.style.height = height + "px";
+    
     }
 
     //================================================
@@ -281,12 +355,22 @@ class HotspotEditor {
     
         }
     
+        if(this.resizing){
+    
+            this.resizing = false;
+    
+            this.updateCode();
+    
+            return;
+    
+        }
+    
         if(!this.dragging) return;
     
         this.finishDraw();
     
     }
-
+    
     //================================================
 
     select(hotspot){
