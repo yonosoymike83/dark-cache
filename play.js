@@ -24,6 +24,8 @@ const hotspotEditor = new HotspotEditor(
     hotspots
 );
 
+window.hotspotEditor = hotspotEditor;
+
 const audioManager = new AudioManager();
 
 const dialog = new DialogManager();
