@@ -16,75 +16,116 @@ class HotspotManager {
 
     clear(){
 
-        this.hotspots.forEach(h => h.element.remove());
+        this.hotspots.forEach(h => {
+
+            h.element.remove();
+
+        });
 
         this.hotspots = [];
 
     }
 
-    add(options){
+    add(data){
 
-        const hotspot = document.createElement("div");
+        const hotspot = {
 
-        hotspot.className = "hotspot";
+            id: data.id || "hotspot",
 
-        hotspot.style.cursor = options.cursor || "pointer";
+            x: data.x,
+            y: data.y,
 
-        if(options.click){
+            width: data.width,
+            height: data.height,
 
-            hotspot.addEventListener("click", options.click);
-            
-        hotspot.addEventListener("click", (e) => {
-        
-            if (!window.hotspotEditor) return;
-        
-            if (!window.hotspotEditor.enabled) return;
-        
-            e.stopPropagation();
-        
-            window.hotspotEditor.select(hotspot);
-        
-        });
+            cursor: data.cursor || "pointer",
+
+            click: data.click || null,
+
+            element: document.createElement("div")
+
+        };
+
+        hotspot.element.className = "hotspot";
+
+        hotspot.element.style.cursor = hotspot.cursor;
+
+        if(hotspot.click){
+
+            hotspot.element.addEventListener(
+                "click",
+                hotspot.click
+            );
+
         }
 
-        this.layer.appendChild(hotspot);
+        this.layer.appendChild(
+            hotspot.element
+        );
 
-        const hotspotData = {
+        this.hotspots.push(hotspot);
 
-            element: hotspot,
-        
-            x: options.x,
-            y: options.y,
-            width: options.width,
-            height: options.height
-        
-        };
-        
-        this.hotspots.push(hotspotData);
-        
         this.update();
-        
-        return hotspotData;
+
+        return hotspot;
+
+    }
+
+    remove(hotspot){
+
+        hotspot.element.remove();
+
+        this.hotspots = this.hotspots.filter(
+
+            h => h !== hotspot
+
+        );
 
     }
 
     update(){
 
-        const rect = this.image.getBoundingClientRect();
+        const imageRect =
+            this.image.getBoundingClientRect();
 
-        this.layer.style.left = rect.left + "px";
-        this.layer.style.top = rect.top + "px";
-        this.layer.style.width = rect.width + "px";
-        this.layer.style.height = rect.height + "px";
+        const sceneRect =
+            this.scene.getBoundingClientRect();
+
+        this.layer.style.left =
+            (imageRect.left - sceneRect.left) + "px";
+
+        this.layer.style.top =
+            (imageRect.top - sceneRect.top) + "px";
+
+        this.layer.style.width =
+            imageRect.width + "px";
+
+        this.layer.style.height =
+            imageRect.height + "px";
 
         this.hotspots.forEach(h => {
 
             h.element.style.left = h.x + "%";
+
             h.element.style.top = h.y + "%";
-            h.element.style.width = h.width + "%";
-            h.element.style.height = h.height + "%";
+
+            h.element.style.width =
+                h.width + "%";
+
+            h.element.style.height =
+                h.height + "%";
 
         });
+
+    }
+
+    findByElement(element){
+
+        return this.hotspots.find(
+
+            h => h.element === element
+
+        );
 
     }
 
