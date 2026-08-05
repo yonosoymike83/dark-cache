@@ -33,23 +33,38 @@ class HotspotManager {
         if(options.click){
 
             hotspot.addEventListener("click", options.click);
-
+            
+        hotspot.addEventListener("click", (e) => {
+        
+            if (!window.hotspotEditor) return;
+        
+            if (!window.hotspotEditor.enabled) return;
+        
+            e.stopPropagation();
+        
+            window.hotspotEditor.select(hotspot);
+        
+        });
         }
 
         this.layer.appendChild(hotspot);
 
-        this.hotspots.push({
+        const hotspotData = {
 
             element: hotspot,
-
+        
             x: options.x,
             y: options.y,
             width: options.width,
             height: options.height
-
-        });
-
+        
+        };
+        
+        this.hotspots.push(hotspotData);
+        
         this.update();
+        
+        return hotspotData;
 
     }
 
