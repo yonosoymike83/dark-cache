@@ -31,6 +31,12 @@ class HotspotEditor {
         this.editorCode =
             document.getElementById("editorCode");
 
+        this.editorId =
+            document.getElementById("editorId");
+        
+        this.saveIdButton =
+            document.getElementById("saveIdButton");
+
         this.copyButton =
             document.getElementById("copyHotspotButton");
 
@@ -45,6 +51,25 @@ class HotspotEditor {
 
         );
 
+        this.saveIdButton.addEventListener(
+
+            "click",
+        
+            ()=>{
+        
+                if(!this.selected) return;
+        
+                const id = this.editorId.value.trim();
+        
+                if(id==="") return;
+        
+                this.selected.id = id;
+        
+                this.updateCode();
+        
+            }
+
+);
         this.closeButton.addEventListener(
 
             "click",
@@ -114,48 +139,7 @@ class HotspotEditor {
             (e)=>this.pointerUp(e)
 
         );
-
-        // -------------------------
-        // DOBLE CLICK
-        // -------------------------
-
-        this.scene.addEventListener(
-
-            "dblclick",
-
-            (e)=>{
-
-                if(!this.enabled) return;
-
-                if(!e.target.classList.contains("hotspot")) return;
-
-                const hotspot =
-                    this.hotspotManager.findByElement(
-                        e.target
-                    );
-
-                if(!hotspot) return;
-
-                const id = prompt(
-
-                    "ID del hotspot:",
-
-                    hotspot.id
-
-                );
-
-                if(id && id.trim()!=""){
-
-                    hotspot.id = id.trim();
-
-                    this.select(hotspot);
-
-                }
-
-            }
-
-        );
-        
+       
     }
 
     //================================================
@@ -459,12 +443,16 @@ class HotspotEditor {
     updateCode(){
 
         if(!this.selected){
-
-            this.editorCode.textContent="";
-
+        
+            this.editorId.value = "";
+        
+            this.editorCode.textContent = "";
+        
             return;
-
+        
         }
+        
+        this.editorId.value = this.selected.id;
 
         this.editorCode.textContent=`{
 
@@ -503,7 +491,7 @@ class HotspotEditor {
 
         },1000);
 
-    }
+            }
 
     //================================================
 
@@ -518,6 +506,8 @@ class HotspotEditor {
         this.clearSelection();
     
         this.editorPanel.style.display="none";
+
+        this.editorId.value="";
     
     }
 
