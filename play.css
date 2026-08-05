@@ -525,3 +525,61 @@ body{
     border-color:white;
 
 }
+
+.editorRow{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:18px;
+
+}
+
+.editorRow label{
+
+    color:white;
+
+    min-width:30px;
+
+}
+
+#editorId{
+
+    flex:1;
+
+    background:#111;
+
+    border:1px solid #666;
+
+    color:white;
+
+    padding:8px;
+
+    font-family:'Silkscreen', monospace;
+
+}
+
+#saveIdButton{
+
+    background:#222;
+
+    color:white;
+
+    border:1px solid #666;
+
+    padding:8px 14px;
+
+    cursor:pointer;
+
+    font-family:'Silkscreen', monospace;
+
+}
+
+#saveIdButton:hover{
+
+    border-color:white;
+
+}
