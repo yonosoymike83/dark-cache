@@ -21,9 +21,6 @@ class HotspotEditor {
 
         this.resizing = false;
 
-        this.longPressTimer = null;
-        this.longPressTriggered = false;
-
         // -------------------------
         // PANEL
         // -------------------------
@@ -143,45 +140,6 @@ class HotspotEditor {
 
         );
         
-        // -------------------------
-        // PULSACIÓN LARGA (MÓVIL)
-        // -------------------------
-        
-        this.scene.addEventListener("pointerdown",(e)=>{
-        
-            if(e.pointerType!=="touch") return;
-        
-            this.longPressTriggered = false;
-        
-            this.longPressTimer = setTimeout(()=>{
-        
-                this.longPressTriggered = true;
-        
-                this.toggle();
-        
-            },3000);
-        
-        });
-        
-        this.scene.addEventListener("pointerup",()=>{
-        
-            clearTimeout(this.longPressTimer);
-        
-        });
-        
-        this.scene.addEventListener("pointercancel",()=>{
-        
-            clearTimeout(this.longPressTimer);
-        
-        });
-        
-        this.scene.addEventListener("pointermove",()=>{
-        
-            clearTimeout(this.longPressTimer);
-        
-        });
-    }
-
     //================================================
 
     toggle(){
@@ -217,14 +175,6 @@ class HotspotEditor {
     //================================================
 
     pointerDown(e){
-        
-    if(this.longPressTriggered){
-
-        this.longPressTriggered = false;
-
-        return;
-
-    }
         
     if(!this.enabled) return;
 
