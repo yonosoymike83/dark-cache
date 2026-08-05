@@ -13,7 +13,7 @@ class HotspotEditor {
 
         this.preview = null;
 
-        this.layer = document.getElementById("hotspotLayer");
+        this.layer = document.getElementById("editorLayer");
 
         // Panel del editor
         
