@@ -13,7 +13,8 @@ class HotspotEditor {
 
         this.preview = null;
 
-        this.layer = document.getElementById("editorLayer");
+        this.layer = document.getElementById("hotspotLayer");
+        this.scene = document.getElementById("scene");
 
         // Panel del editor
         
@@ -59,7 +60,7 @@ this.closeButton.addEventListener("click", () => {
 
         });
 
-        this.layer.addEventListener("pointerdown", (e) => {
+        this.scene.addEventListener("pointerdown", (e) => {
 
             if (!this.enabled) return;
 
@@ -67,7 +68,7 @@ this.closeButton.addEventListener("click", () => {
 
         });
 
-        this.layer.addEventListener("pointermove", (e) => {
+        this.scene.addEventListener("pointermove", (e) => {
 
             if (!this.enabled) return;
 
@@ -75,7 +76,7 @@ this.closeButton.addEventListener("click", () => {
 
         });
 
-        this.layer.addEventListener("pointerup", (e) => {
+        this.scene.addEventListener("pointerup", (e) => {
 
             if (!this.enabled) return;
 
