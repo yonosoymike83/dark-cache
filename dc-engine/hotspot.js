@@ -8,62 +8,83 @@ class HotspotManager {
 
         this.hotspots = [];
 
-        window.addEventListener("resize", () => this.update());
+        window.addEventListener(
+            "resize",
+            () => this.update()
+        );
 
-        this.image.addEventListener("load", () => this.update());
+        this.image.addEventListener(
+            "load",
+            () => this.update()
+        );
 
     }
 
+    //================================================
+
     clear(){
 
-        this.hotspots.forEach(h => {
+        this.hotspots.forEach(h=>{
 
             h.element.remove();
 
         });
 
-        this.hotspots = [];
+        this.hotspots=[];
 
     }
 
+    //================================================
+
     add(data){
 
-        const hotspot = {
+        const hotspot={
 
-            id: data.id || "hotspot",
+            id:data.id || "hotspot",
 
-            x: data.x,
-            y: data.y,
+            visits:data.visits || 0,
 
-            width: data.width,
-            height: data.height,
+            x:data.x,
+            y:data.y,
 
-            cursor: data.cursor || "pointer",
+            width:data.width,
+            height:data.height,
 
-            click: data.click || null,
+            cursor:data.cursor || "pointer",
 
-            element: document.createElement("div")
+            click:data.click || function(){},
+
+            element:document.createElement("div")
 
         };
 
-        hotspot.element.className = "hotspot";
+        hotspot.element.className="hotspot";
 
-        hotspot.element.style.cursor = hotspot.cursor;
+        hotspot.element.style.cursor=hotspot.cursor;
 
-        if(hotspot.click){
+        hotspot.element.addEventListener(
 
-            hotspot.element.addEventListener(
-                "click",
-                hotspot.click
-            );
+            "click",
 
-        }
+            ()=>{
 
-        this.layer.appendChild(
-            hotspot.element
+                hotspot.click.call(hotspot);
+
+            }
+
         );
 
-        this.hotspots.push(hotspot);
+        this.layer.appendChild(
+
+            hotspot.element
+
+        );
+
+        this.hotspots.push(
+
+            hotspot
+
+        );
 
         this.update();
 
@@ -71,59 +92,67 @@ class HotspotManager {
 
     }
 
+    //================================================
+
     remove(hotspot){
 
         hotspot.element.remove();
 
-        this.hotspots = this.hotspots.filter(
+        this.hotspots=this.hotspots.filter(
 
-            h => h !== hotspot
+            h=>h!==hotspot
 
         );
 
     }
 
+    //================================================
+
     update(){
 
-        const imageRect =
+        const imageRect=
             this.image.getBoundingClientRect();
 
-        const sceneRect =
+        const sceneRect=
             this.scene.getBoundingClientRect();
 
-        this.layer.style.left =
-            (imageRect.left - sceneRect.left) + "px";
+        this.layer.style.left=
+            (imageRect.left-sceneRect.left)+"px";
 
-        this.layer.style.top =
-            (imageRect.top - sceneRect.top) + "px";
+        this.layer.style.top=
+            (imageRect.top-sceneRect.top)+"px";
 
-        this.layer.style.width =
-            imageRect.width + "px";
+        this.layer.style.width=
+            imageRect.width+"px";
 
-        this.layer.style.height =
-            imageRect.height + "px";
+        this.layer.style.height=
+            imageRect.height+"px";
 
-        this.hotspots.forEach(h => {
+        this.hotspots.forEach(h=>{
 
-            h.element.style.left = h.x + "%";
+            h.element.style.left=
+                h.x+"%";
 
-            h.element.style.top = h.y + "%";
+            h.element.style.top=
+                h.y+"%";
 
-            h.element.style.width =
-                h.width + "%";
+            h.element.style.width=
+                h.width+"%";
 
-            h.element.style.height =
-                h.height + "%";
+            h.element.style.height=
+                h.height+"%";
 
         });
 
     }
 
+    //================================================
+
     findByElement(element){
 
         return this.hotspots.find(
 
-            h => h.element === element
+            h=>h.element===element
 
         );
 
