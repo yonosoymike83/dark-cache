@@ -139,7 +139,9 @@ const DialogPlaca = [
             speaker:"",
             text:"Y el único gato que hay parece bastante poco sociable."
         }
-    ];
+    ]
+
+];
 // ======================================================
 // ESCAPARATE
 // ======================================================
