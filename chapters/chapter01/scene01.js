@@ -48,9 +48,14 @@ const Scene01 = {
 
             click(){
 
-                console.log(this);
-                dialog.show(DialogDoorLocked);
+                showDialogSequence(
             
+                    this,
+            
+                    DialogCampanario
+
+                 );
+
             }
 
         },
@@ -383,6 +388,10 @@ function canEnterShop(){
 
 function showDialogSequence(hotspot, dialogs){
 
+    console.log("hotspot =", hotspot);
+    console.log("dialogs =", dialogs);
+    console.log("visits =", hotspot.visits);
+    
     const index = Math.min(
 
         hotspot.visits,
