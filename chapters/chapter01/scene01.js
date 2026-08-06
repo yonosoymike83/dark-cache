@@ -48,14 +48,8 @@ const Scene01 = {
 
             click(){
 
-                showDialogSequence(
-
-                    this,
-
-                    DialogCampanario
-
-                );
-
+                dialog.show(DialogDoorLocked);
+            
             }
 
         },
