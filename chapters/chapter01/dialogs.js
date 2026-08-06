@@ -1,67 +1,292 @@
 // ======================================================
-// CAPÍTULO I
-// LA TIENDA DEL VIEJO BUG
-// DIÁLOGOS
+// CAMPANARIO
 // ======================================================
 
+const DialogCampanario = [
 
-// ------------------------------------------------------
-// SCENE 01
-// EXTERIOR DE LA TIENDA
-// ------------------------------------------------------
+    [
+        {
+            speaker:"",
+            text:"El viejo campanario domina toda la plaza."
+        }
+    ],
 
-const DialogEnterShop = [
+    [
+        {
+            speaker:"",
+            text:"No recuerdo haber oído sonar sus campanas."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Durante un instante juraría haber visto una sombra allá arriba."
+        }
+    ]
+
+];
+
+// ======================================================
+// FAROLA
+// ======================================================
+
+const DialogLight = [
+
+    [
+        {
+            speaker:"",
+            text:"La farola parpadea bajo la lluvia."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Sigue parpadeando. No parece muy fiable."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Espero que no decida apagarse justo ahora."
+        }
+    ]
+
+];
+
+// ======================================================
+// CARTEL PRINCIPAL
+// ======================================================
+
+const DialogCartel01 = [
+
+    [
+        {
+            speaker:"",
+            text:"'La Tienda del Viejo Bug'. Un nombre... curioso."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"La pintura está muy desgastada, pero aún puede leerse."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Empiezo a pensar que este lugar lleva demasiado tiempo esperando visitantes."
+        }
+    ]
+
+];
+
+// ======================================================
+// CARTEL COLGANTE
+// ======================================================
+
+const DialogCartel02 = [
+
+    [
+        {
+            speaker:"",
+            text:"Un viejo cartel se balancea con el viento."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Hace un ruido bastante inquietante."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Si se cae... espero no estar debajo."
+        }
+    ]
+
+];
+
+// ======================================================
+// PLACA DE LA CALLE
+// ======================================================
+
+const DialogPlaca = [
+
+    [
+        {
+            speaker:"",
+            text:"Calle de la Font del Gat."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Curioso... no veo ninguna fuente."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Y el único gato que hay parece bastante poco sociable."
+        }
+    ];
+// ======================================================
+// ESCAPARATE
+// ======================================================
+
+const DialogMostrador = [
+
+    [
+        {
+            speaker:"",
+            text:"El escaparate está repleto de objetos extraños."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Brújulas, monedas, Travel Bugs... y cosas que prefiero no identificar."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Si el escaparate es así... tengo curiosidad por ver el interior."
+        }
+    ]
+
+];
+
+// ======================================================
+// ALCANTARILLA
+// ======================================================
+
+const DialogAlcantarilla = [
+
+    [
+        {
+            speaker:"",
+            text:"Una vieja alcantarilla."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"No creo que la aventura continúe por aquí abajo."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Aunque... sería un giro inesperado."
+        }
+    ]
+
+];
+
+// ======================================================
+// CONTENEDOR
+// ======================================================
+
+const DialogTrash = [
+
+    [
+        {
+            speaker:"",
+            text:"Un contenedor de basura."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Huele exactamente como esperaba."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Definitivamente no pienso rebuscar ahí."
+        }
+    ]
+
+];
+
+// ======================================================
+// GATO
+// ======================================================
+
+const DialogCat = [
+
+    [
+        {
+            speaker:"",
+            text:"Un gato negro me observa fijamente."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Sigue sin apartar la mirada."
+        }
+    ],
+
+    [
+        {
+            speaker:"",
+            text:"Empiezo a pensar que este gato sabe más que yo."
+        }
+    ]
+
+];
+// ======================================================
+// PUERTA (ANTES DE ENTRAR)
+// ======================================================
+
+const DialogDoorLocked = [
 
     {
-
-        text: "La puerta está entreabierta."
-
+        speaker:"",
+        text:"La puerta está abierta."
     },
 
     {
-
-        text: "Quizá aquí encuentre alguna respuesta."
-
-    },
-
-    {
-
-        text: "Será mejor entrar."
-
+        speaker:"",
+        text:"Pero hay muchas cosas inútiles con las que perder el tiempo aquí fuera antes de entrar."
     }
 
 ];
 
+// ======================================================
+// ENTRAR EN LA TIENDA
+// ======================================================
 
-// ------------------------------------------------------
-// EJEMPLO DE CONVERSACIÓN
-// (Todavía no se usa)
-// ------------------------------------------------------
-
-const DialogBugWelcome = [
+const DialogEnterShop = [
 
     {
-
-        speaker: "Viejo Bug",
-
-        text: "Buenas noches..."
-
+        speaker:"",
+        text:"Creo que ya he visto todo lo que necesitaba."
     },
 
     {
-
-        speaker: "Jugador",
-
-        text: "Busco el Caché Oscuro."
-
-    },
-
-    {
-
-        speaker: "Viejo Bug",
-
-        text: "Entonces has venido al lugar adecuado..."
-
+        speaker:"",
+        text:"Es hora de conocer al Viejo Bug."
     }
 
 ];
