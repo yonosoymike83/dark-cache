@@ -21,6 +21,7 @@ const Scene01 = {
 
         "cartel01",
         "cartel02",
+        "cartel03",
         "placa",
         "mostrador",
         "cat"
@@ -158,6 +159,8 @@ const Scene01 = {
         {
         
             id: "cartel03",
+
+            visits: 0,
         
             x: 68.30,
             y: 69.34,
@@ -165,7 +168,17 @@ const Scene01 = {
             height: 13.39,
         
             click(){
-        
+
+                visitHotspot("cartel03");
+
+                showDialogSequence(
+
+                    this,
+
+                    DialogCartel03
+
+                );
+
             }
         
         },
