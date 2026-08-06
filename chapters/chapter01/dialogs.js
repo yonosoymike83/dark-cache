@@ -45,7 +45,7 @@ const DialogLight = [
 ];
 
 // ======================================================
-// CARTEL PRINCIPAL
+// CARTEL TIENDA
 // ======================================================
 
 const DialogCartel01 = [
@@ -68,7 +68,7 @@ const DialogCartel01 = [
 ];
 
 // ======================================================
-// CARTEL COLGANTE
+// CARTEL TIENDA LOGO GC
 // ======================================================
 
 const DialogCartel02 = [
@@ -86,6 +86,29 @@ const DialogCartel02 = [
     {
         speaker:"",
         text:"Si se cae... espero no estar debajo."
+    }
+
+];
+
+// ======================================================
+// CARTEL CALLE
+// ======================================================
+
+const DialogCartel03 = [
+
+    {
+        speaker:"",
+        text:"El típico cartel a pie de calle con el que uno se tropieza cunado no mira por donde anda."
+    },
+
+    {
+        speaker:"",
+        text:"Compramos, vendemos e intercambiamos."
+    },
+
+    {
+        speaker:"",
+        text:"Ya tengo claro los servicios que aquí ofrecen."
     }
 
 ];
