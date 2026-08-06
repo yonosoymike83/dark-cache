@@ -1,6 +1,6 @@
 // ======================================================
 // ESCENA 01
-// EXTERIOR DE LA TIENDA
+// LA TIENDA DEL VIEJO BUG
 // ======================================================
 
 const Scene01 = {
@@ -31,8 +31,15 @@ const Scene01 = {
 
     hotspots: [
 
+        // ==========================================
+        // CAMPANARIO
+        // ==========================================
+
         {
+
             id: "campanario",
+
+            visits: 0,
 
             x: 21.65,
             y: 15.78,
@@ -41,14 +48,27 @@ const Scene01 = {
 
             click(){
 
-                dialog.show(DialogCampanario);
+                showDialogSequence(
+
+                    this,
+
+                    DialogCampanario
+
+                );
 
             }
 
         },
 
+        // ==========================================
+        // FAROLA
+        // ==========================================
+
         {
+
             id: "light",
+
+            visits: 0,
 
             x: 9.15,
             y: 5.58,
@@ -57,14 +77,27 @@ const Scene01 = {
 
             click(){
 
-                dialog.show(DialogLight);
+                showDialogSequence(
+
+                    this,
+
+                    DialogLight
+
+                );
 
             }
 
         },
 
+        // ==========================================
+        // CARTEL TIENDA
+        // ==========================================
+
         {
+
             id: "cartel01",
+
+            visits: 0,
 
             x: 59.15,
             y: 17.16,
@@ -75,14 +108,27 @@ const Scene01 = {
 
                 visitHotspot("cartel01");
 
-                dialog.show(DialogCartel01);
+                showDialogSequence(
+
+                    this,
+
+                    DialogCartel01
+
+                );
 
             }
 
         },
 
+        // ==========================================
+        // CARTEL COLGANTE
+        // ==========================================
+
         {
+
             id: "cartel02",
+
+            visits: 0,
 
             x: 72.79,
             y: 12.06,
@@ -93,14 +139,27 @@ const Scene01 = {
 
                 visitHotspot("cartel02");
 
-                dialog.show(DialogCartel02);
+                showDialogSequence(
+
+                    this,
+
+                    DialogCartel02
+
+                );
 
             }
 
         },
 
+        // ==========================================
+        // PLACA CALLE
+        // ==========================================
+
         {
+
             id: "placa",
+
+            visits: 0,
 
             x: 89.06,
             y: 18.97,
@@ -111,14 +170,27 @@ const Scene01 = {
 
                 visitHotspot("placa");
 
-                dialog.show(DialogPlaca);
+                showDialogSequence(
+
+                    this,
+
+                    DialogPlaca
+
+                );
 
             }
 
         },
 
+        // ==========================================
+        // ESCAPARATE
+        // ==========================================
+
         {
+
             id: "mostrador",
+
+            visits: 0,
 
             x: 67.17,
             y: 36.72,
@@ -129,14 +201,27 @@ const Scene01 = {
 
                 visitHotspot("mostrador");
 
-                dialog.show(DialogMostrador);
+                showDialogSequence(
+
+                    this,
+
+                    DialogMostrador
+
+                );
 
             }
 
         },
 
+        // ==========================================
+        // ALCANTARILLA
+        // ==========================================
+
         {
+
             id: "alcantarilla",
+
+            visits: 0,
 
             x: 29.07,
             y: 94.00,
@@ -145,14 +230,27 @@ const Scene01 = {
 
             click(){
 
-                dialog.show(DialogAlcantarilla);
+                showDialogSequence(
+
+                    this,
+
+                    DialogAlcantarilla
+
+                );
 
             }
 
         },
 
+        // ==========================================
+        // CONTENEDOR
+        // ==========================================
+
         {
+
             id: "trash",
+
+            visits: 0,
 
             x: 84.75,
             y: 69.98,
@@ -161,14 +259,27 @@ const Scene01 = {
 
             click(){
 
-                dialog.show(DialogTrash);
+                showDialogSequence(
+
+                    this,
+
+                    DialogTrash
+
+                );
 
             }
 
         },
 
+        // ==========================================
+        // GATO
+        // ==========================================
+
         {
+
             id: "cat",
+
+            visits: 0,
 
             x: 76.32,
             y: 81.46,
@@ -179,13 +290,24 @@ const Scene01 = {
 
                 visitHotspot("cat");
 
-                dialog.show(DialogCat);
+                showDialogSequence(
+
+                    this,
+
+                    DialogCat
+
+                );
 
             }
 
         },
 
+        // ==========================================
+        // PUERTA
+        // ==========================================
+
         {
+
             id: "door",
 
             x: 59.02,
@@ -211,7 +333,11 @@ const Scene01 = {
 
                 }else{
 
-                    dialog.show(DialogDoorLocked);
+                    dialog.show(
+
+                        DialogDoorLocked
+
+                    );
 
                 }
 
@@ -222,15 +348,17 @@ const Scene01 = {
     ]
 
 };
-
-
 // ======================================================
 // FUNCIONES AUXILIARES
 // ======================================================
 
 function visitHotspot(id){
 
-    if(!Scene01.visitedHotspots.includes(id)){
+    if(
+
+        !Scene01.visitedHotspots.includes(id)
+
+    ){
 
         Scene01.visitedHotspots.push(id);
 
@@ -238,12 +366,50 @@ function visitHotspot(id){
 
 }
 
+// ------------------------------------------------------
+
 function canEnterShop(){
 
     return Scene01.requiredHotspots.every(
 
-        id => Scene01.visitedHotspots.includes(id)
+        hotspot =>
+
+            Scene01.visitedHotspots.includes(
+
+                hotspot
+
+            )
 
     );
+
+}
+
+// ------------------------------------------------------
+
+function showDialogSequence(
+
+    hotspot,
+
+    dialogs
+
+){
+
+    dialog.show(
+
+        dialogs[
+
+            Math.min(
+
+                hotspot.visits,
+
+                dialogs.length - 1
+
+            )
+
+        ]
+
+    );
+
+    hotspot.visits++;
 
 }
