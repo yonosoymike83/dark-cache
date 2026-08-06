@@ -48,6 +48,7 @@ const Scene01 = {
 
             click(){
 
+                console.log(this);
                 dialog.show(DialogDoorLocked);
             
             }
