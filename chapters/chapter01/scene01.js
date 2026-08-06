@@ -386,29 +386,21 @@ function canEnterShop(){
 
 // ------------------------------------------------------
 
-function showDialogSequence(
+function showDialogSequence(hotspot, dialogs){
 
-    hotspot,
+    const index = Math.min(
 
-    dialogs
+        hotspot.visits,
 
-){
-
-    dialog.show(
-
-        dialogs[
-
-            Math.min(
-
-                hotspot.visits,
-
-                dialogs.length - 1
-
-            )
-
-        ]
+        dialogs.length - 1
 
     );
+
+    dialog.show([
+
+        dialogs[index]
+
+    ]);
 
     hotspot.visits++;
 
