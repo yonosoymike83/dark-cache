@@ -47,17 +47,31 @@ class SceneManager {
 
         }
 
-        // Reproducir ambiente
+        // -------------------------
+        // AMBIENTE
+        // -------------------------
+
         if (sceneData.ambient) {
 
-            await this.audio.playAmbient(sceneData.ambient);
+            await this.audio.playAmbient(
+                sceneData.ambient
+            );
+
+        } else {
+
+            this.audio.stopAmbient();
 
         }
 
-        // Reproducir música
+        // -------------------------
+        // MÚSICA
+        // -------------------------
+
         if (sceneData.music) {
 
-            await this.audio.playMusic(sceneData.music);
+            await this.audio.playMusic(
+                sceneData.music
+            );
 
         }
 
@@ -72,17 +86,27 @@ class SceneManager {
 
     updateHotspotLayer() {
 
-        const layer = document.getElementById("hotspotLayer");
-        
-        const imageRect = this.sceneImage.getBoundingClientRect();
-        const sceneRect = this.scene.getBoundingClientRect();
+        const layer =
+            document.getElementById("hotspotLayer");
 
-        layer.style.left = (imageRect.left - sceneRect.left) + "px";
-        layer.style.top = (imageRect.top - sceneRect.top) + "px";
+        const imageRect =
+            this.sceneImage.getBoundingClientRect();
 
-        layer.style.width = imageRect.width + "px";
-        layer.style.height = imageRect.height + "px";
-        
+        const sceneRect =
+            this.scene.getBoundingClientRect();
+
+        layer.style.left =
+            (imageRect.left - sceneRect.left) + "px";
+
+        layer.style.top =
+            (imageRect.top - sceneRect.top) + "px";
+
+        layer.style.width =
+            imageRect.width + "px";
+
+        layer.style.height =
+            imageRect.height + "px";
+
     }
 
 }
