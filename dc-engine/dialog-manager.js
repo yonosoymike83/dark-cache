@@ -12,6 +12,7 @@ class DialogManager {
 
         this.isTyping = false;
         this.typingTimer = null;
+        this.hideTimer = null;
         this.fullText = "";
 
         // Velocidad (ms por letra)
@@ -27,6 +28,8 @@ class DialogManager {
 
     show(dialog, onFinish = null) {
 
+        clearTimeout(this.hideTimer);
+        
         this.removeChoices();
         
         this.dialog = dialog;
@@ -134,6 +137,7 @@ class DialogManager {
 
     showChoice(question, yesText, noText, onYes, onNo){
     
+        clearTimeout(this.hideTimer);
         clearInterval(this.typingTimer);
     
         this.isTyping = false;
@@ -261,21 +265,23 @@ class DialogManager {
     }
     
     hide() {
-
+    
         clearInterval(this.typingTimer);
-
+    
         this.isTyping = false;
-
+    
         this.removeChoices();
-
+    
         this.box.style.opacity = "0";
-
-        setTimeout(() => {
-
+    
+        clearTimeout(this.hideTimer);
+    
+        this.hideTimer = setTimeout(() => {
+    
             this.box.style.display = "none";
-
+    
         }, 300);
-
+    
     }
 
 }
