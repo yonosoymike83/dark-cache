@@ -350,29 +350,53 @@ const Scene01 = {
             click(){
 
                 if(canEnterShop()){
-
+            
                     dialog.show(
-
+            
                         DialogEnterShop,
-
+            
                         function(){
-
-                            sceneManager.load(Scene02);
-
+            
+                            dialog.showChoice(
+            
+                                "¿Entramos?",
+            
+                                "SÍ",
+            
+                                "NO",
+            
+                                function(){
+            
+                                    enterShop();
+            
+                                },
+            
+                                function(){
+            
+                                    dialog.show(
+            
+                                        DialogStayOutside
+            
+                                    );
+            
+                                }
+            
+                            );
+            
                         }
-
+            
                     );
-
+            
                 }else{
-
+            
                     dialog.show(
-
+            
                         DialogDoorLocked
-
+            
                     );
-
+            
                 }
-
+            
             }
 
         }
@@ -435,5 +459,45 @@ function showDialogSequence(hotspot, dialogs){
     ]);
 
     hotspot.visits++;
+
+}
+
+// ======================================================
+// ENTRAR EN LA TIENDA
+// ======================================================
+
+function enterShop(){
+
+    // Oscurecer la escena
+
+    const scene =
+        document.getElementById("scene");
+
+    scene.style.transition =
+        "opacity 1s ease";
+
+    scene.style.opacity = "0";
+
+    // Sonido de la puerta
+
+    const doorSound =
+        new Audio("assets/sounds/door.ogg");
+
+    doorSound.play().catch(() => {});
+
+    // Cuando termina la puerta,
+    // cargamos la escena 02
+
+    doorSound.addEventListener(
+
+        "ended",
+
+        () => {
+
+            sceneManager.load(Scene02);
+
+        }
+
+    );
 
 }
