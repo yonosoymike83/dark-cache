@@ -254,12 +254,16 @@ const DialogEnterShop = [
 
     {
         speaker:"",
-        text:"Creo que ya he visto todo lo que necesitaba."
-    },
+        text:"Bueno, creo que ya es hora de conocer al Viejo Bug. ¿Entramos?"
+    }
+
+];
+
+const DialogStayOutside = [
 
     {
         speaker:"",
-        text:"Es hora de conocer al Viejo Bug."
+        text:"Me apetece seguir mojándome bajo la lluvia un rato más..."
     }
 
 ];
