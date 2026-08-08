@@ -300,7 +300,9 @@ body{
 
     box-sizing:border-box;
 
-    border:2px solid transparent;
+    border:none;
+
+    outline: none;
 
     background:transparent;
 
@@ -316,7 +318,9 @@ body{
 
     .hotspot:hover{
 
-        border-color:rgba(255,255,255,.35);
+        border-color:none;
+
+        outline: none;
 
     }
 
