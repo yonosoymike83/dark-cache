@@ -130,6 +130,87 @@ class DialogManager {
 
     }
 
+    showChoice(question, yesText, noText, onYes, onNo){
+    
+        clearInterval(this.typingTimer);
+    
+        this.isTyping = false;
+    
+        this.box.style.display = "block";
+    
+        requestAnimationFrame(() => {
+    
+            this.box.style.opacity = "1";
+    
+        });
+    
+        this.speaker.style.display = "none";
+    
+        this.text.textContent = question;
+    
+        // Crear botones
+        const choices = document.createElement("div");
+    
+        choices.style.marginTop = "20px";
+        choices.style.display = "flex";
+        choices.style.justifyContent = "center";
+        choices.style.gap = "20px";
+    
+        const yesButton = document.createElement("button");
+    
+        yesButton.textContent = yesText;
+    
+        const noButton = document.createElement("button");
+    
+        noButton.textContent = noText;
+    
+        [yesButton, noButton].forEach(button => {
+    
+            button.style.padding = "10px 25px";
+            button.style.fontWeight = "bold";
+            button.style.cursor = "pointer";
+    
+        });
+    
+        yesButton.addEventListener("click", (e) => {
+    
+            e.stopPropagation();
+    
+            choices.remove();
+    
+            this.hide();
+    
+            if(onYes){
+    
+                onYes();
+    
+            }
+    
+        });
+    
+        noButton.addEventListener("click", (e) => {
+    
+            e.stopPropagation();
+    
+            choices.remove();
+    
+            this.hide();
+    
+            if(onNo){
+    
+                onNo();
+    
+            }
+    
+        });
+    
+        choices.appendChild(yesButton);
+        choices.appendChild(noButton);
+    
+        this.box.appendChild(choices);
+    
+    }
+    
     hide() {
 
         clearInterval(this.typingTimer);
