@@ -27,6 +27,8 @@ class DialogManager {
 
     show(dialog, onFinish = null) {
 
+        this.removeChoices();
+        
         this.dialog = dialog;
         this.index = 0;
         this.onFinish = onFinish;
@@ -136,6 +138,9 @@ class DialogManager {
     
         this.isTyping = false;
     
+        // Eliminar cualquier elección anterior
+        this.removeChoices();
+    
         this.box.style.display = "block";
     
         requestAnimationFrame(() => {
@@ -148,35 +153,65 @@ class DialogManager {
     
         this.text.textContent = question;
     
-        // Crear botones
+        // Contenedor de las opciones
         const choices = document.createElement("div");
     
-        choices.style.marginTop = "20px";
-        choices.style.display = "flex";
-        choices.style.justifyContent = "center";
-        choices.style.gap = "20px";
+        choices.id = "dialogChoices";
     
-        const yesButton = document.createElement("button");
+        choices.style.marginTop = "18px";
+        choices.style.textAlign = "center";
     
-        yesButton.textContent = yesText;
+        // Opción SÍ
+        const yes = document.createElement("span");
     
-        const noButton = document.createElement("button");
+        yes.textContent = yesText;
     
-        noButton.textContent = noText;
+        // Opción NO
+        const no = document.createElement("span");
     
-        [yesButton, noButton].forEach(button => {
+        no.textContent = noText;
     
-            button.style.padding = "10px 25px";
-            button.style.fontWeight = "bold";
-            button.style.cursor = "pointer";
+        // Estilo común
+        [yes, no].forEach(option => {
+    
+            option.style.margin = "0 18px";
+            option.style.cursor = "pointer";
+            option.style.fontFamily = "inherit";
+            option.style.fontSize = "inherit";
     
         });
     
-        yesButton.addEventListener("click", (e) => {
+        // Pequeño efecto al pasar el ratón
+        yes.addEventListener("mouseenter", () => {
     
-            e.stopPropagation();
+            yes.style.textDecoration = "underline";
     
-            choices.remove();
+        });
+    
+        yes.addEventListener("mouseleave", () => {
+    
+            yes.style.textDecoration = "none";
+    
+        });
+    
+        no.addEventListener("mouseenter", () => {
+    
+            no.style.textDecoration = "underline";
+    
+        });
+    
+        no.addEventListener("mouseleave", () => {
+    
+            no.style.textDecoration = "none";
+    
+        });
+    
+        // SÍ
+        yes.addEventListener("click", (event) => {
+    
+            event.stopPropagation();
+    
+            this.removeChoices();
     
             this.hide();
     
@@ -188,11 +223,12 @@ class DialogManager {
     
         });
     
-        noButton.addEventListener("click", (e) => {
+        // NO
+        no.addEventListener("click", (event) => {
     
-            e.stopPropagation();
+            event.stopPropagation();
     
-            choices.remove();
+            this.removeChoices();
     
             this.hide();
     
@@ -204,10 +240,23 @@ class DialogManager {
     
         });
     
-        choices.appendChild(yesButton);
-        choices.appendChild(noButton);
+        choices.appendChild(yes);
+        choices.appendChild(no);
     
         this.box.appendChild(choices);
+    
+    }
+
+    removeChoices(){
+
+        const choices =
+            document.getElementById("dialogChoices");
+    
+        if(choices){
+    
+            choices.remove();
+    
+        }
     
     }
     
@@ -216,6 +265,8 @@ class DialogManager {
         clearInterval(this.typingTimer);
 
         this.isTyping = false;
+
+        this.removeChoices();
 
         this.box.style.opacity = "0";
 
