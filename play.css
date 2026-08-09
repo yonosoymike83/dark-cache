@@ -314,20 +314,6 @@ body{
 
 }
 
-@media (hover:hover){
-
-    .hotspot:hover{
-
-        border-color:none;
-
-        outline: none;
-
-        background:transparent;
-
-    }
-
-}
-
 /* ===========================
    DIÁLOGOS
 =========================== */
