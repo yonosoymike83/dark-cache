@@ -342,20 +342,24 @@ const Scene01 = {
 
             id: "door",
 
+            visits: 0,
+
             x: 59.02,
             y: 45.39,
             width: 3.49,
             height: 4.75,
 
             click(){
-
+            
                 if(canEnterShop()){
             
-                    dialog.show(
+                    showDialogSequence(
+            
+                        this,
             
                         DialogEnterShop,
             
-                        function(){
+                        () => {
             
                             dialog.showChoice(
             
@@ -365,18 +369,16 @@ const Scene01 = {
             
                                 "NO",
             
-                                function(){
+                                () => {
             
                                     enterShop();
             
                                 },
             
-                                function(){
+                                () => {
             
                                     dialog.show(
-            
                                         DialogStayOutside
-            
                                     );
             
                                 }
@@ -404,6 +406,7 @@ const Scene01 = {
     ]
 
 };
+
 // ======================================================
 // FUNCIONES AUXILIARES
 // ======================================================
@@ -442,8 +445,12 @@ function canEnterShop(){
 
 // ------------------------------------------------------
 
-function showDialogSequence(hotspot, dialogs){
-  
+function showDialogSequence(
+    hotspot,
+    dialogs,
+    onFinish = null
+){
+
     const index = Math.min(
 
         hotspot.visits,
@@ -452,11 +459,24 @@ function showDialogSequence(hotspot, dialogs){
 
     );
 
-    dialog.show([
+    const isLast =
+        index === dialogs.length - 1;
 
-        dialogs[index]
+    dialog.show(
 
-    ]);
+        [dialogs[index]],
+
+        function(){
+
+            if(isLast && onFinish){
+
+                onFinish();
+
+            }
+
+        }
+
+    );
 
     hotspot.visits++;
 
@@ -471,33 +491,23 @@ function enterShop(){
     const scene =
         document.getElementById("scene");
 
+    // Oscurecer la escena actual
     scene.style.transition =
         "opacity 1s ease";
 
     scene.style.opacity = "0";
 
+    // Esperar a que termine el fundido
     setTimeout(() => {
 
-        sceneManager.load(Scene02, false).then(() => {
+        // Sonido de la puerta
+        const doorSound =
+            new Audio("assets/sounds/door.ogg");
 
-            setTimeout(() => {
+        doorSound.play().catch(() => {});
 
-                const doorSound =
-                    new Audio("assets/sounds/door.ogg");
-
-                doorSound.play().catch(() => {});
-
-                setTimeout(() => {
-
-                    sceneManager.audio.playMusic(
-                        "assets/music/escena02.mp3"
-                    );
-
-                }, 500);
-
-            }, 1000);
-
-        });
+        // Cargar escena 02
+        sceneManager.load(Scene02);
 
     }, 1000);
 
