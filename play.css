@@ -312,6 +312,8 @@ body{
 
     transition:border-color .25s;
 
+    -webkit-tap-highlight-color: transparent;
+
 }
 
 /* ===========================
