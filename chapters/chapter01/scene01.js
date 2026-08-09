@@ -30,6 +30,8 @@ const Scene01 = {
 
     visitedHotspots: [],
 
+    doorVisits: 0,
+
     hotspots: [
 
         // ==========================================
