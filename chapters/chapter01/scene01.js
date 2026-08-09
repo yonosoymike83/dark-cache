@@ -468,8 +468,6 @@ function showDialogSequence(hotspot, dialogs){
 
 function enterShop(){
 
-    // Oscurecer la escena
-
     const scene =
         document.getElementById("scene");
 
@@ -478,26 +476,29 @@ function enterShop(){
 
     scene.style.opacity = "0";
 
-    // Sonido de la puerta
+    setTimeout(() => {
 
-    const doorSound =
-        new Audio("assets/sounds/door.ogg");
+        sceneManager.load(Scene02, false).then(() => {
 
-    doorSound.play().catch(() => {});
+            setTimeout(() => {
 
-    // Cuando termina la puerta,
-    // cargamos la escena 02
+                const doorSound =
+                    new Audio("assets/sounds/door.ogg");
 
-    doorSound.addEventListener(
+                doorSound.play().catch(() => {});
 
-        "ended",
+                setTimeout(() => {
 
-        () => {
+                    sceneManager.audio.playMusic(
+                        "assets/music/escena02.mp3"
+                    );
 
-            sceneManager.load(Scene02);
+                }, 500);
 
-        }
+            }, 1000);
 
-    );
+        });
+
+    }, 1000);
 
 }
