@@ -353,39 +353,54 @@ const Scene01 = {
             
                 if(canEnterShop()){
             
+                    const index = Math.min(
+            
+                        this.visits,
+            
+                        DialogEnterShop.length - 1
+            
+                    );
+            
+                    // Si ya estamos en la última frase,
+                    // el siguiente clic en la puerta muestra la elección
+            
+                    if(index === DialogEnterShop.length - 1){
+            
+                        dialog.showChoice(
+            
+                            "¿Entramos?",
+            
+                            "SÍ",
+            
+                            "NO",
+            
+                            () => {
+            
+                                enterShop();
+            
+                            },
+            
+                            () => {
+            
+                                dialog.show(
+                                    DialogStayOutside
+                                );
+            
+                            }
+            
+                        );
+            
+                        return;
+            
+                    }
+            
+                    // Mostrar la siguiente frase
+            
                     showDialogSequence(
             
                         this,
             
-                        DialogEnterShop,
-            
-                        () => {
-            
-                            dialog.showChoice(
-            
-                                "¿Entramos?",
-            
-                                "SÍ",
-            
-                                "NO",
-            
-                                () => {
-            
-                                    enterShop();
-            
-                                },
-            
-                                () => {
-            
-                                    dialog.show(
-                                        DialogStayOutside
-                                    );
-            
-                                }
-            
-                            );
-            
-                        }
+                        DialogEnterShop
             
                     );
             
