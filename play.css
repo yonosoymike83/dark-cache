@@ -577,3 +577,16 @@ body{
     border-color:white;
 
 }
+
+/* ===========================
+QUITAR RESALTADO TÁCTIL
+=========================== */
+
+button,
+#dialogBox,
+#dialogChoices span {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    box-shadow: none;
+    user-select: none;
+}
