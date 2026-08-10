@@ -254,7 +254,7 @@ const DialogEnterShop = [
 
     {
         speaker:"",
-        text:"Bueno, creo que ya es hora de conocer al Viejo Bug. ¿Entramos?"
+        text:"Bueno, creo que ya es hora de conocer al Viejo Bug."
     }
 
 ];
