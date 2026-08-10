@@ -353,18 +353,21 @@ const Scene01 = {
             
                 if(canEnterShop()){
             
-                    const index = Math.min(
+                    // Si todavía quedan frases por mostrar
+                    if(this.visits < DialogEnterShop.length){
             
-                        this.visits,
+                        showDialogSequence(
             
-                        DialogEnterShop.length - 1
+                            this,
             
-                    );
+                            DialogEnterShop
             
-                    // Si ya estamos en la última frase,
-                    // el siguiente clic en la puerta muestra la elección
+                        );
             
-                    if(index === DialogEnterShop.length - 1){
+                    }else{
+            
+                        // Ya se han mostrado todas las frases
+                        // El siguiente clic en la puerta muestra la elección
             
                         dialog.showChoice(
             
@@ -390,19 +393,7 @@ const Scene01 = {
             
                         );
             
-                        return;
-            
                     }
-            
-                    // Mostrar la siguiente frase
-            
-                    showDialogSequence(
-            
-                        this,
-            
-                        DialogEnterShop
-            
-                    );
             
                 }else{
             
