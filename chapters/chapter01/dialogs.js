@@ -98,7 +98,7 @@ const DialogCartel03 = [
 
     {
         speaker:"",
-        text:"El típico cartel a pie de calle con el que uno se tropieza cunado no mira por donde anda."
+        text:"El típico cartel a pie de calle con el que uno siempre se tropieza."
     },
 
     {
@@ -255,6 +255,11 @@ const DialogEnterShop = [
     {
         speaker:"",
         text:"Bueno, creo que ya es hora de conocer al Viejo Bug."
+    },
+
+    {
+        speaker:"",
+        text:"... o al menos ponerse a cubierto de la lluvia."
     }
 
 ];
