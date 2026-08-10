@@ -355,41 +355,56 @@ const Scene01 = {
             
                 if(canEnterShop()){
             
-                    showDialogSequence(
+                    const index = Math.min(
             
-                        this,
+                        Scene01.doorVisits,
             
-                        DialogEnterShop,
+                        DialogEnterShop.length - 1
             
-                        () => {
+                    );
             
-                            dialog.showChoice(
+                    const isLast =
+                        index === DialogEnterShop.length - 1;
             
-                                "¿Entramos?",
+                    dialog.show(
             
-                                "SÍ",
+                        [DialogEnterShop[index]],
             
-                                "NO",
+                        function(){
             
-                                () => {
+                            if(isLast){
             
-                                    enterShop();
+                                dialog.showChoice(
             
-                                },
+                                    "¿Entramos?",
             
-                                () => {
+                                    "SÍ",
             
-                                    dialog.show(
-                                        DialogStayOutside
-                                    );
+                                    "NO",
             
-                                }
+                                    () => {
             
-                            );
+                                        enterShop();
+            
+                                    },
+            
+                                    () => {
+            
+                                        dialog.show(
+                                            DialogStayOutside
+                                        );
+            
+                                    }
+            
+                                );
+            
+                            }
             
                         }
             
                     );
+            
+                    Scene01.doorVisits++;
             
                 }else{
             
