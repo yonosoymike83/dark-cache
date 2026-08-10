@@ -30,8 +30,6 @@ const Scene01 = {
 
     visitedHotspots: [],
 
-    doorVisits: 0,
-
     hotspots: [
 
         // ==========================================
@@ -355,56 +353,41 @@ const Scene01 = {
             
                 if(canEnterShop()){
             
-                    const index = Math.min(
+                    showDialogSequence(
             
-                        Scene01.doorVisits,
+                        this,
             
-                        DialogEnterShop.length - 1
+                        DialogEnterShop,
             
-                    );
+                        () => {
             
-                    const isLast =
-                        index === DialogEnterShop.length - 1;
+                            dialog.showChoice(
             
-                    dialog.show(
+                                "¿Entramos?",
             
-                        [DialogEnterShop[index]],
+                                "SÍ",
             
-                        function(){
+                                "NO",
             
-                            if(isLast){
+                                () => {
             
-                                dialog.showChoice(
+                                    enterShop();
             
-                                    "¿Entramos?",
+                                },
             
-                                    "SÍ",
+                                () => {
             
-                                    "NO",
+                                    dialog.show(
+                                        DialogStayOutside
+                                    );
             
-                                    () => {
+                                }
             
-                                        enterShop();
-            
-                                    },
-            
-                                    () => {
-            
-                                        dialog.show(
-                                            DialogStayOutside
-                                        );
-            
-                                    }
-            
-                                );
-            
-                            }
+                            );
             
                         }
             
                     );
-            
-                    Scene01.doorVisits++;
             
                 }else{
             
