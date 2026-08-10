@@ -391,7 +391,9 @@ const Scene01 = {
             
                 }else{
             
-                    dialog.show(
+                    showDialogSequence(
+            
+                        this,
             
                         DialogDoorLocked
             
