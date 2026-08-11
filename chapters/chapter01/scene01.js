@@ -337,99 +337,113 @@ const Scene01 = {
         // ==========================================
         // PUERTA
         // ==========================================
-
-        {
-
-            id: "door",
-
-            visits: 0,
-
-            // Contador independiente para los
-            // diálogos que aparecen al poder entrar
-            enterVisits: 0,
-
-            x: 59.02,
-            y: 45.39,
-            width: 3.49,
-            height: 4.75,
-
-            click(){
-
-                // ==========================================
-                // PUERTA DESBLOQUEADA
-                // ==========================================
-
-                if(canEnterShop()){
-
-                    // Todavía quedan diálogos de entrada
-                    if(this.enterVisits < DialogEnterShop.length){
-
-                        showDialogSequence(
-
-                            this,
-
-                            DialogEnterShop,
-
-                            null,
-
-                            "enterVisits"
-
-                        );
-
-                    }else{
-
-                        // Ya se han mostrado todos los diálogos
-                        // Ahora aparece la elección
-
+        
+            {
+        
+                id: "door",
+        
+                visits: 0,
+        
+                // Contador independiente para los
+                // diálogos que aparecen al poder entrar
+                enterVisits: 0,
+        
+                x: 59.02,
+                y: 45.39,
+                width: 3.49,
+                height: 4.75,
+        
+                click(){
+        
+                    // ==========================================
+                    // PUERTA DESBLOQUEADA
+                    // ==========================================
+        
+                    if(canEnterShop()){
+        
+                        // Primer diálogo de entrada
+                        if(this.enterVisits === 0){
+        
+                            dialog.show(
+        
+                                [DialogEnterShop[0]]
+        
+                            );
+        
+                            this.enterVisits = 1;
+        
+                            return;
+        
+                        }
+        
+                        // Segundo diálogo de entrada
+                        if(this.enterVisits === 1){
+        
+                            dialog.show(
+        
+                                [DialogEnterShop[1]]
+        
+                            );
+        
+                            this.enterVisits = 2;
+        
+                            return;
+        
+                        }
+        
+                        // ==========================================
+                        // YA SE HAN MOSTRADO LOS DOS DIÁLOGOS
+                        // ==========================================
+        
                         dialog.showChoice(
-
+        
                             "¿Entramos?",
-
+        
                             "SÍ",
-
+        
                             "NO",
-
+        
                             () => {
-
+        
                                 enterShop();
-
+        
                             },
-
+        
                             () => {
-
+        
                                 dialog.show(
+        
                                     DialogStayOutside
+        
                                 );
-
+        
                             }
-
+        
                         );
-
+        
                     }
-
+        
+                    // ==========================================
+                    // PUERTA BLOQUEADA
+                    // ==========================================
+        
+                    else{
+        
+                        showDialogSequence(
+        
+                            this,
+        
+                            DialogDoorLocked
+        
+                        );
+        
+                    }
+        
                 }
-
-                // ==========================================
-                // PUERTA BLOQUEADA
-                // ==========================================
-
-                else{
-
-                    showDialogSequence(
-
-                        this,
-
-                        DialogDoorLocked
-
-                    );
-
-                }
-
+        
             }
-
-        }
-
-    ]
+        
+        ]
 
 };
 
