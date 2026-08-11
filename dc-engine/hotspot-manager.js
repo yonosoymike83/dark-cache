@@ -65,15 +65,26 @@ class HotspotManager {
         hotspot.element.style.cursor=hotspot.cursor;
 
         hotspot.element.addEventListener(
-
+        
             "click",
-
-            ()=>{
-
+        
+            (event)=>{
+        
+                event.stopPropagation();
+        
+                console.log(
+                    "CLICK HOTSPOT:",
+                    hotspot.id
+                );
+        
+                alert(
+                    "CLICK HOTSPOT: " + hotspot.id
+                );
+        
                 hotspot.click.call(hotspot);
-
+        
             }
-
+        
         );
 
         this.layer.appendChild(
