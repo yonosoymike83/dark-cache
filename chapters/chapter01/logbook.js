@@ -2,45 +2,131 @@
 // LOGBOOK
 // ======================================================
 
-async function openLogbook(){
+
+// ======================================================
+// ESTADO DEL LOGBOOK
+// ======================================================
+
+let logbookDialogActive = false;
+
+let logbookDialogIndex = 0;
+
+let logbookChoiceActive = false;
+
+
+// ======================================================
+// ABRIR / CONTINUAR LOGBOOK
+// ======================================================
+
+function openLogbook(){
 
     // --------------------------------------------------
-    // Diálogo introductorio
+    // Si estamos en la elección SÍ / NO
     // --------------------------------------------------
 
-    dialog.show(
+    if(logbookChoiceActive){
 
-        DialogLogbookIntro,
+        return;
 
-        function(){
+    }
 
-            // Después del diálogo
-            // preguntamos si quiere firmar
 
-            dialog.showChoice(
+    // ==================================================
+    // DIÁLOGO YA ABIERTO
+    // ==================================================
 
-                "¿Quieres dejar tu nombre en el libro?",
+    if(logbookDialogActive){
 
-                "SÍ",
+        // Detener la escritura actual
 
-                "NO",
+        clearInterval(
+            dialog.typingTimer
+        );
 
-                () => {
+        dialog.isTyping = false;
 
-                    showLogbookForm();
 
-                },
+        // Pasar a la siguiente frase
 
-                () => {
+        logbookDialogIndex++;
 
-                    // No hacer nada.
-                    // El jugador permanece en la escena.
 
-                }
+        // --------------------------------------------------
+        // Todavía quedan frases
+        // --------------------------------------------------
+
+        if(
+            logbookDialogIndex <
+            DialogLogbookIntro.length
+        ){
+
+            dialog.show(
+
+                [
+                    DialogLogbookIntro[
+                        logbookDialogIndex
+                    ]
+                ]
 
             );
 
+            return;
+
         }
+
+
+        // --------------------------------------------------
+        // Ya no quedan frases
+        // --------------------------------------------------
+
+        logbookDialogActive = false;
+
+        logbookChoiceActive = true;
+
+
+        dialog.showChoice(
+
+            "¿Quieres dejar tu nombre en el libro?",
+
+            "SÍ",
+
+            "NO",
+
+            () => {
+
+                logbookChoiceActive = false;
+
+                showLogbookForm();
+
+            },
+
+            () => {
+
+                logbookChoiceActive = false;
+
+            }
+
+        );
+
+        return;
+
+    }
+
+
+    // ==================================================
+    // PRIMER CLIC EN EL LIBRO
+    // ==================================================
+
+    logbookDialogActive = true;
+
+    logbookDialogIndex = 0;
+
+
+    dialog.show(
+
+        [
+            DialogLogbookIntro[0]
+        ]
 
     );
 
@@ -60,22 +146,38 @@ function showLogbookForm(){
     const overlay =
         document.createElement("div");
 
-    overlay.id = "logbookOverlay";
+    overlay.id =
+        "logbookOverlay";
 
-    overlay.style.position = "fixed";
-    overlay.style.left = "0";
-    overlay.style.top = "0";
-    overlay.style.width = "100%";
-    overlay.style.height = "100%";
+    overlay.style.position =
+        "fixed";
+
+    overlay.style.left =
+        "0";
+
+    overlay.style.top =
+        "0";
+
+    overlay.style.width =
+        "100%";
+
+    overlay.style.height =
+        "100%";
 
     overlay.style.background =
         "rgba(0,0,0,0.85)";
 
-    overlay.style.zIndex = "10000";
+    overlay.style.zIndex =
+        "10000";
 
-    overlay.style.display = "flex";
-    overlay.style.alignItems = "center";
-    overlay.style.justifyContent = "center";
+    overlay.style.display =
+        "flex";
+
+    overlay.style.alignItems =
+        "center";
+
+    overlay.style.justifyContent =
+        "center";
 
 
     // --------------------------------------------------
@@ -85,14 +187,20 @@ function showLogbookForm(){
     const book =
         document.createElement("div");
 
-    book.style.width = "min(90vw, 650px)";
-    book.style.maxHeight = "90vh";
+    book.style.width =
+        "min(90vw, 650px)";
 
-    book.style.overflowY = "auto";
+    book.style.maxHeight =
+        "90vh";
 
-    book.style.padding = "30px";
+    book.style.overflowY =
+        "auto";
 
-    book.style.boxSizing = "border-box";
+    book.style.padding =
+        "30px";
+
+    book.style.boxSizing =
+        "border-box";
 
     book.style.background =
         "#d8c39b";
@@ -123,9 +231,12 @@ function showLogbookForm(){
     title.style.textAlign =
         "center";
 
-    title.style.marginTop = "0";
+    title.style.marginTop =
+        "0";
 
-    book.appendChild(title);
+    book.appendChild(
+        title
+    );
 
 
     // --------------------------------------------------
@@ -144,20 +255,25 @@ function showLogbookForm(){
     usernameLabel.style.marginTop =
         "20px";
 
-    book.appendChild(usernameLabel);
+    book.appendChild(
+        usernameLabel
+    );
 
 
     const usernameInput =
         document.createElement("input");
 
-    usernameInput.type = "text";
+    usernameInput.type =
+        "text";
 
-    usernameInput.maxLength = 30;
+    usernameInput.maxLength =
+        30;
 
     usernameInput.placeholder =
         "Tu nombre de Geocaching";
 
-    usernameInput.style.width = "100%";
+    usernameInput.style.width =
+        "100%";
 
     usernameInput.style.boxSizing =
         "border-box";
@@ -168,7 +284,9 @@ function showLogbookForm(){
     usernameInput.style.marginTop =
         "6px";
 
-    book.appendChild(usernameInput);
+    book.appendChild(
+        usernameInput
+    );
 
 
     // --------------------------------------------------
@@ -187,20 +305,25 @@ function showLogbookForm(){
     messageLabel.style.marginTop =
         "20px";
 
-    book.appendChild(messageLabel);
+    book.appendChild(
+        messageLabel
+    );
 
 
     const messageInput =
         document.createElement("textarea");
 
-    messageInput.maxLength = 150;
+    messageInput.maxLength =
+        150;
 
-    messageInput.rows = 5;
+    messageInput.rows =
+        5;
 
     messageInput.placeholder =
         "Deja unas palabras para los próximos visitantes...";
 
-    messageInput.style.width = "100%";
+    messageInput.style.width =
+        "100%";
 
     messageInput.style.boxSizing =
         "border-box";
@@ -214,7 +337,9 @@ function showLogbookForm(){
     messageInput.style.resize =
         "vertical";
 
-    book.appendChild(messageInput);
+    book.appendChild(
+        messageInput
+    );
 
 
     // --------------------------------------------------
@@ -271,14 +396,25 @@ function showLogbookForm(){
         "pointer";
 
 
-    buttons.appendChild(signButton);
-    buttons.appendChild(cancelButton);
+    buttons.appendChild(
+        signButton
+    );
 
-    book.appendChild(buttons);
+    buttons.appendChild(
+        cancelButton
+    );
 
-    overlay.appendChild(book);
+    book.appendChild(
+        buttons
+    );
 
-    document.body.appendChild(overlay);
+    overlay.appendChild(
+        book
+    );
+
+    document.body.appendChild(
+        overlay
+    );
 
 
     // --------------------------------------------------
@@ -322,7 +458,9 @@ function showLogbookForm(){
                 messageInput.value.trim();
 
 
+            // ------------------------------------------
             // Validación
+            // ------------------------------------------
 
             if(!username){
 
@@ -350,7 +488,8 @@ function showLogbookForm(){
             }
 
 
-            signButton.disabled = true;
+            signButton.disabled =
+                true;
 
             signButton.textContent =
                 "GUARDANDO...";
@@ -359,15 +498,18 @@ function showLogbookForm(){
             try{
 
                 const { error } =
+
                     await supabaseClient
 
                         .from("logbook")
 
                         .insert({
 
-                            username: username,
+                            username:
+                                username,
 
-                            message: message
+                            message:
+                                message
 
                         });
 
@@ -379,12 +521,16 @@ function showLogbookForm(){
                 }
 
 
+                // --------------------------------------
                 // Cerrar formulario
+                // --------------------------------------
 
                 overlay.remove();
 
 
-                // Mostrar el libro actualizado
+                // --------------------------------------
+                // Mostrar libro actualizado
+                // --------------------------------------
 
                 await showLogbookEntries();
 
@@ -392,13 +538,19 @@ function showLogbookForm(){
             }catch(error){
 
                 console.error(
+
                     "Error al guardar logbook:",
+
                     error
+
                 );
 
                 alert(
+
                     "No se ha podido guardar la firma."
+
                 );
+
 
                 signButton.disabled =
                     false;
@@ -416,7 +568,7 @@ function showLogbookForm(){
 
 
 // ======================================================
-// MOSTRAR ENTRADAS
+// MOSTRAR ENTRADAS DEL LOGBOOK
 // ======================================================
 
 async function showLogbookEntries(){
@@ -424,6 +576,7 @@ async function showLogbookEntries(){
     try{
 
         const { data, error } =
+
             await supabaseClient
 
                 .from("logbook")
@@ -433,10 +586,13 @@ async function showLogbookEntries(){
                 )
 
                 .order(
+
                     "signed_at",
+
                     {
                         ascending: false
                     }
+
                 );
 
 
@@ -542,14 +698,19 @@ async function showLogbookEntries(){
         title.style.marginTop =
             "0";
 
-        book.appendChild(title);
+        book.appendChild(
+            title
+        );
 
 
         // --------------------------------------------------
         // Entradas
         // --------------------------------------------------
 
-        if(!data || data.length === 0){
+        if(
+            !data ||
+            data.length === 0
+        ){
 
             const empty =
                 document.createElement("p");
@@ -560,70 +721,90 @@ async function showLogbookEntries(){
             empty.style.textAlign =
                 "center";
 
-            book.appendChild(empty);
+            book.appendChild(
+                empty
+            );
 
         }else{
 
-            data.forEach(entry => {
+            data.forEach(
 
-                const entryDiv =
-                    document.createElement("div");
+                entry => {
 
-                entryDiv.style.borderBottom =
-                    "1px solid rgba(60,40,20,0.35)";
+                    const entryDiv =
+                        document.createElement("div");
 
-                entryDiv.style.padding =
-                    "12px 0";
+                    entryDiv.style.borderBottom =
+                        "1px solid rgba(60,40,20,0.35)";
 
-
-                const username =
-                    document.createElement("strong");
-
-                username.textContent =
-                    entry.username;
+                    entryDiv.style.padding =
+                        "12px 0";
 
 
-                const date =
-                    document.createElement("span");
+                    // ----------------------------------
+                    // Usuario
+                    // ----------------------------------
 
-                const dateObject =
-                    new Date(entry.signed_at);
+                    const username =
+                        document.createElement("strong");
 
-                date.textContent =
-                    " — " +
-                    dateObject.toLocaleDateString(
-                        "es-ES"
+                    username.textContent =
+                        entry.username;
+
+
+                    // ----------------------------------
+                    // Fecha
+                    // ----------------------------------
+
+                    const date =
+                        document.createElement("span");
+
+                    const dateObject =
+                        new Date(
+                            entry.signed_at
+                        );
+
+                    date.textContent =
+                        " — " +
+                        dateObject.toLocaleDateString(
+                            "es-ES"
+                        );
+
+
+                    // ----------------------------------
+                    // Mensaje
+                    // ----------------------------------
+
+                    const message =
+                        document.createElement("p");
+
+                    message.textContent =
+                        entry.message || "";
+
+                    message.style.margin =
+                        "6px 0 0 0";
+
+
+                    entryDiv.appendChild(
+                        username
+                    );
+
+                    entryDiv.appendChild(
+                        date
+                    );
+
+                    entryDiv.appendChild(
+                        message
                     );
 
 
-                const message =
-                    document.createElement("p");
+                    book.appendChild(
+                        entryDiv
+                    );
 
-                message.textContent =
-                    entry.message || "";
+                }
 
-                message.style.margin =
-                    "6px 0 0 0";
-
-
-                entryDiv.appendChild(
-                    username
-                );
-
-                entryDiv.appendChild(
-                    date
-                );
-
-                entryDiv.appendChild(
-                    message
-                );
-
-
-                book.appendChild(
-                    entryDiv
-                );
-
-            });
+            );
 
         }
 
@@ -680,12 +861,17 @@ async function showLogbookEntries(){
     }catch(error){
 
         console.error(
+
             "Error leyendo logbook:",
+
             error
+
         );
 
         alert(
+
             "No se ha podido cargar el libro."
+
         );
 
     }
