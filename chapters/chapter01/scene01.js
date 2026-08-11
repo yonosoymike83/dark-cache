@@ -50,12 +50,12 @@ const Scene01 = {
             click(){
 
                 showDialogSequence(
-            
+
                     this,
-            
+
                     DialogCampanario
 
-                 );
+                );
 
             }
 
@@ -151,22 +151,22 @@ const Scene01 = {
             }
 
         },
-        
+
         // ==========================================
         // CARTEL CALLE
         // ==========================================
-        
+
         {
-        
+
             id: "cartel03",
 
             visits: 0,
-        
+
             x: 68.30,
             y: 69.34,
             width: 4.96,
             height: 13.39,
-        
+
             click(){
 
                 visitHotspot("cartel03");
@@ -180,9 +180,9 @@ const Scene01 = {
                 );
 
             }
-        
+
         },
-        
+
         // ==========================================
         // PLACA CALLE
         // ==========================================
@@ -344,69 +344,87 @@ const Scene01 = {
 
             visits: 0,
 
+            // Contador independiente para los
+            // diálogos que aparecen al poder entrar
+            enterVisits: 0,
+
             x: 59.02,
             y: 45.39,
             width: 3.49,
             height: 4.75,
 
             click(){
-            
+
+                // ==========================================
+                // PUERTA DESBLOQUEADA
+                // ==========================================
+
                 if(canEnterShop()){
-            
-                    // Si todavía quedan frases por mostrar
-                    if(this.visits < DialogEnterShop.length){
-            
+
+                    // Todavía quedan diálogos de entrada
+                    if(this.enterVisits < DialogEnterShop.length){
+
                         showDialogSequence(
-            
+
                             this,
-            
-                            DialogEnterShop
-            
+
+                            DialogEnterShop,
+
+                            null,
+
+                            "enterVisits"
+
                         );
-            
+
                     }else{
-            
-                        // Ya se han mostrado todas las frases
-                        // El siguiente clic en la puerta muestra la elección
-            
+
+                        // Ya se han mostrado todos los diálogos
+                        // Ahora aparece la elección
+
                         dialog.showChoice(
-            
+
                             "¿Entramos?",
-            
+
                             "SÍ",
-            
+
                             "NO",
-            
+
                             () => {
-            
+
                                 enterShop();
-            
+
                             },
-            
+
                             () => {
-            
+
                                 dialog.show(
                                     DialogStayOutside
                                 );
-            
+
                             }
-            
+
                         );
-            
+
                     }
-            
-                }else{
-            
-                    showDialogSequence(
-            
-                        this,
-            
-                        DialogDoorLocked
-            
-                    );
-            
+
                 }
-            
+
+                // ==========================================
+                // PUERTA BLOQUEADA
+                // ==========================================
+
+                else{
+
+                    showDialogSequence(
+
+                        this,
+
+                        DialogDoorLocked
+
+                    );
+
+                }
+
             }
 
         }
@@ -414,6 +432,7 @@ const Scene01 = {
     ]
 
 };
+
 
 // ======================================================
 // FUNCIONES AUXILIARES
@@ -433,6 +452,7 @@ function visitHotspot(id){
 
 }
 
+
 // ------------------------------------------------------
 
 function canEnterShop(){
@@ -451,17 +471,21 @@ function canEnterShop(){
 
 }
 
+
 // ------------------------------------------------------
 
 function showDialogSequence(
+
     hotspot,
     dialogs,
-    onFinish = null
+    onFinish = null,
+    counter = "visits"
+
 ){
 
     const index = Math.min(
 
-        hotspot.visits,
+        hotspot[counter],
 
         dialogs.length - 1
 
@@ -486,9 +510,10 @@ function showDialogSequence(
 
     );
 
-    hotspot.visits++;
+    hotspot[counter]++;
 
 }
+
 
 // ======================================================
 // ENTRAR EN LA TIENDA
@@ -500,21 +525,27 @@ function enterShop(){
         document.getElementById("scene");
 
     // Oscurecer la escena actual
+
     scene.style.transition =
         "opacity 1s ease";
 
     scene.style.opacity = "0";
 
+
     // Esperar a que termine el fundido
+
     setTimeout(() => {
 
         // Sonido de la puerta
+
         const doorSound =
             new Audio("assets/sounds/door.ogg");
 
         doorSound.play().catch(() => {});
 
+
         // Cargar escena 02
+
         sceneManager.load(Scene02);
 
     }, 1000);
