@@ -68,18 +68,7 @@ class HotspotManager {
         
             "click",
         
-            (event)=>{
-        
-                event.stopPropagation();
-        
-                console.log(
-                    "CLICK HOTSPOT:",
-                    hotspot.id
-                );
-        
-                alert(
-                    "CLICK HOTSPOT: " + hotspot.id
-                );
+            ()=>{
         
                 hotspot.click.call(hotspot);
         
