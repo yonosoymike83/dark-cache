@@ -15,6 +15,14 @@ const Scene02 = {
 
     ambient: null,
 
+    // Hotspots obligatorios para poder entrar
+
+    requiredHotspots: [
+
+        "logbook",
+
+    ],
+    
     hotspots: [
 
         // ==========================================
@@ -27,14 +35,14 @@ const Scene02 = {
 
             visits: 0,
 
-            x: 91.81,
-            y: 57.55,
-            width: 100,
-            height: 100,
+            x: 90.79,
+            y: 57.45,
+            width: 5.76,
+            height: 11.21,
 
             click(){
 
-                alert("HOTSPOT DEL LOGBOOK");
+                openLogbook();
 
             }
 
