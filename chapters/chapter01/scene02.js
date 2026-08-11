@@ -42,7 +42,7 @@ const Scene02 = {
 
             click(){
 
-                openLogbook();
+                 alert("HOTSPOT LOGBOOK FUNCIONA");
 
             }
 
