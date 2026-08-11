@@ -344,9 +344,9 @@ const Scene01 = {
 
             visits: 0,
 
-            // Contador exclusivo de los diálogos
-            // que aparecen antes de "¿Entramos?"
-            enterStep: 0,
+            // Contador independiente para los
+            // diálogos que aparecen al poder entrar
+            enterVisits: 0,
 
             x: 59.02,
             y: 45.39,
@@ -356,10 +356,64 @@ const Scene01 = {
             click(){
 
                 // ==========================================
+                // PUERTA DESBLOQUEADA
+                // ==========================================
+
+                if(canEnterShop()){
+
+                    // Todavía quedan diálogos de entrada
+                    if(this.enterVisits < DialogEnterShop.length){
+
+                        showDialogSequence(
+
+                            this,
+
+                            DialogEnterShop,
+
+                            null,
+
+                            "enterVisits"
+
+                        );
+
+                    }else{
+
+                        // Ya se han mostrado todos los diálogos
+                        // Ahora aparece la elección
+
+                        dialog.showChoice(
+
+                            "¿Entramos?",
+
+                            "SÍ",
+
+                            "NO",
+
+                            () => {
+
+                                enterShop();
+
+                            },
+
+                            () => {
+
+                                dialog.show(
+                                    DialogStayOutside
+                                );
+
+                            }
+
+                        );
+
+                    }
+
+                }
+
+                // ==========================================
                 // PUERTA BLOQUEADA
                 // ==========================================
 
-                if(!canEnterShop()){
+                else{
 
                     showDialogSequence(
 
@@ -369,74 +423,7 @@ const Scene01 = {
 
                     );
 
-                    return;
-
                 }
-
-
-                // ==========================================
-                // PUERTA DESBLOQUEADA
-                // ==========================================
-
-                if(this.enterStep === 0){
-
-                    dialog.show(
-
-                        [DialogEnterShop[0]]
-
-                    );
-
-                    this.enterStep = 1;
-
-                    return;
-
-                }
-
-
-                if(this.enterStep === 1){
-
-                    dialog.show(
-
-                        [DialogEnterShop[1]]
-
-                    );
-
-                    this.enterStep = 2;
-
-                    return;
-
-                }
-
-
-                // ==========================================
-                // DIÁLOGOS TERMINADOS
-                // ==========================================
-
-                dialog.showChoice(
-
-                    "¿Entramos?",
-
-                    "SÍ",
-
-                    "NO",
-
-                    () => {
-
-                        enterShop();
-
-                    },
-
-                    () => {
-
-                        dialog.show(
-
-                            DialogStayOutside
-
-                        );
-
-                    }
-
-                );
 
             }
 
@@ -490,16 +477,15 @@ function canEnterShop(){
 function showDialogSequence(
 
     hotspot,
-
     dialogs,
-
-    onFinish = null
+    onFinish = null,
+    counter = "visits"
 
 ){
 
     const index = Math.min(
 
-        hotspot.visits,
+        hotspot[counter],
 
         dialogs.length - 1
 
@@ -524,7 +510,7 @@ function showDialogSequence(
 
     );
 
-    hotspot.visits++;
+    hotspot[counter]++;
 
 }
 
