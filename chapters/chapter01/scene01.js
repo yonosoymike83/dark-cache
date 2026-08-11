@@ -29,7 +29,6 @@ const Scene01 = {
     ],
 
     visitedHotspots: [],
-    doorEnterStep: 0,
 
     hotspots: [
 
@@ -335,98 +334,117 @@ const Scene01 = {
 
         },
 
-       // ==========================================
-// PUERTA
-// ==========================================
-
-{
-
-    id: "door",
-
-    visits: 0,
-
-    x: 59.02,
-    y: 45.39,
-    width: 3.49,
-    height: 4.75,
-
-    click(){
-
         // ==========================================
-        // PUERTA BLOQUEADA
+        // PUERTA
         // ==========================================
 
-        if(!canEnterShop()){
+        {
 
-            showDialogSequence(
+            id: "door",
 
-                this,
+            visits: 0,
 
-                DialogDoorLocked
+            // Contador exclusivo de los diálogos
+            // que aparecen antes de "¿Entramos?"
+            enterStep: 0,
 
-            );
+            x: 59.02,
+            y: 45.39,
+            width: 3.49,
+            height: 4.75,
 
-            return;
+            click(){
 
-        }
+                // ==========================================
+                // PUERTA BLOQUEADA
+                // ==========================================
 
+                if(!canEnterShop()){
 
-        // ==========================================
-        // PUERTA DESBLOQUEADA
-        // ==========================================
+                    showDialogSequence(
 
-        // Todavía quedan diálogos antes de preguntar
-        if(Scene01.doorEnterStep < DialogEnterShop.length){
+                        this,
 
-            const currentDialog =
-                DialogEnterShop[Scene01.doorEnterStep];
+                        DialogDoorLocked
 
-            Scene01.doorEnterStep++;
+                    );
 
-            dialog.show(
+                    return;
 
-                [currentDialog]
-
-            );
-
-            return;
-
-        }
+                }
 
 
-        // ==========================================
-        // DIÁLOGOS TERMINADOS
-        // ==========================================
+                // ==========================================
+                // PUERTA DESBLOQUEADA
+                // ==========================================
 
-        dialog.showChoice(
+                if(this.enterStep === 0){
 
-            "¿Entramos?",
+                    dialog.show(
 
-            "SÍ",
+                        [DialogEnterShop[0]]
 
-            "NO",
+                    );
 
-            () => {
+                    this.enterStep = 1;
 
-                enterShop();
+                    return;
 
-            },
+                }
 
-            () => {
 
-                dialog.show(
+                if(this.enterStep === 1){
 
-                    DialogStayOutside
+                    dialog.show(
+
+                        [DialogEnterShop[1]]
+
+                    );
+
+                    this.enterStep = 2;
+
+                    return;
+
+                }
+
+
+                // ==========================================
+                // DIÁLOGOS TERMINADOS
+                // ==========================================
+
+                dialog.showChoice(
+
+                    "¿Entramos?",
+
+                    "SÍ",
+
+                    "NO",
+
+                    () => {
+
+                        enterShop();
+
+                    },
+
+                    () => {
+
+                        dialog.show(
+
+                            DialogStayOutside
+
+                        );
+
+                    }
 
                 );
 
             }
 
-        );
+        }
 
-    }
+    ]
 
-}
+};
 
 
 // ======================================================
@@ -472,8 +490,10 @@ function canEnterShop(){
 function showDialogSequence(
 
     hotspot,
+
     dialogs,
-    onFinish = null,
+
+    onFinish = null
 
 ){
 
