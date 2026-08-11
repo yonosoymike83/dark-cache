@@ -218,7 +218,9 @@ body{
 
     position:absolute;
 
-    pointer-events:none;
+    pointer-events:auto;
+    
+    z-index:10;
 
 }
 
