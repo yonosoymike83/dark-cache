@@ -34,7 +34,7 @@ const Scene02 = {
 
             click(){
 
-                openLogbook();
+                alert("HOTSPOT DEL LOGBOOK");
 
             }
 
