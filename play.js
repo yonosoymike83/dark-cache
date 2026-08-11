@@ -12,7 +12,10 @@ const scene = document.getElementById("scene");
 const sceneImage = document.getElementById("sceneImage");
 const hotspotLayer = document.getElementById("hotspotLayer");
 
-// -------------------- MOTORES --------------------
+
+// ======================================================
+// MOTORES
+// ======================================================
 
 const hotspots = new HotspotManager(
     scene,
@@ -37,7 +40,10 @@ const sceneManager = new SceneManager(
     audioManager
 );
 
-// -------------------- FUNCIONES --------------------
+
+// ======================================================
+// FUNCIONES
+// ======================================================
 
 async function enterGameMode() {
 
@@ -71,6 +77,11 @@ async function enterGameMode() {
 
 }
 
+
+// ======================================================
+// INICIAR JUEGO
+// ======================================================
+
 function startGame() {
 
     startScreen.style.display = "none";
@@ -99,6 +110,11 @@ function startGame() {
 
 }
 
+
+// ======================================================
+// MOSTRAR PANTALLA DE INICIO
+// ======================================================
+
 function showStartScreen() {
 
     passwordScreen.style.display = "none";
@@ -106,6 +122,11 @@ function showStartScreen() {
     startScreen.style.display = "flex";
 
 }
+
+
+// ======================================================
+// COMENZAR AVENTURA
+// ======================================================
 
 async function beginAdventure() {
 
@@ -121,9 +142,14 @@ async function beginAdventure() {
 
 }
 
-// -------------------- CONTRASEÑA --------------------
 
-const savedPassword = localStorage.getItem("darkcache_password");
+// ======================================================
+// CONTRASEÑA
+// ======================================================
+
+const savedPassword =
+    localStorage.getItem("darkcache_password");
+
 
 if (savedPassword === Chapter01.password) {
 
@@ -132,6 +158,7 @@ if (savedPassword === Chapter01.password) {
 } else {
 
     input.focus();
+
 
     function checkPassword() {
 
@@ -146,7 +173,8 @@ if (savedPassword === Chapter01.password) {
 
         } else {
 
-            error.textContent = "Contraseña incorrecta";
+            error.textContent =
+                "Contraseña incorrecta";
 
             input.value = "";
 
@@ -156,33 +184,47 @@ if (savedPassword === Chapter01.password) {
 
     }
 
-    button.addEventListener("click", function (e) {
 
-        e.preventDefault();
-        e.stopPropagation();
-
-        checkPassword();
-
-    });
-
-    input.addEventListener("keydown", function (e) {
-
-        if (e.key === "Enter") {
+    button.addEventListener(
+        "click",
+        function (e) {
 
             e.preventDefault();
+            e.stopPropagation();
 
             checkPassword();
 
         }
+    );
 
-    });
+
+    input.addEventListener(
+        "keydown",
+        function (e) {
+
+            if (e.key === "Enter") {
+
+                e.preventDefault();
+
+                checkPassword();
+
+            }
+
+        }
+    );
 
 }
 
-// -------------------- INICIO --------------------
 
-startButton.addEventListener("click", function () {
+// ======================================================
+// INICIO
+// ======================================================
 
-    beginAdventure();
+startButton.addEventListener(
+    "click",
+    function () {
 
-});
+        beginAdventure();
+
+    }
+);
