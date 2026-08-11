@@ -29,6 +29,7 @@ const Scene01 = {
     ],
 
     visitedHotspots: [],
+    doorEnterStep: 0,
 
     hotspots: [
 
@@ -334,104 +335,98 @@ const Scene01 = {
 
         },
 
+       // ==========================================
+// PUERTA
+// ==========================================
+
+{
+
+    id: "door",
+
+    visits: 0,
+
+    x: 59.02,
+    y: 45.39,
+    width: 3.49,
+    height: 4.75,
+
+    click(){
+
         // ==========================================
-        // PUERTA
+        // PUERTA BLOQUEADA
         // ==========================================
 
-        {
+        if(!canEnterShop()){
 
-            id: "door",
+            showDialogSequence(
 
-            visits: 0,
+                this,
 
-            // Contador independiente para los
-            // diálogos que aparecen al poder entrar
-            enterVisits: 0,
+                DialogDoorLocked
 
-            x: 59.02,
-            y: 45.39,
-            width: 3.49,
-            height: 4.75,
+            );
 
-            click(){
-
-                // ==========================================
-                // PUERTA DESBLOQUEADA
-                // ==========================================
-
-                if(canEnterShop()){
-
-                    // Todavía quedan diálogos de entrada
-                    if(this.enterVisits < DialogEnterShop.length){
-
-                        showDialogSequence(
-
-                            this,
-
-                            DialogEnterShop,
-
-                            null,
-
-                            "enterVisits"
-
-                        );
-
-                    }else{
-
-                        // Ya se han mostrado todos los diálogos
-                        // Ahora aparece la elección
-
-                        dialog.showChoice(
-
-                            "¿Entramos?",
-
-                            "SÍ",
-
-                            "NO",
-
-                            () => {
-
-                                enterShop();
-
-                            },
-
-                            () => {
-
-                                dialog.show(
-                                    DialogStayOutside
-                                );
-
-                            }
-
-                        );
-
-                    }
-
-                }
-
-                // ==========================================
-                // PUERTA BLOQUEADA
-                // ==========================================
-
-                else{
-
-                    showDialogSequence(
-
-                        this,
-
-                        DialogDoorLocked
-
-                    );
-
-                }
-
-            }
+            return;
 
         }
 
-    ]
 
-};
+        // ==========================================
+        // PUERTA DESBLOQUEADA
+        // ==========================================
+
+        // Todavía quedan diálogos antes de preguntar
+        if(Scene01.doorEnterStep < DialogEnterShop.length){
+
+            const currentDialog =
+                DialogEnterShop[Scene01.doorEnterStep];
+
+            Scene01.doorEnterStep++;
+
+            dialog.show(
+
+                [currentDialog]
+
+            );
+
+            return;
+
+        }
+
+
+        // ==========================================
+        // DIÁLOGOS TERMINADOS
+        // ==========================================
+
+        dialog.showChoice(
+
+            "¿Entramos?",
+
+            "SÍ",
+
+            "NO",
+
+            () => {
+
+                enterShop();
+
+            },
+
+            () => {
+
+                dialog.show(
+
+                    DialogStayOutside
+
+                );
+
+            }
+
+        );
+
+    }
+
+}
 
 
 // ======================================================
@@ -479,13 +474,12 @@ function showDialogSequence(
     hotspot,
     dialogs,
     onFinish = null,
-    counter = "visits"
 
 ){
 
     const index = Math.min(
 
-        hotspot[counter],
+        hotspot.visits,
 
         dialogs.length - 1
 
@@ -510,7 +504,7 @@ function showDialogSequence(
 
     );
 
-    hotspot[counter]++;
+    hotspot.visits++;
 
 }
 
