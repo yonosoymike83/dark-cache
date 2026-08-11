@@ -272,3 +272,26 @@ const DialogStayOutside = [
     }
 
 ];
+
+// ======================================================
+// LOGBOOK
+// ======================================================
+
+const DialogLogbookIntro = [
+
+    {
+        speaker: "",
+        text: "Un viejo libro descansa sobre el mostrador."
+    },
+
+    {
+        speaker: "",
+        text: "La cubierta está llena de nombres, fechas y pequeñas anotaciones."
+    },
+
+    {
+        speaker: "",
+        text: "Parece el libro de visitas de la tienda."
+    }
+
+];
