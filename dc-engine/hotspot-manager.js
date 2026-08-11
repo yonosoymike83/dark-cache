@@ -44,6 +44,8 @@ class HotspotManager {
 
             visits:data.visits || 0,
 
+            enterVisits:data.enterVisits || 0,
+
             x:data.x,
             y:data.y,
 
