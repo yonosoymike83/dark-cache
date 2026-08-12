@@ -149,27 +149,6 @@ async function showLogbook(){
 
     );
 
-
-    // --------------------------------------------------
-    // Información
-    // --------------------------------------------------
-
-    const info =
-        document.createElement("div");
-
-    info.className =
-        "logbookInfo";
-
-    info.innerHTML =
-        "<strong>> NEW LOG</strong><br>" +
-        "Deja constancia de tu visita " +
-        "para los próximos jugadores.";
-
-    writePage.appendChild(
-        info
-    );
-
-
     // --------------------------------------------------
     // Nombre
     // --------------------------------------------------
@@ -709,25 +688,9 @@ function createHeader(
         sub
     );
 
-
-    const status =
-        document.createElement("div");
-
-    status.className =
-        "logbookHeaderStatus";
-
-    status.textContent =
-        "[ ONLINE ]";
-
-    header.appendChild(
-        status
-    );
-
-
     return header;
 
 }
-
 
 // ======================================================
 // CARGAR REGISTROS
