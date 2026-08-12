@@ -141,9 +141,9 @@ async function showLogbook(){
 
         createHeader(
 
-            "G E O C A C H I N G",
-            "L O G B O O K",
-            "THE OLD BUG SHOP"
+            "DEJA TU LOG",
+            "",
+            ""
 
         )
 
@@ -377,9 +377,9 @@ async function showLogbook(){
 
         createHeader(
 
-            "L O G B O O K",
-            "RECENT LOGS",
-            "VISITORS DATABASE"
+            "LOGS RECIENTES",
+            "",
+            ""
 
         )
 
