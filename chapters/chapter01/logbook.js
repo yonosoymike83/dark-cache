@@ -37,16 +37,11 @@ function openLogbook(){
 
     if(logbookDialogActive){
 
-        // Detener la escritura actual
-
         clearInterval(
             dialog.typingTimer
         );
 
         dialog.isTyping = false;
-
-
-        // Pasar a la siguiente frase
 
         logbookDialogIndex++;
 
@@ -134,14 +129,103 @@ function openLogbook(){
 
 
 // ======================================================
-// FORMULARIO DEL LOGBOOK
+// CREAR ESTRUCTURA DEL LIBRO
+// ======================================================
+
+function createLogbookBook(){
+
+    const book =
+        document.createElement("div");
+
+    book.className =
+        "logbookBook";
+
+    return book;
+
+}
+
+
+// ======================================================
+// CREAR PÁGINA
+// ======================================================
+
+function createLogbookPage(
+    className = ""
+){
+
+    const page =
+        document.createElement("div");
+
+    page.className =
+        "logbookPage " + className;
+
+    return page;
+
+}
+
+
+// ======================================================
+// TÍTULO
+// ======================================================
+
+function createLogbookHeader(
+    page,
+    subtitle = ""
+){
+
+    const title =
+        document.createElement("h2");
+
+    title.className =
+        "logbookTitle";
+
+    title.textContent =
+        "Libro de visitas";
+
+    page.appendChild(
+        title
+    );
+
+
+    if(subtitle){
+
+        const sub =
+            document.createElement("div");
+
+        sub.className =
+            "logbookSubtitle";
+
+        sub.textContent =
+            subtitle;
+
+        page.appendChild(
+            sub
+        );
+
+    }
+
+
+    const ornament =
+        document.createElement("div");
+
+    ornament.className =
+        "logbookOrnament";
+
+    ornament.textContent =
+        "· · ·";
+
+    page.appendChild(
+        ornament
+    );
+
+}
+
+
+// ======================================================
+// FORMULARIO
 // ======================================================
 
 function showLogbookForm(){
-
-    // --------------------------------------------------
-    // Crear fondo
-    // --------------------------------------------------
 
     const overlay =
         document.createElement("div");
@@ -149,99 +233,79 @@ function showLogbookForm(){
     overlay.id =
         "logbookOverlay";
 
-    overlay.style.position =
-        "fixed";
-
-    overlay.style.left =
-        "0";
-
-    overlay.style.top =
-        "0";
-
-    overlay.style.width =
-        "100%";
-
-    overlay.style.height =
-        "100%";
-
-    overlay.style.background =
-        "rgba(0,0,0,0.85)";
-
-    overlay.style.zIndex =
-        "10000";
-
-    overlay.style.display =
-        "flex";
-
-    overlay.style.alignItems =
-        "center";
-
-    overlay.style.justifyContent =
-        "center";
-
-
-    // --------------------------------------------------
-    // Libro
-    // --------------------------------------------------
 
     const book =
-        document.createElement("div");
-
-    book.style.width =
-        "min(90vw, 650px)";
-
-    book.style.maxHeight =
-        "90vh";
-
-    book.style.overflowY =
-        "auto";
-
-    book.style.padding =
-        "30px";
-
-    book.style.boxSizing =
-        "border-box";
-
-    book.style.background =
-        "#d8c39b";
-
-    book.style.color =
-        "#241b12";
-
-    book.style.border =
-        "4px solid #4b351f";
-
-    book.style.boxShadow =
-        "0 0 30px rgba(0,0,0,0.8)";
-
-    book.style.fontFamily =
-        "Georgia, serif";
+        createLogbookBook();
 
 
     // --------------------------------------------------
-    // Título
+    // Página izquierda
     // --------------------------------------------------
+
+    const leftPage =
+        createLogbookPage(
+            "logbookPageLeft"
+        );
+
+    createLogbookHeader(
+        leftPage,
+        "La Tienda del Viejo Bug"
+    );
+
+
+    const intro =
+        document.createElement("p");
+
+    intro.className =
+        "logbookEmpty";
+
+    intro.textContent =
+        "Si has llegado hasta aquí, deja constancia de tu visita.";
+
+    leftPage.appendChild(
+        intro
+    );
+
+
+    book.appendChild(
+        leftPage
+    );
+
+
+    // --------------------------------------------------
+    // Página derecha
+    // --------------------------------------------------
+
+    const rightPage =
+        createLogbookPage(
+            "logbookPageRight"
+        );
+
 
     const title =
         document.createElement("h2");
 
+    title.className =
+        "logbookFormTitle";
+
     title.textContent =
-        "LIBRO DE VISITAS";
+        "Deja tu firma";
 
-    title.style.textAlign =
-        "center";
-
-    title.style.marginTop =
-        "0";
-
-    book.appendChild(
+    rightPage.appendChild(
         title
     );
 
 
     // --------------------------------------------------
-    // Nombre
+    // Usuario
     // --------------------------------------------------
+
+    const usernameField =
+        document.createElement("div");
+
+    usernameField.className =
+        "logbookField";
+
 
     const usernameLabel =
         document.createElement("label");
@@ -249,19 +313,12 @@ function showLogbookForm(){
     usernameLabel.textContent =
         "Nombre de Geocaching";
 
-    usernameLabel.style.display =
-        "block";
-
-    usernameLabel.style.marginTop =
-        "20px";
-
-    book.appendChild(
-        usernameLabel
-    );
-
 
     const usernameInput =
         document.createElement("input");
+
+    usernameInput.className =
+        "logbookInput";
 
     usernameInput.type =
         "text";
@@ -269,23 +326,23 @@ function showLogbookForm(){
     usernameInput.maxLength =
         30;
 
+    usernameInput.autocomplete =
+        "off";
+
     usernameInput.placeholder =
         "Tu nombre de Geocaching";
 
-    usernameInput.style.width =
-        "100%";
 
-    usernameInput.style.boxSizing =
-        "border-box";
+    usernameField.appendChild(
+        usernameLabel
+    );
 
-    usernameInput.style.padding =
-        "10px";
-
-    usernameInput.style.marginTop =
-        "6px";
-
-    book.appendChild(
+    usernameField.appendChild(
         usernameInput
+    );
+
+    rightPage.appendChild(
+        usernameField
     );
 
 
@@ -293,52 +350,43 @@ function showLogbookForm(){
     // Mensaje
     // --------------------------------------------------
 
+    const messageField =
+        document.createElement("div");
+
+    messageField.className =
+        "logbookField";
+
+
     const messageLabel =
         document.createElement("label");
 
     messageLabel.textContent =
         "Mensaje";
 
-    messageLabel.style.display =
-        "block";
-
-    messageLabel.style.marginTop =
-        "20px";
-
-    book.appendChild(
-        messageLabel
-    );
-
 
     const messageInput =
         document.createElement("textarea");
 
+    messageInput.className =
+        "logbookTextarea";
+
     messageInput.maxLength =
         150;
-
-    messageInput.rows =
-        5;
 
     messageInput.placeholder =
         "Deja unas palabras para los próximos visitantes...";
 
-    messageInput.style.width =
-        "100%";
 
-    messageInput.style.boxSizing =
-        "border-box";
+    messageField.appendChild(
+        messageLabel
+    );
 
-    messageInput.style.padding =
-        "10px";
-
-    messageInput.style.marginTop =
-        "6px";
-
-    messageInput.style.resize =
-        "vertical";
-
-    book.appendChild(
+    messageField.appendChild(
         messageInput
+    );
+
+    rightPage.appendChild(
+        messageField
     );
 
 
@@ -349,51 +397,28 @@ function showLogbookForm(){
     const buttons =
         document.createElement("div");
 
-    buttons.style.display =
-        "flex";
+    buttons.className =
+        "logbookButtons";
 
-    buttons.style.justifyContent =
-        "center";
-
-    buttons.style.gap =
-        "15px";
-
-    buttons.style.marginTop =
-        "25px";
-
-
-    // --------------------------------------------------
-    // Firmar
-    // --------------------------------------------------
 
     const signButton =
         document.createElement("button");
 
+    signButton.className =
+        "logbookButton";
+
     signButton.textContent =
         "FIRMAR";
 
-    signButton.style.padding =
-        "10px 25px";
-
-    signButton.style.cursor =
-        "pointer";
-
-
-    // --------------------------------------------------
-    // Cancelar
-    // --------------------------------------------------
 
     const cancelButton =
         document.createElement("button");
 
+    cancelButton.className =
+        "logbookButton secondary";
+
     cancelButton.textContent =
         "CANCELAR";
-
-    cancelButton.style.padding =
-        "10px 25px";
-
-    cancelButton.style.cursor =
-        "pointer";
 
 
     buttons.appendChild(
@@ -404,9 +429,14 @@ function showLogbookForm(){
         cancelButton
     );
 
+    rightPage.appendChild(
+        buttons );
+
+
     book.appendChild(
-        buttons
+        rightPage
     );
+
 
     overlay.appendChild(
         book
@@ -416,10 +446,6 @@ function showLogbookForm(){
         overlay
     );
 
-
-    // --------------------------------------------------
-    // Enfocar nombre
-    // --------------------------------------------------
 
     usernameInput.focus();
 
@@ -457,10 +483,6 @@ function showLogbookForm(){
             const message =
                 messageInput.value.trim();
 
-
-            // ------------------------------------------
-            // Validación
-            // ------------------------------------------
 
             if(!username){
 
@@ -521,16 +543,8 @@ function showLogbookForm(){
                 }
 
 
-                // --------------------------------------
-                // Cerrar formulario
-                // --------------------------------------
-
                 overlay.remove();
 
-
-                // --------------------------------------
-                // Mostrar libro actualizado
-                // --------------------------------------
 
                 await showLogbookEntries();
 
@@ -538,17 +552,12 @@ function showLogbookForm(){
             }catch(error){
 
                 console.error(
-
                     "Error al guardar logbook:",
-
                     error
-
                 );
 
                 alert(
-
                     "No se ha podido guardar la firma."
-
                 );
 
 
@@ -568,7 +577,7 @@ function showLogbookForm(){
 
 
 // ======================================================
-// MOSTRAR ENTRADAS DEL LOGBOOK
+// MOSTRAR ENTRADAS
 // ======================================================
 
 async function showLogbookEntries(){
@@ -586,13 +595,10 @@ async function showLogbookEntries(){
                 )
 
                 .order(
-
                     "signed_at",
-
                     {
                         ascending: false
                     }
-
                 );
 
 
@@ -603,233 +609,133 @@ async function showLogbookEntries(){
         }
 
 
-        // --------------------------------------------------
-        // Overlay
-        // --------------------------------------------------
-
         const overlay =
             document.createElement("div");
 
         overlay.id =
             "logbookEntriesOverlay";
 
-        overlay.style.position =
-            "fixed";
-
-        overlay.style.left =
-            "0";
-
-        overlay.style.top =
-            "0";
-
-        overlay.style.width =
-            "100%";
-
-        overlay.style.height =
-            "100%";
-
-        overlay.style.background =
-            "rgba(0,0,0,0.85)";
-
-        overlay.style.zIndex =
-            "10000";
-
-        overlay.style.display =
-            "flex";
-
-        overlay.style.alignItems =
-            "center";
-
-        overlay.style.justifyContent =
-            "center";
-
-
-        // --------------------------------------------------
-        // Libro
-        // --------------------------------------------------
 
         const book =
-            document.createElement("div");
-
-        book.style.width =
-            "min(90vw, 700px)";
-
-        book.style.maxHeight =
-            "90vh";
-
-        book.style.overflowY =
-            "auto";
-
-        book.style.padding =
-            "30px";
-
-        book.style.boxSizing =
-            "border-box";
-
-        book.style.background =
-            "#d8c39b";
-
-        book.style.color =
-            "#241b12";
-
-        book.style.border =
-            "4px solid #4b351f";
-
-        book.style.boxShadow =
-            "0 0 30px rgba(0,0,0,0.8)";
-
-        book.style.fontFamily =
-            "Georgia, serif";
+            createLogbookBook();
 
 
-        // --------------------------------------------------
-        // Título
-        // --------------------------------------------------
+        // ==================================================
+        // DIVIDIR EN DOS PÁGINAS
+        // ==================================================
 
-        const title =
-            document.createElement("h2");
+        const entries =
+            data || [];
 
-        title.textContent =
-            "LIBRO DE VISITAS";
+        const middle =
+            Math.ceil(
+                entries.length / 2
+            );
 
-        title.style.textAlign =
-            "center";
 
-        title.style.marginTop =
-            "0";
+        const leftEntries =
+            entries.slice(
+                0,
+                middle
+            );
+
+        const rightEntries =
+            entries.slice(
+                middle
+            );
+
+
+        // ==================================================
+        // PÁGINA IZQUIERDA
+        // ==================================================
+
+        const leftPage =
+            createLogbookPage(
+                "logbookPageLeft"
+            );
+
+        createLogbookHeader(
+            leftPage,
+            "La Tienda del Viejo Bug"
+        );
+
+
+        appendEntries(
+            leftPage,
+            leftEntries
+        );
+
 
         book.appendChild(
-            title
+            leftPage
+        );
+
+
+        // ==================================================
+        // PÁGINA DERECHA
+        // ==================================================
+
+        const rightPage =
+            createLogbookPage(
+                "logbookPageRight"
+            );
+
+
+        const rightTitle =
+            document.createElement("h2");
+
+        rightTitle.className =
+            "logbookTitle";
+
+        rightTitle.textContent =
+            "Visitantes";
+
+
+        rightPage.appendChild(
+            rightTitle
+        );
+
+
+        const rightSubtitle =
+            document.createElement("div");
+
+        rightSubtitle.className =
+            "logbookSubtitle";
+
+        rightSubtitle.textContent =
+            "Los que dejaron huella";
+
+
+        rightPage.appendChild(
+            rightSubtitle
+        );
+
+
+        appendEntries(
+            rightPage,
+            rightEntries
         );
 
 
         // --------------------------------------------------
-        // Entradas
+        // Navegación / cerrar
         // --------------------------------------------------
 
-        if(
-            !data ||
-            data.length === 0
-        ){
+        const navigation =
+            document.createElement("div");
 
-            const empty =
-                document.createElement("p");
+        navigation.className =
+            "logbookNavigation";
 
-            empty.textContent =
-                "Todavía no hay ninguna firma.";
-
-            empty.style.textAlign =
-                "center";
-
-            book.appendChild(
-                empty
-            );
-
-        }else{
-
-            data.forEach(
-
-                entry => {
-
-                    const entryDiv =
-                        document.createElement("div");
-
-                    entryDiv.style.borderBottom =
-                        "1px solid rgba(60,40,20,0.35)";
-
-                    entryDiv.style.padding =
-                        "12px 0";
-
-
-                    // ----------------------------------
-                    // Usuario
-                    // ----------------------------------
-
-                    const username =
-                        document.createElement("strong");
-
-                    username.textContent =
-                        entry.username;
-
-
-                    // ----------------------------------
-                    // Fecha
-                    // ----------------------------------
-
-                    const date =
-                        document.createElement("span");
-
-                    const dateObject =
-                        new Date(
-                            entry.signed_at
-                        );
-
-                    date.textContent =
-                        " — " +
-                        dateObject.toLocaleDateString(
-                            "es-ES"
-                        );
-
-
-                    // ----------------------------------
-                    // Mensaje
-                    // ----------------------------------
-
-                    const message =
-                        document.createElement("p");
-
-                    message.textContent =
-                        entry.message || "";
-
-                    message.style.margin =
-                        "6px 0 0 0";
-
-
-                    entryDiv.appendChild(
-                        username
-                    );
-
-                    entryDiv.appendChild(
-                        date
-                    );
-
-                    entryDiv.appendChild(
-                        message
-                    );
-
-
-                    book.appendChild(
-                        entryDiv
-                    );
-
-                }
-
-            );
-
-        }
-
-
-        // --------------------------------------------------
-        // Cerrar
-        // --------------------------------------------------
 
         const closeButton =
             document.createElement("button");
 
+        closeButton.className =
+            "logbookButton secondary";
+
         closeButton.textContent =
             "CERRAR";
-
-        closeButton.style.display =
-            "block";
-
-        closeButton.style.margin =
-            "25px auto 0";
-
-        closeButton.style.padding =
-            "10px 25px";
-
-        closeButton.style.cursor =
-            "pointer";
 
 
         closeButton.addEventListener(
@@ -845,9 +751,103 @@ async function showLogbookEntries(){
         );
 
 
-        book.appendChild(
+        navigation.appendChild(
             closeButton
         );
+
+        rightPage.appendChild(
+            navigation
+        );
+
+
+        book.appendChild(
+            rightPage
+        );
+
+
+        // ==================================================
+        // SI NO HAY ENTRADAS
+        // ==================================================
+
+        if(entries.length === 0){
+
+            leftPage.innerHTML = "";
+
+            createLogbookHeader(
+                leftPage,
+                "La Tienda del Viejo Bug"
+            );
+
+
+            const empty =
+                document.createElement("div");
+
+            empty.className =
+                "logbookEmpty";
+
+            empty.textContent =
+                "Este libro todavía espera su primera historia.";
+
+            leftPage.appendChild(
+                empty
+            );
+
+
+            rightPage.innerHTML = "";
+
+            createLogbookHeader(
+                rightPage,
+                "Libro de visitas"
+            );
+
+
+            const emptyRight =
+                document.createElement("div");
+
+            emptyRight.className =
+                "logbookEmpty";
+
+            emptyRight.textContent =
+                "Quizá seas tú quien la escriba.";
+
+            rightPage.appendChild(
+                emptyRight
+            );
+
+
+            const close =
+                document.createElement("div");
+
+            close.className =
+                "logbookButtons";
+
+
+            const closeEmpty =
+                document.createElement("button");
+
+            closeEmpty.className =
+                "logbookButton secondary";
+
+            closeEmpty.textContent =
+                "CERRAR";
+
+
+            closeEmpty.addEventListener(
+                "click",
+                () => overlay.remove()
+            );
+
+
+            close.appendChild(
+                closeEmpty
+            );
+
+            rightPage.appendChild(
+                close
+            );
+
+        }
+
 
         overlay.appendChild(
             book
@@ -861,19 +861,98 @@ async function showLogbookEntries(){
     }catch(error){
 
         console.error(
-
             "Error leyendo logbook:",
-
             error
-
         );
 
         alert(
-
             "No se ha podido cargar el libro."
-
         );
 
     }
+
+}
+
+
+// ======================================================
+// AÑADIR ENTRADAS A UNA PÁGINA
+// ======================================================
+
+function appendEntries(
+    page,
+    entries
+){
+
+    entries.forEach(
+
+        entry => {
+
+            const entryDiv =
+                document.createElement("div");
+
+            entryDiv.className =
+                "logbookEntry";
+
+
+            const username =
+                document.createElement("span");
+
+            username.className =
+                "logbookUsername";
+
+            username.textContent =
+                entry.username;
+
+
+            const date =
+                document.createElement("span");
+
+            date.className =
+                "logbookDate";
+
+
+            const dateObject =
+                new Date(
+                    entry.signed_at
+                );
+
+
+            date.textContent =
+                "— " +
+                dateObject.toLocaleDateString(
+                    "es-ES"
+                );
+
+
+            const message =
+                document.createElement("p");
+
+            message.className =
+                "logbookMessage";
+
+            message.textContent =
+                entry.message || "";
+
+
+            entryDiv.appendChild(
+                username
+            );
+
+            entryDiv.appendChild(
+                date
+            );
+
+            entryDiv.appendChild(
+                message
+            );
+
+
+            page.appendChild(
+                entryDiv
+            );
+
+        }
+
+    );
 
 }
