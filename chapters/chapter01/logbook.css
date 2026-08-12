@@ -1,11 +1,18 @@
 /* ======================================================
+   DARK CACHE
    LOGBOOK
+   Retro Geocaching / 8-bit
    ====================================================== */
 
-#logbookOverlay,
-#logbookEntriesOverlay {
+
+/* ======================================================
+   OVERLAY
+   ====================================================== */
+
+#logbookOverlay {
 
     position: fixed;
+
     inset: 0;
 
     z-index: 10000;
@@ -13,15 +20,16 @@
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
-    padding: 20px;
+    padding: 15px;
 
     box-sizing: border-box;
 
-    background: rgba(0, 0, 0, 0.82);
+    background: rgba(0, 0, 0, .88);
 
-    animation: logbookFadeIn .25s ease;
+    animation: logbookAppear .25s ease;
 
 }
 
@@ -34,37 +42,55 @@
 
     position: relative;
 
-    width: min(920px, 94vw);
+    width: min(1000px, 96vw);
 
-    max-height: 88vh;
+    height: min(650px, 90vh);
 
     display: flex;
 
-    background:
-        linear-gradient(
-            90deg,
-            #b69b6c 0%,
-            #d8c59b 3%,
-            #eadbb7 48%,
-            #cdb586 50%,
-            #eadbb7 52%,
-            #d8c59b 97%,
-            #b69b6c 100%
-        );
+    background: #171717;
 
-    color: #302416;
-
-    border: 3px solid #49331e;
-
-    border-radius: 5px;
+    border: 3px solid #777;
 
     box-shadow:
-        0 20px 50px rgba(0,0,0,.75),
-        inset 0 0 35px rgba(80,50,20,.22);
+        8px 8px 0 #050505,
+        0 0 0 1px #222;
 
-    font-family: Georgia, "Times New Roman", serif;
+    color: #ddd;
+
+    font-family: 'Silkscreen', monospace;
+
+    image-rendering: pixelated;
 
     overflow: hidden;
+
+}
+
+
+/* ======================================================
+   LÍNEA CENTRAL DEL LIBRO
+   ====================================================== */
+
+.logbookBook::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+
+    left: 50%;
+
+    width: 2px;
+
+    background: #090909;
+
+    box-shadow:
+        1px 0 #444,
+        -1px 0 #111;
+
+    pointer-events: none;
 
 }
 
@@ -75,35 +101,41 @@
 
 .logbookPage {
 
-    flex: 1;
+    position: relative;
 
-    min-width: 0;
-
-    padding: 38px 42px;
+    width: 50%;
 
     box-sizing: border-box;
 
-    position: relative;
+    padding: 28px 32px;
 
-    min-height: 430px;
+    background: #202020;
+
+    overflow: hidden;
 
 }
 
 
-/* Línea central */
+/* Página izquierda */
 
 .logbookPageLeft {
 
-    border-right: 1px solid rgba(65,45,25,.35);
+    border-right: 1px solid #111;
 
-    box-shadow:
-        8px 0 12px rgba(50,30,10,.08);
+}
+
+
+/* Página derecha */
+
+.logbookPageRight {
+
+    border-left: 1px solid #333;
 
 }
 
 
 /* ======================================================
-   TEXTURA PAPEL
+   EFECTO PIXEL / SCANLINES
    ====================================================== */
 
 .logbookPage::before {
@@ -116,168 +148,116 @@
 
     pointer-events: none;
 
-    opacity: .18;
+    opacity: .08;
 
-    background-image:
-        radial-gradient(
-            rgba(80,55,25,.25) .7px,
-            transparent .8px
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 3px,
+            #fff 4px
         );
 
-    background-size: 7px 7px;
-
 }
 
 
 /* ======================================================
-   TÍTULO
+   CABECERA
    ====================================================== */
 
-.logbookTitle {
+.logbookHeader {
 
     position: relative;
 
-    margin: 0 0 8px 0;
+    padding-bottom: 18px;
+
+    margin-bottom: 20px;
+
+    border-bottom: 2px solid #555;
 
     text-align: center;
 
-    font-size: 1.45rem;
-
-    letter-spacing: 3px;
-
-    text-transform: uppercase;
-
-    color: #3b2918;
-
 }
 
 
-.logbookSubtitle {
-
-    position: relative;
-
-    text-align: center;
-
-    font-style: italic;
-
-    font-size: .9rem;
-
-    color: #6d5638;
-
-    margin-bottom: 28px;
-
-}
-
-
-.logbookOrnament {
-
-    position: relative;
-
-    text-align: center;
-
-    color: #806744;
-
-    margin: 8px 0 24px;
-
-    letter-spacing: 8px;
-
-}
-
-
-/* ======================================================
-   ENTRADAS
-   ====================================================== */
-
-.logbookEntry {
-
-    position: relative;
-
-    padding: 12px 4px 15px;
-
-    border-bottom:
-        1px solid rgba(75,50,25,.28);
-
-}
-
-
-.logbookEntry:last-child {
-
-    border-bottom: none;
-
-}
-
-
-.logbookUsername {
-
-    font-family: "Segoe Print",
-                 "Bradley Hand",
-                 cursive;
-
-    font-size: 1.05rem;
-
-    font-weight: bold;
-
-    color: #332416;
-
-}
-
-
-.logbookDate {
-
-    margin-left: 8px;
-
-    font-size: .72rem;
-
-    color: #796345;
-
-}
-
-
-.logbookMessage {
-
-    margin: 7px 0 0;
-
-    font-family: "Segoe Print",
-                 "Bradley Hand",
-                 cursive;
-
-    font-size: .9rem;
-
-    line-height: 1.45;
-
-    color: #49351f;
-
-    white-space: pre-wrap;
-
-    word-break: break-word;
-
-}
-
-
-/* ======================================================
-   FORMULARIO
-   ====================================================== */
-
-.logbookFormTitle {
-
-    position: relative;
+.logbookHeaderTitle {
 
     margin: 0;
 
-    text-align: center;
+    color: #eee;
 
-    font-size: 1.35rem;
+    font-size: 1.25rem;
 
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 
 }
 
+
+.logbookHeaderSubtitle {
+
+    margin-top: 9px;
+
+    color: #999;
+
+    font-size: .65rem;
+
+    letter-spacing: 1px;
+
+}
+
+
+.logbookHeaderStatus {
+
+    margin-top: 12px;
+
+    color: #d9b34b;
+
+    font-size: .62rem;
+
+}
+
+
+/* ======================================================
+   BLOQUE DE INFORMACIÓN
+   ====================================================== */
+
+.logbookInfo {
+
+    position: relative;
+
+    padding: 12px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid #444;
+
+    background: #111;
+
+    color: #aaa;
+
+    font-size: .62rem;
+
+    line-height: 1.7;
+
+}
+
+
+.logbookInfo strong {
+
+    color: #ddd;
+
+}
+
+
+/* ======================================================
+   CAMPOS
+   ====================================================== */
 
 .logbookField {
 
     position: relative;
 
-    margin-top: 22px;
+    margin-bottom: 20px;
 
 }
 
@@ -286,11 +266,20 @@
 
     display: block;
 
-    margin-bottom: 7px;
+    margin-bottom: 8px;
 
-    font-size: .85rem;
+    color: #aaa;
 
-    color: #59432a;
+    font-size: .65rem;
+
+}
+
+
+.logbookField label::before {
+
+    content: "> ";
+
+    color: #d9b34b;
 
 }
 
@@ -302,35 +291,42 @@
 
     box-sizing: border-box;
 
-    border: none;
+    border: 2px solid #555;
 
-    border-bottom: 1px solid #7b6240;
-
-    background: rgba(255,255,255,.18);
-
-    color: #302416;
-
-    padding: 10px;
+    border-radius: 0;
 
     outline: none;
 
-    font-family:
-        "Segoe Print",
-        "Bradley Hand",
-        cursive;
+    background: #0b0b0b;
 
-    font-size: .95rem;
+    color: #eee;
+
+    font-family: 'Silkscreen', monospace;
+
+    font-size: .65rem;
+
+    padding: 11px;
+
+    box-shadow:
+        inset 3px 3px 0 #050505;
+
+}
+
+
+.logbookInput {
+
+    height: 43px;
 
 }
 
 
 .logbookTextarea {
 
-    min-height: 120px;
+    height: 145px;
 
-    resize: vertical;
+    resize: none;
 
-    border: 1px solid #8a704c;
+    line-height: 1.6;
 
 }
 
@@ -338,9 +334,28 @@
 .logbookInput:focus,
 .logbookTextarea:focus {
 
-    background: rgba(255,255,255,.3);
+    border-color: #aaa;
 
-    border-color: #3f2d1b;
+    box-shadow:
+        inset 3px 3px 0 #050505,
+        0 0 0 1px #333;
+
+}
+
+
+/* ======================================================
+   CONTADOR
+   ====================================================== */
+
+.logbookCounter {
+
+    margin-top: 5px;
+
+    text-align: right;
+
+    color: #666;
+
+    font-size: .5rem;
 
 }
 
@@ -357,172 +372,290 @@
 
     justify-content: center;
 
-    gap: 14px;
-
-    margin-top: 28px;
-
-}
-
-
-.logbookButton {
-
-    padding: 10px 22px;
-
-    background: #49351f;
-
-    color: #eadbb7;
-
-    border: 1px solid #302114;
-
-    font-family: 'Silkscreen', monospace;
-
-    font-size: .72rem;
-
-    cursor: pointer;
-
-    transition:
-        background .2s,
-        transform .1s;
-
-}
-
-
-.logbookButton:hover {
-
-    background: #654a2b;
-
-}
-
-
-.logbookButton:active {
-
-    transform: scale(.97);
-
-}
-
-
-.logbookButton.secondary {
-
-    background: transparent;
-
-    color: #49351f;
-
-    border-color: #796345;
-
-}
-
-
-.logbookButton.secondary:hover {
-
-    background: rgba(80,50,20,.1);
-
-}
-
-
-/* ======================================================
-   PAGINACIÓN
-   ====================================================== */
-
-.logbookNavigation {
-
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 20px;
+    gap: 12px;
 
     margin-top: 20px;
 
 }
 
 
-.logbookPageNumber {
+.logbookButton {
+
+    min-width: 120px;
+
+    padding: 12px 18px;
+
+    border: 2px solid #777;
+
+    border-radius: 0;
+
+    background: #292929;
+
+    color: #eee;
 
     font-family: 'Silkscreen', monospace;
 
     font-size: .65rem;
 
-    color: #6d5638;
-
-}
-
-
-.logbookNavButton {
-
-    background: transparent;
-
-    border: none;
-
-    color: #49351f;
-
-    font-family: 'Silkscreen', monospace;
-
-    font-size: .7rem;
-
     cursor: pointer;
 
-}
-
-
-.logbookNavButton:hover {
-
-    text-decoration: underline;
+    box-shadow:
+        3px 3px 0 #080808;
 
 }
 
 
-.logbookNavButton:disabled {
+.logbookButton:hover {
 
-    opacity: .25;
+    background: #383838;
 
-    cursor: default;
+    border-color: #aaa;
+
+}
+
+
+.logbookButton:active {
+
+    transform: translate(2px, 2px);
+
+    box-shadow:
+        1px 1px 0 #080808;
+
+}
+
+
+.logbookButton.primary {
+
+    border-color: #d9b34b;
+
+    color: #d9b34b;
+
+}
+
+
+.logbookButton.primary:hover {
+
+    background: #332d20;
 
 }
 
 
 /* ======================================================
-   VACÍO
+   REGISTROS
+   ====================================================== */
+
+.logbookEntries {
+
+    position: relative;
+
+    height: calc(100% - 110px);
+
+    overflow-y: auto;
+
+    padding-right: 8px;
+
+}
+
+
+/* Scrollbar retro */
+
+.logbookEntries::-webkit-scrollbar {
+
+    width: 10px;
+
+}
+
+
+.logbookEntries::-webkit-scrollbar-track {
+
+    background: #0b0b0b;
+
+    border-left: 1px solid #333;
+
+}
+
+
+.logbookEntries::-webkit-scrollbar-thumb {
+
+    background: #555;
+
+    border: 2px solid #0b0b0b;
+
+}
+
+
+.logbookEntries::-webkit-scrollbar-thumb:hover {
+
+    background: #777;
+
+}
+
+
+/* ======================================================
+   ENTRADA
+   ====================================================== */
+
+.logbookEntry {
+
+    position: relative;
+
+    margin-bottom: 18px;
+
+    padding: 12px;
+
+    border: 1px solid #444;
+
+    background: #151515;
+
+    box-shadow:
+        3px 3px 0 #0a0a0a;
+
+}
+
+
+.logbookEntryHeader {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: baseline;
+
+    gap: 10px;
+
+    margin-bottom: 9px;
+
+}
+
+
+.logbookUsername {
+
+    color: #d9b34b;
+
+    font-size: .7rem;
+
+}
+
+
+.logbookDate {
+
+    color: #666;
+
+    font-size: .5rem;
+
+    white-space: nowrap;
+
+}
+
+
+.logbookMessage {
+
+    margin: 0;
+
+    color: #ccc;
+
+    font-size: .62rem;
+
+    line-height: 1.7;
+
+    white-space: pre-wrap;
+
+    word-break: break-word;
+
+}
+
+
+/* ======================================================
+   LOG NUMBER
+   ====================================================== */
+
+.logbookNumber {
+
+    margin-bottom: 8px;
+
+    color: #555;
+
+    font-size: .5rem;
+
+}
+
+
+/* ======================================================
+   SIN REGISTROS
    ====================================================== */
 
 .logbookEmpty {
 
     position: relative;
 
-    text-align: center;
-
     margin-top: 60px;
 
-    font-family:
-        "Segoe Print",
-        "Bradley Hand",
-        cursive;
+    padding: 20px;
 
-    font-style: italic;
+    border: 1px dashed #444;
 
-    color: #6d5638;
+    text-align: center;
+
+    color: #666;
+
+    font-size: .65rem;
+
+    line-height: 1.8;
+
+}
+
+
+.logbookEmpty::before {
+
+    content: "[ NO LOGS FOUND ]";
+
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: #777;
 
 }
 
 
 /* ======================================================
-   MENSAJE DE ERROR
+   MENSAJES DE ERROR
    ====================================================== */
 
 .logbookError {
 
     position: relative;
 
-    margin-top: 15px;
+    margin-top: 12px;
+
+    color: #d96b5c;
 
     text-align: center;
 
-    color: #8b3528;
+    font-size: .55rem;
 
-    font-size: .8rem;
+}
+
+
+/* ======================================================
+   PIE
+   ====================================================== */
+
+.logbookFooter {
+
+    position: absolute;
+
+    left: 32px;
+
+    right: 32px;
+
+    bottom: 13px;
+
+    text-align: center;
+
+    color: #444;
+
+    font-size: .48rem;
 
 }
 
@@ -531,13 +664,13 @@
    ANIMACIÓN
    ====================================================== */
 
-@keyframes logbookFadeIn {
+@keyframes logbookAppear {
 
     from {
 
         opacity: 0;
 
-        transform: scale(.97);
+        transform: scale(.96);
 
     }
 
@@ -558,41 +691,46 @@
 
 @media (max-width: 700px) {
 
-    #logbookOverlay,
-    #logbookEntriesOverlay {
+    #logbookOverlay {
 
-        padding: 10px;
+        padding: 8px;
+
+        align-items: center;
 
     }
 
 
     .logbookBook {
 
-        width: 96vw;
+        width: 97vw;
 
-        max-height: 92vh;
+        height: 94vh;
 
         display: block;
 
         overflow-y: auto;
 
-        background:
-            linear-gradient(
-                90deg,
-                #b69b6c,
-                #eadbb7 5%,
-                #eadbb7 95%,
-                #b69b6c
-            );
+    }
+
+
+    .logbookBook::after {
+
+        display: none;
 
     }
 
 
     .logbookPage {
 
-        min-height: auto;
+        width: 100%;
 
-        padding: 25px 23px;
+        height: auto;
+
+        min-height: 46%;
+
+        padding: 22px 18px;
+
+        overflow: visible;
 
     }
 
@@ -601,48 +739,940 @@
 
         border-right: none;
 
-        border-bottom:
-            1px solid rgba(65,45,25,.35);
-
-        box-shadow:
-            0 5px 10px rgba(50,30,10,.08);
+        border-bottom: 2px solid #090909;
 
     }
 
 
-    .logbookTitle {
+    .logbookPageRight {
 
-        font-size: 1.1rem;
-
-    }
-
-
-    .logbookSubtitle {
-
-        font-size: .75rem;
+        border-left: none;
 
     }
 
 
-    .logbookUsername {
+    .logbookHeaderTitle {
 
-        font-size: .9rem;
+        font-size: .95rem;
+
+        letter-spacing: 2px;
 
     }
 
 
-    .logbookMessage {
+    .logbookHeaderSubtitle {
 
-        font-size: .8rem;
+        font-size: .52rem;
+
+    }
+
+
+    .logbookInput,
+    .logbookTextarea {
+
+        font-size: .58rem;
+
+    }
+
+
+    .logbookTextarea {
+
+        height: 110px;
 
     }
 
 
     .logbookButton {
 
-        font-size: .62rem;
+        min-width: 100px;
 
-        padding: 9px 14px;
+        padding: 10px 12px;
+
+        font-size: .55rem;
+
+    }
+
+
+    .logbookEntries {
+
+        height: auto;
+
+        max-height: 430px;
+
+    }
+
+
+    .logbookEntryHeader {
+
+        display: block;
+
+    }
+
+
+    .logbookDate {
+
+        display: block;
+
+        margin-top: 5px;
+
+    }
+
+
+    .logbookMessage {
+
+        font-size: .55rem;
+
+    }
+
+
+    .logbookFooter {
+
+        position: relative;
+
+        left: auto;
+        right: auto;
+        bottom: auto;
+
+        margin: 15px 0;
+
+    }
+
+}/* ======================================================
+   DARK CACHE
+   LOGBOOK
+   Retro Geocaching / 8-bit
+   ====================================================== */
+
+
+/* ======================================================
+   OVERLAY
+   ====================================================== */
+
+#logbookOverlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 10000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 15px;
+
+    box-sizing: border-box;
+
+    background: rgba(0, 0, 0, .88);
+
+    animation: logbookAppear .25s ease;
+
+}
+
+
+/* ======================================================
+   LIBRO
+   ====================================================== */
+
+.logbookBook {
+
+    position: relative;
+
+    width: min(1000px, 96vw);
+
+    height: min(650px, 90vh);
+
+    display: flex;
+
+    background: #171717;
+
+    border: 3px solid #777;
+
+    box-shadow:
+        8px 8px 0 #050505,
+        0 0 0 1px #222;
+
+    color: #ddd;
+
+    font-family: 'Silkscreen', monospace;
+
+    image-rendering: pixelated;
+
+    overflow: hidden;
+
+}
+
+
+/* ======================================================
+   LÍNEA CENTRAL DEL LIBRO
+   ====================================================== */
+
+.logbookBook::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+
+    left: 50%;
+
+    width: 2px;
+
+    background: #090909;
+
+    box-shadow:
+        1px 0 #444,
+        -1px 0 #111;
+
+    pointer-events: none;
+
+}
+
+
+/* ======================================================
+   PÁGINAS
+   ====================================================== */
+
+.logbookPage {
+
+    position: relative;
+
+    width: 50%;
+
+    box-sizing: border-box;
+
+    padding: 28px 32px;
+
+    background: #202020;
+
+    overflow: hidden;
+
+}
+
+
+/* Página izquierda */
+
+.logbookPageLeft {
+
+    border-right: 1px solid #111;
+
+}
+
+
+/* Página derecha */
+
+.logbookPageRight {
+
+    border-left: 1px solid #333;
+
+}
+
+
+/* ======================================================
+   EFECTO PIXEL / SCANLINES
+   ====================================================== */
+
+.logbookPage::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .08;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 3px,
+            #fff 4px
+        );
+
+}
+
+
+/* ======================================================
+   CABECERA
+   ====================================================== */
+
+.logbookHeader {
+
+    position: relative;
+
+    padding-bottom: 18px;
+
+    margin-bottom: 20px;
+
+    border-bottom: 2px solid #555;
+
+    text-align: center;
+
+}
+
+
+.logbookHeaderTitle {
+
+    margin: 0;
+
+    color: #eee;
+
+    font-size: 1.25rem;
+
+    letter-spacing: 3px;
+
+}
+
+
+.logbookHeaderSubtitle {
+
+    margin-top: 9px;
+
+    color: #999;
+
+    font-size: .65rem;
+
+    letter-spacing: 1px;
+
+}
+
+
+.logbookHeaderStatus {
+
+    margin-top: 12px;
+
+    color: #d9b34b;
+
+    font-size: .62rem;
+
+}
+
+
+/* ======================================================
+   BLOQUE DE INFORMACIÓN
+   ====================================================== */
+
+.logbookInfo {
+
+    position: relative;
+
+    padding: 12px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid #444;
+
+    background: #111;
+
+    color: #aaa;
+
+    font-size: .62rem;
+
+    line-height: 1.7;
+
+}
+
+
+.logbookInfo strong {
+
+    color: #ddd;
+
+}
+
+
+/* ======================================================
+   CAMPOS
+   ====================================================== */
+
+.logbookField {
+
+    position: relative;
+
+    margin-bottom: 20px;
+
+}
+
+
+.logbookField label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #aaa;
+
+    font-size: .65rem;
+
+}
+
+
+.logbookField label::before {
+
+    content: "> ";
+
+    color: #d9b34b;
+
+}
+
+
+.logbookInput,
+.logbookTextarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    border: 2px solid #555;
+
+    border-radius: 0;
+
+    outline: none;
+
+    background: #0b0b0b;
+
+    color: #eee;
+
+    font-family: 'Silkscreen', monospace;
+
+    font-size: .65rem;
+
+    padding: 11px;
+
+    box-shadow:
+        inset 3px 3px 0 #050505;
+
+}
+
+
+.logbookInput {
+
+    height: 43px;
+
+}
+
+
+.logbookTextarea {
+
+    height: 145px;
+
+    resize: none;
+
+    line-height: 1.6;
+
+}
+
+
+.logbookInput:focus,
+.logbookTextarea:focus {
+
+    border-color: #aaa;
+
+    box-shadow:
+        inset 3px 3px 0 #050505,
+        0 0 0 1px #333;
+
+}
+
+
+/* ======================================================
+   CONTADOR
+   ====================================================== */
+
+.logbookCounter {
+
+    margin-top: 5px;
+
+    text-align: right;
+
+    color: #666;
+
+    font-size: .5rem;
+
+}
+
+
+/* ======================================================
+   BOTONES
+   ====================================================== */
+
+.logbookButtons {
+
+    position: relative;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-top: 20px;
+
+}
+
+
+.logbookButton {
+
+    min-width: 120px;
+
+    padding: 12px 18px;
+
+    border: 2px solid #777;
+
+    border-radius: 0;
+
+    background: #292929;
+
+    color: #eee;
+
+    font-family: 'Silkscreen', monospace;
+
+    font-size: .65rem;
+
+    cursor: pointer;
+
+    box-shadow:
+        3px 3px 0 #080808;
+
+}
+
+
+.logbookButton:hover {
+
+    background: #383838;
+
+    border-color: #aaa;
+
+}
+
+
+.logbookButton:active {
+
+    transform: translate(2px, 2px);
+
+    box-shadow:
+        1px 1px 0 #080808;
+
+}
+
+
+.logbookButton.primary {
+
+    border-color: #d9b34b;
+
+    color: #d9b34b;
+
+}
+
+
+.logbookButton.primary:hover {
+
+    background: #332d20;
+
+}
+
+
+/* ======================================================
+   REGISTROS
+   ====================================================== */
+
+.logbookEntries {
+
+    position: relative;
+
+    height: calc(100% - 110px);
+
+    overflow-y: auto;
+
+    padding-right: 8px;
+
+}
+
+
+/* Scrollbar retro */
+
+.logbookEntries::-webkit-scrollbar {
+
+    width: 10px;
+
+}
+
+
+.logbookEntries::-webkit-scrollbar-track {
+
+    background: #0b0b0b;
+
+    border-left: 1px solid #333;
+
+}
+
+
+.logbookEntries::-webkit-scrollbar-thumb {
+
+    background: #555;
+
+    border: 2px solid #0b0b0b;
+
+}
+
+
+.logbookEntries::-webkit-scrollbar-thumb:hover {
+
+    background: #777;
+
+}
+
+
+/* ======================================================
+   ENTRADA
+   ====================================================== */
+
+.logbookEntry {
+
+    position: relative;
+
+    margin-bottom: 18px;
+
+    padding: 12px;
+
+    border: 1px solid #444;
+
+    background: #151515;
+
+    box-shadow:
+        3px 3px 0 #0a0a0a;
+
+}
+
+
+.logbookEntryHeader {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: baseline;
+
+    gap: 10px;
+
+    margin-bottom: 9px;
+
+}
+
+
+.logbookUsername {
+
+    color: #d9b34b;
+
+    font-size: .7rem;
+
+}
+
+
+.logbookDate {
+
+    color: #666;
+
+    font-size: .5rem;
+
+    white-space: nowrap;
+
+}
+
+
+.logbookMessage {
+
+    margin: 0;
+
+    color: #ccc;
+
+    font-size: .62rem;
+
+    line-height: 1.7;
+
+    white-space: pre-wrap;
+
+    word-break: break-word;
+
+}
+
+
+/* ======================================================
+   LOG NUMBER
+   ====================================================== */
+
+.logbookNumber {
+
+    margin-bottom: 8px;
+
+    color: #555;
+
+    font-size: .5rem;
+
+}
+
+
+/* ======================================================
+   SIN REGISTROS
+   ====================================================== */
+
+.logbookEmpty {
+
+    position: relative;
+
+    margin-top: 60px;
+
+    padding: 20px;
+
+    border: 1px dashed #444;
+
+    text-align: center;
+
+    color: #666;
+
+    font-size: .65rem;
+
+    line-height: 1.8;
+
+}
+
+
+.logbookEmpty::before {
+
+    content: "[ NO LOGS FOUND ]";
+
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: #777;
+
+}
+
+
+/* ======================================================
+   MENSAJES DE ERROR
+   ====================================================== */
+
+.logbookError {
+
+    position: relative;
+
+    margin-top: 12px;
+
+    color: #d96b5c;
+
+    text-align: center;
+
+    font-size: .55rem;
+
+}
+
+
+/* ======================================================
+   PIE
+   ====================================================== */
+
+.logbookFooter {
+
+    position: absolute;
+
+    left: 32px;
+
+    right: 32px;
+
+    bottom: 13px;
+
+    text-align: center;
+
+    color: #444;
+
+    font-size: .48rem;
+
+}
+
+
+/* ======================================================
+   ANIMACIÓN
+   ====================================================== */
+
+@keyframes logbookAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform: scale(.96);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+    }
+
+}
+
+
+/* ======================================================
+   MÓVIL
+   ====================================================== */
+
+@media (max-width: 700px) {
+
+    #logbookOverlay {
+
+        padding: 8px;
+
+        align-items: center;
+
+    }
+
+
+    .logbookBook {
+
+        width: 97vw;
+
+        height: 94vh;
+
+        display: block;
+
+        overflow-y: auto;
+
+    }
+
+
+    .logbookBook::after {
+
+        display: none;
+
+    }
+
+
+    .logbookPage {
+
+        width: 100%;
+
+        height: auto;
+
+        min-height: 46%;
+
+        padding: 22px 18px;
+
+        overflow: visible;
+
+    }
+
+
+    .logbookPageLeft {
+
+        border-right: none;
+
+        border-bottom: 2px solid #090909;
+
+    }
+
+
+    .logbookPageRight {
+
+        border-left: none;
+
+    }
+
+
+    .logbookHeaderTitle {
+
+        font-size: .95rem;
+
+        letter-spacing: 2px;
+
+    }
+
+
+    .logbookHeaderSubtitle {
+
+        font-size: .52rem;
+
+    }
+
+
+    .logbookInput,
+    .logbookTextarea {
+
+        font-size: .58rem;
+
+    }
+
+
+    .logbookTextarea {
+
+        height: 110px;
+
+    }
+
+
+    .logbookButton {
+
+        min-width: 100px;
+
+        padding: 10px 12px;
+
+        font-size: .55rem;
+
+    }
+
+
+    .logbookEntries {
+
+        height: auto;
+
+        max-height: 430px;
+
+    }
+
+
+    .logbookEntryHeader {
+
+        display: block;
+
+    }
+
+
+    .logbookDate {
+
+        display: block;
+
+        margin-top: 5px;
+
+    }
+
+
+    .logbookMessage {
+
+        font-size: .55rem;
+
+    }
+
+
+    .logbookFooter {
+
+        position: relative;
+
+        left: auto;
+        right: auto;
+        bottom: auto;
+
+        margin: 15px 0;
 
     }
 
