@@ -15,7 +15,7 @@ const Scene02 = {
 
     ambient: null,
 
-    // Hotspots obligatorios para poder entrar
+    // Hotspots obligatorios para poder pasar a escena 03
 
     requiredHotspots: [
 
