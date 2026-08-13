@@ -1,0 +1,444 @@
+/* ======================================================
+   DARK CACHE
+   GAME BOY
+   ====================================================== */
+
+#gameBoyOverlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 11000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(0,0,0,.92);
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ======================================================
+   GAME BOY
+   ====================================================== */
+
+.gameBoy {
+
+    position: relative;
+
+    width: min(390px, 82vw);
+
+    aspect-ratio: .62;
+
+    background:
+        #c9c5a8;
+
+    border-radius: 18px 18px 35px 35px;
+
+    border: 4px solid #77735e;
+
+    box-shadow:
+
+        8px 8px 0 #111,
+
+        inset 5px 5px 0 rgba(255,255,255,.25),
+
+        inset -6px -6px 0 rgba(0,0,0,.18);
+
+    padding: 25px;
+
+    box-sizing: border-box;
+
+    image-rendering: pixelated;
+
+}
+
+
+/* ======================================================
+   PANTALLA
+   ====================================================== */
+
+.gameBoyScreenFrame {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 43%;
+
+    padding: 13px;
+
+    box-sizing: border-box;
+
+    background: #555747;
+
+    border-radius: 8px 8px 15px 15px;
+
+    box-shadow:
+        inset 3px 3px 0 #33362e,
+        inset -3px -3px 0 #777b68;
+
+}
+
+
+.gameBoyScreen {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    border: none;
+
+    background: #9bbc0f;
+
+}
+
+
+/* ======================================================
+   LOGO
+   ====================================================== */
+
+.gameBoyLogo {
+
+    margin-top: 12px;
+
+    color: #3f3d32;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-weight: bold;
+
+    font-style: italic;
+
+    font-size: 16px;
+
+    letter-spacing: -1px;
+
+}
+
+
+/* ======================================================
+   CONTROLES
+   ====================================================== */
+
+.gameBoyControls {
+
+    position: absolute;
+
+    left: 25px;
+
+    right: 25px;
+
+    bottom: 100px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+/* ======================================================
+   CRUCETA
+   ====================================================== */
+
+.gameBoyDpad {
+
+    position: relative;
+
+    width: 100px;
+
+    height: 100px;
+
+}
+
+
+.gameBoyDpad div {
+
+    position: absolute;
+
+    background: #333;
+
+}
+
+
+.dpadUp {
+
+    width: 32px;
+
+    height: 40px;
+
+    left: 34px;
+
+    top: 0;
+
+}
+
+
+.dpadDown {
+
+    width: 32px;
+
+    height: 40px;
+
+    left: 34px;
+
+    bottom: 0;
+
+}
+
+
+.dpadLeft {
+
+    width: 40px;
+
+    height: 32px;
+
+    left: 0;
+
+    top: 34px;
+
+}
+
+
+.dpadRight {
+
+    width: 40px;
+
+    height: 32px;
+
+    right: 0;
+
+    top: 34px;
+
+}
+
+
+.dpadCenter {
+
+    width: 32px;
+
+    height: 32px;
+
+    left: 34px;
+
+    top: 34px;
+
+    background: #333;
+
+}
+
+
+/* ======================================================
+   BOTONES A / B
+   ====================================================== */
+
+.gameBoyActionButtons {
+
+    display: flex;
+
+    gap: 16px;
+
+    transform: rotate(-20deg);
+
+}
+
+
+.gameBoyRoundButton {
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: #812f43;
+
+    border: 3px solid #642537;
+
+    color: #54202e;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-family:
+        'Silkscreen',
+        monospace;
+
+    font-size: 11px;
+
+    box-shadow:
+        3px 3px 0 #4d1d29;
+
+}
+
+
+/* ======================================================
+   START / SELECT
+   ====================================================== */
+
+.gameBoyMenuButtons {
+
+    position: absolute;
+
+    bottom: 55px;
+
+    left: 0;
+
+    right: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 22px;
+
+}
+
+
+.gameBoyMenuButtons span {
+
+    padding: 5px 13px;
+
+    background: #77735e;
+
+    border-radius: 8px;
+
+    transform: rotate(-20deg);
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 8px;
+
+    color: #333;
+
+}
+
+
+/* ======================================================
+   CERRAR
+   ====================================================== */
+
+.gameBoyClose {
+
+    position: absolute;
+
+    bottom: -50px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    padding: 9px 18px;
+
+    background: #222;
+
+    border: 1px solid #777;
+
+    color: white;
+
+    font-family:
+        'Silkscreen',
+        monospace;
+
+    font-size: .55rem;
+
+    cursor: pointer;
+
+}
+
+
+.gameBoyClose:hover {
+
+    background: #333;
+
+}
+
+
+/* ======================================================
+   MÓVIL
+   ====================================================== */
+
+@media (max-width:700px){
+
+    #gameBoyOverlay {
+
+        padding: 10px;
+
+    }
+
+
+    .gameBoy {
+
+        width: min(340px, 82vw);
+
+        border-width: 3px;
+
+        padding: 20px;
+
+    }
+
+
+    .gameBoyControls {
+
+        left: 20px;
+
+        right: 20px;
+
+        bottom: 85px;
+
+    }
+
+
+    .gameBoyDpad {
+
+        width: 82px;
+
+        height: 82px;
+
+    }
+
+
+    .gameBoyRoundButton {
+
+        width: 42px;
+
+        height: 42px;
+
+    }
+
+
+    .gameBoyMenuButtons {
+
+        bottom: 47px;
+
+    }
+
+
+    .gameBoyClose {
+
+        bottom: -42px;
+
+    }
+
+}
