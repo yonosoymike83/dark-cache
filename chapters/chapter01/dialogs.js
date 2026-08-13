@@ -295,3 +295,26 @@ const DialogLogbookIntro = [
     }
 
 ];
+
+// ======================================================
+// GAME BOY
+// ======================================================
+
+const DialogGameBoy = [
+
+    {
+        speaker:"",
+        text:"¡Ostras! ¡La Game Boy original de 1989!"
+    },
+
+    {
+        speaker:"",
+        text:"Cómo me viciaba con ella de pequeño..."
+    },
+
+    {
+        speaker:"",
+        text:"¿Echamos una partida?"
+    }
+
+];
