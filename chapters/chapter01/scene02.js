@@ -58,9 +58,9 @@ const Scene02 = {
 
             visits: 0,
 
-            x: 40,
+            x: 80,
             y: 40,
-            width: 10,
+            width: 20,
             height: 20,
 
             click(){
