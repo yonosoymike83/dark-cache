@@ -356,7 +356,7 @@ async function showLogbook(){
 
         createHeader(
 
-            "LOGS RECIENTES",
+            "LOGBOOK",
             "",
             ""
 
