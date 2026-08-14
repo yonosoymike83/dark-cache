@@ -3,6 +3,11 @@
    GAME BOY
    ====================================================== */
 
+
+/* ======================================================
+   OVERLAY
+   ====================================================== */
+
 #gameBoyOverlay {
 
     position: fixed;
@@ -17,12 +22,11 @@
 
     justify-content: center;
 
-    background:
-        rgba(0,0,0,.92);
-
-    padding: 20px;
-
     box-sizing: border-box;
+
+    padding: 10px;
+
+    background: rgba(0,0,0,.92);
 
 }
 
@@ -35,12 +39,26 @@
 
     position: relative;
 
-    width: min(390px, 82vw);
+    /*
+       Mantiene la proporción de una Game Boy clásica
+       pero se adapta al tamaño disponible.
+    */
+
+    width: min(
+        390px,
+        calc(100vw - 20px),
+        calc((100vh - 20px) * .62)
+    );
 
     aspect-ratio: .62;
 
-    background:
-        #c9c5a8;
+    max-height: calc(100vh - 20px);
+
+    box-sizing: border-box;
+
+    padding: 6.5%;
+
+    background: #c9c5a8;
 
     border-radius: 18px 18px 35px 35px;
 
@@ -53,10 +71,6 @@
         inset 5px 5px 0 rgba(255,255,255,.25),
 
         inset -6px -6px 0 rgba(0,0,0,.18);
-
-    padding: 25px;
-
-    box-sizing: border-box;
 
     image-rendering: pixelated;
 
@@ -75,7 +89,7 @@
 
     height: 43%;
 
-    padding: 13px;
+    padding: 3.5%;
 
     box-sizing: border-box;
 
@@ -84,23 +98,37 @@
     border-radius: 8px 8px 15px 15px;
 
     box-shadow:
+
         inset 3px 3px 0 #33362e,
+
         inset -3px -3px 0 #777b68;
+
+    overflow: hidden;
 
 }
 
 
+/* ======================================================
+   ARCADE MYSTERY
+   ====================================================== */
+
 .gameBoyScreen {
+
+    display: block;
 
     width: 100%;
 
     height: 100%;
 
-    display: block;
+    margin: 0;
 
-    border: none;
+    padding: 0;
+
+    border: 0;
 
     background: #9bbc0f;
+
+    overflow: hidden;
 
 }
 
@@ -111,7 +139,7 @@
 
 .gameBoyLogo {
 
-    margin-top: 12px;
+    margin-top: 3%;
 
     color: #3f3d32;
 
@@ -123,7 +151,8 @@
 
     font-style: italic;
 
-    font-size: 16px;
+    font-size:
+        clamp(11px, 2.5vw, 16px);
 
     letter-spacing: -1px;
 
@@ -138,11 +167,11 @@
 
     position: absolute;
 
-    left: 25px;
+    left: 6.5%;
 
-    right: 25px;
+    right: 6.5%;
 
-    bottom: 100px;
+    bottom: 15%;
 
     display: flex;
 
@@ -161,12 +190,14 @@
 
     position: relative;
 
-    width: 100px;
+    width: 27%;
 
-    height: 100px;
+    aspect-ratio: 1;
 
 }
 
+
+/* Todas las piezas de la cruceta */
 
 .gameBoyDpad div {
 
@@ -177,69 +208,77 @@
 }
 
 
+/* Arriba */
+
 .dpadUp {
 
-    width: 32px;
+    width: 32%;
 
-    height: 40px;
+    height: 40%;
 
-    left: 34px;
+    left: 34%;
 
     top: 0;
 
 }
 
 
+/* Abajo */
+
 .dpadDown {
 
-    width: 32px;
+    width: 32%;
 
-    height: 40px;
+    height: 40%;
 
-    left: 34px;
+    left: 34%;
 
     bottom: 0;
 
 }
 
 
+/* Izquierda */
+
 .dpadLeft {
 
-    width: 40px;
+    width: 40%;
 
-    height: 32px;
+    height: 32%;
 
     left: 0;
 
-    top: 34px;
+    top: 34%;
 
 }
 
+
+/* Derecha */
 
 .dpadRight {
 
-    width: 40px;
+    width: 40%;
 
-    height: 32px;
+    height: 32%;
 
     right: 0;
 
-    top: 34px;
+    top: 34%;
 
 }
 
 
+/* Centro */
+
 .dpadCenter {
 
-    width: 32px;
+    width: 32%;
 
-    height: 32px;
+    height: 32%;
 
-    left: 34px;
+    left: 34%;
 
-    top: 34px;
-
-    background: #333;
+    top: 34%;
 
 }
 
@@ -252,7 +291,7 @@
 
     display: flex;
 
-    gap: 16px;
+    gap: 7%;
 
     transform: rotate(-20deg);
 
@@ -261,9 +300,14 @@
 
 .gameBoyRoundButton {
 
-    width: 48px;
+    width:
+        clamp(
+            32px,
+            11vw,
+            48px
+        );
 
-    height: 48px;
+    aspect-ratio: 1;
 
     border-radius: 50%;
 
@@ -283,7 +327,12 @@
         'Silkscreen',
         monospace;
 
-    font-size: 11px;
+    font-size:
+        clamp(
+            7px,
+            2vw,
+            11px
+        );
 
     box-shadow:
         3px 3px 0 #4d1d29;
@@ -299,7 +348,7 @@
 
     position: absolute;
 
-    bottom: 55px;
+    bottom: 7%;
 
     left: 0;
 
@@ -309,14 +358,14 @@
 
     justify-content: center;
 
-    gap: 22px;
+    gap: 6%;
 
 }
 
 
 .gameBoyMenuButtons span {
 
-    padding: 5px 13px;
+    padding: 4px 10px;
 
     background: #77735e;
 
@@ -328,7 +377,12 @@
         Arial,
         sans-serif;
 
-    font-size: 8px;
+    font-size:
+        clamp(
+            6px,
+            1.7vw,
+            8px
+        );
 
     color: #333;
 
@@ -336,20 +390,21 @@
 
 
 /* ======================================================
-   CERRAR
+   BOTÓN CERRAR
    ====================================================== */
 
 .gameBoyClose {
 
-    position: absolute;
+    position: fixed;
 
-    bottom: -50px;
+    bottom: 8px;
 
     left: 50%;
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
-    padding: 9px 18px;
+    padding: 7px 14px;
 
     background: #222;
 
@@ -361,9 +416,11 @@
         'Silkscreen',
         monospace;
 
-    font-size: .55rem;
+    font-size: .48rem;
 
     cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
 
 }
 
@@ -379,65 +436,111 @@
    MÓVIL
    ====================================================== */
 
-@media (max-width:700px){
+@media (max-width:700px) {
 
     #gameBoyOverlay {
 
-        padding: 10px;
+        padding: 5px;
 
     }
 
 
     .gameBoy {
 
-        width: min(340px, 82vw);
+        width: min(
+
+            calc(100vw - 20px),
+
+            calc((100vh - 50px) * .62)
+
+        );
+
+        max-height:
+            calc(100vh - 50px);
 
         border-width: 3px;
 
-        padding: 20px;
+    }
+
+
+    .gameBoyScreenFrame {
+
+        height: 43%;
 
     }
 
 
     .gameBoyControls {
 
-        left: 20px;
-
-        right: 20px;
-
-        bottom: 85px;
-
-    }
-
-
-    .gameBoyDpad {
-
-        width: 82px;
-
-        height: 82px;
-
-    }
-
-
-    .gameBoyRoundButton {
-
-        width: 42px;
-
-        height: 42px;
-
-    }
-
-
-    .gameBoyMenuButtons {
-
-        bottom: 47px;
+        bottom: 15%;
 
     }
 
 
     .gameBoyClose {
 
-        bottom: -42px;
+        bottom: 5px;
+
+    }
+
+}
+
+
+/* ======================================================
+   TELÉFONOS MUY ESTRECHOS
+   ====================================================== */
+
+@media (
+    max-width:380px
+) {
+
+    .gameBoy {
+
+        width: calc(100vw - 14px);
+
+        max-height:
+            calc(100vh - 45px);
+
+    }
+
+    .gameBoyScreenFrame {
+
+        padding: 3%;
+
+    }
+
+    .gameBoyControls {
+
+        bottom: 14%;
+
+    }
+
+}
+
+
+/* ======================================================
+   TELÉFONOS MUY BAJOS
+   ====================================================== */
+
+@media (
+    max-height:600px
+) and (
+    orientation: landscape
+) {
+
+    .gameBoy {
+
+        height: calc(100vh - 20px);
+
+        width: auto;
+
+        aspect-ratio: .62;
+
+    }
+
+    .gameBoyScreenFrame {
+
+        height: 43%;
 
     }
 
