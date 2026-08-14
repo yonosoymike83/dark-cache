@@ -150,7 +150,7 @@ function showGameBoy(){
         "gameBoyScreen";
 
     screen.src =
-        "https://yonosoymike83.github.io/arcade-mystery/";
+        "https://yonosoymike83.github.io/arcade-mystery/?gameboy=true";
 
     screen.title =
         "Arcade Mystery Cache";
