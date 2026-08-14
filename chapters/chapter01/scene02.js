@@ -42,7 +42,74 @@ const Scene02 = {
 
             click(){
 
-                openLogbook();
+                const lastStep =
+                    DialogLogbook.length - 1;
+
+
+                // ==========================================
+                // TODAVÍA QUEDAN FRASES
+                // ==========================================
+
+                if(this.visits < lastStep){
+
+                    const currentDialog =
+                        DialogLogbook[this.visits];
+
+                    this.visits++;
+
+                    dialog.show(
+
+                        [currentDialog]
+
+                    );
+
+                    return;
+
+                }
+
+
+                // ==========================================
+                // ÚLTIMA FRASE = PREGUNTA
+                // ==========================================
+
+                const question =
+                    DialogLogbook[lastStep].text;
+
+
+                dialog.showChoice(
+
+                    question,
+
+                    "SÍ",
+
+                    "NO",
+
+                    () => {
+
+                        // SÍ → abrir logbook
+
+                        openLogbook();
+
+                    },
+
+                    () => {
+
+                        // NO → mostrar despedida
+
+                        dialog.show(
+
+                            DialogLogbookNo
+
+                        );
+
+                    }
+
+                );
+
+
+                // Evitar repetir la pregunta
+
+                this.visits++;
 
             }
 
@@ -84,12 +151,13 @@ const Scene02 = {
 function handleGameBoyClick(hotspot){
 
     /*
-     * DialogGameBoy contiene las frases de la Game Boy.
+     * DialogGameBoy contiene las frases.
      *
-     * Todas las frases anteriores se muestran normalmente.
+     * La última frase es la pregunta:
      *
-     * La última frase NO se muestra como un diálogo normal:
-     * se utiliza directamente como pregunta del SÍ / NO.
+     * "¿Echamos una partida?"
+     *
+     * En ese mismo clic aparecen SÍ / NO.
      */
 
 
@@ -97,9 +165,9 @@ function handleGameBoyClick(hotspot){
         DialogGameBoy.length - 1;
 
 
-    // ==================================================
-    // TODAVÍA QUEDAN FRASES ANTES DE LA PREGUNTA
-    // ==================================================
+    // ==========================================
+    // TODAVÍA QUEDAN FRASES
+    // ==========================================
 
     if(hotspot.visits < lastStep){
 
@@ -122,9 +190,9 @@ function handleGameBoyClick(hotspot){
     }
 
 
-    // ==================================================
-    // PREGUNTA FINAL
-    // ==================================================
+    // ==========================================
+    // ÚLTIMA FRASE = PREGUNTA
+    // ==========================================
 
     const question =
         DialogGameBoy[lastStep].text;
@@ -140,9 +208,7 @@ function handleGameBoyClick(hotspot){
 
         () => {
 
-            // ------------------------------------------
-            // SÍ
-            // ------------------------------------------
+            // SÍ → abrir Game Boy
 
             openGameBoy();
 
@@ -150,9 +216,7 @@ function handleGameBoyClick(hotspot){
 
         () => {
 
-            // ------------------------------------------
-            // NO
-            // ------------------------------------------
+            // NO → mostrar despedida
 
             dialog.show(
 
@@ -165,8 +229,7 @@ function handleGameBoyClick(hotspot){
     );
 
 
-    // Evitamos que vuelva a intentar mostrar
-    // la pregunta como si fuera una frase.
+    // Evitar repetir la pregunta
 
     hotspot.visits++;
 
