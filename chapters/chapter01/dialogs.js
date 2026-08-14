@@ -286,12 +286,12 @@ const DialogLogbookIntro = [
 
     {
         speaker: "",
-        text: "La cubierta está llena de nombres, fechas y pequeñas anotaciones."
+        text: "Es el Logbook más grande que jamás haya visto."
     },
 
     {
         speaker: "",
-        text: "Parece el libro de visitas de la tienda."
+        text: "¿Quieres dejar tu firma?"
     }
 
 ];
