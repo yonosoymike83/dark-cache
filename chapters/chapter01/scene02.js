@@ -58,10 +58,10 @@ const Scene02 = {
 
             visits: 0,
 
-            x: 80,
-            y: 40,
-            width: 20,
-            height: 20,
+            x: 77.48,
+            y: 71.40,
+            width: 4.01,
+            height: 15.76,
 
             click(){
 
