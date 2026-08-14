@@ -297,6 +297,19 @@ const DialogLogbookIntro = [
 ];
 
 // ======================================================
+// LOGBOOK - NO
+// ======================================================
+
+const DialogLogbookNo = [
+
+    {
+        speaker: "",
+        text: "Bueno... quizá en otro momento."
+    }
+
+];
+
+// ======================================================
 // GAME BOY
 // ======================================================
 
@@ -315,6 +328,19 @@ const DialogGameBoy = [
     {
         speaker:"",
         text:"¿Echamos una partida?"
+    }
+
+];
+
+// ======================================================
+// GAME BOY - NO
+// ======================================================
+
+const DialogGameBoyNo = [
+
+    {
+        speaker: "",
+        text: "Mejor otro día. La Game Boy puede esperar."
     }
 
 ];
