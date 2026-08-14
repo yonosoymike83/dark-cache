@@ -12,6 +12,8 @@ let logbookDialogActive = false;
 
 let logbookDialogIndex = 0;
 
+let logbookChoiceShown = false;
+
 
 // ======================================================
 // ABRIR / CONTINUAR LOGBOOK
@@ -25,14 +27,18 @@ function openLogbook(){
 
     if(logbookDialogActive){
 
-        // El clic sobre el hotspot SIEMPRE
-        // avanza a la siguiente frase.
+        // ----------------------------------------------
+        // Si la frase todavía se está escribiendo,
+        // el clic sobre el HOTSPOT debe pasar
+        // directamente a la siguiente frase.
+        // ----------------------------------------------
 
         clearInterval(
             dialog.typingTimer
         );
 
         dialog.isTyping = false;
+
 
         logbookDialogIndex++;
 
@@ -43,7 +49,7 @@ function openLogbook(){
 
         if(
             logbookDialogIndex <
-            DialogLogbookIntro.length
+            DialogLogbookIntro.length - 1
         ){
 
             dialog.show(
@@ -62,12 +68,62 @@ function openLogbook(){
 
 
         // --------------------------------------------------
-        // Última frase terminada
+        // Última frase = pregunta
         // --------------------------------------------------
 
-        logbookDialogActive = false;
+        if(!logbookChoiceShown){
 
-        showLogbook();
+            logbookChoiceShown = true;
+
+            const question =
+                DialogLogbookIntro[
+                    DialogLogbookIntro.length - 1
+                ].text;
+
+
+            dialog.showChoice(
+
+                question,
+
+                "SÍ",
+
+                "NO",
+
+                () => {
+
+                    // --------------------------------------
+                    // SÍ → abrir directamente el Logbook
+                    // --------------------------------------
+
+                    logbookDialogActive = false;
+
+                    logbookChoiceShown = false;
+
+                    logbookDialogIndex = 0;
+
+                    showLogbook();
+
+                },
+
+                () => {
+
+                    // --------------------------------------
+                    // NO → cerrar conversación
+                    // --------------------------------------
+
+                    logbookDialogActive = false;
+
+                    logbookChoiceShown = false;
+
+                    logbookDialogIndex = 0;
+
+                    dialog.hide();
+
+                }
+
+            );
+
+        }
 
         return;
 
@@ -79,6 +135,8 @@ function openLogbook(){
     // ==================================================
 
     logbookDialogActive = true;
+
+    logbookChoiceShown = false;
 
     logbookDialogIndex = 0;
 
@@ -149,6 +207,7 @@ async function showLogbook(){
 
     );
 
+
     // --------------------------------------------------
     // Nombre
     // --------------------------------------------------
@@ -212,6 +271,7 @@ async function showLogbook(){
         usernameCounter
     );
 
+
     writePage.appendChild(
         usernameField
     );
@@ -274,6 +334,7 @@ async function showLogbook(){
         messageCounter
     );
 
+
     writePage.appendChild(
         messageField
     );
@@ -318,6 +379,7 @@ async function showLogbook(){
         closeButton
     );
 
+
     writePage.appendChild(
         buttons
     );
@@ -334,7 +396,7 @@ async function showLogbook(){
         "logbookFooter";
 
     writeFooter.textContent =
-        "DARK CACHE // NEW LOG";
+        "DARK CACHE";
 
     writePage.appendChild(
         writeFooter
@@ -365,7 +427,9 @@ async function showLogbook(){
     );
 
 
+    // --------------------------------------------------
     // Contenedor de entradas
+    // --------------------------------------------------
 
     const entriesContainer =
         document.createElement("div");
@@ -386,7 +450,7 @@ async function showLogbook(){
         "logbookFooter";
 
     logsFooter.textContent =
-        "DARK CACHE // VISITOR LOG";
+        "VISITOR LOG";
 
     logsPage.appendChild(
         logsFooter
@@ -405,9 +469,11 @@ async function showLogbook(){
         logsPage
     );
 
+
     overlay.appendChild(
         book
     );
+
 
     document.body.appendChild(
         overlay
@@ -419,7 +485,9 @@ async function showLogbook(){
     // ==================================================
 
     usernameInput.addEventListener(
+
         "input",
+
         () => {
 
             usernameCounter.textContent =
@@ -427,11 +495,14 @@ async function showLogbook(){
                 " / 30";
 
         }
+
     );
 
 
     messageInput.addEventListener(
+
         "input",
+
         () => {
 
             messageCounter.textContent =
@@ -439,6 +510,7 @@ async function showLogbook(){
                 " / 150";
 
         }
+
     );
 
 
@@ -483,8 +555,11 @@ async function showLogbook(){
             if(!username){
 
                 showLogbookError(
+
                     writePage,
+
                     "ERROR: FALTA EL NOMBRE"
+
                 );
 
                 usernameInput.focus();
@@ -497,8 +572,11 @@ async function showLogbook(){
             if(!message){
 
                 showLogbookError(
+
                     writePage,
+
                     "ERROR: FALTA EL MENSAJE"
+
                 );
 
                 messageInput.focus();
@@ -572,15 +650,20 @@ async function showLogbook(){
                 // --------------------------------------
 
                 await loadLogbookEntries(
+
                     entriesContainer
+
                 );
 
 
             }catch(error){
 
                 console.error(
+
                     "Error al guardar logbook:",
+
                     error
+
                 );
 
 
@@ -611,7 +694,9 @@ async function showLogbook(){
     // ==================================================
 
     await loadLogbookEntries(
+
         entriesContainer
+
     );
 
 
@@ -629,9 +714,11 @@ async function showLogbook(){
 // ======================================================
 
 function createHeader(
+
     line1,
     line2,
     subtitle
+
 ){
 
     const header =
@@ -688,16 +775,20 @@ function createHeader(
         sub
     );
 
+
     return header;
 
 }
+
 
 // ======================================================
 // CARGAR REGISTROS
 // ======================================================
 
 async function loadLogbookEntries(
+
     container
+
 ){
 
     container.innerHTML = "";
@@ -716,10 +807,13 @@ async function loadLogbookEntries(
                 )
 
                 .order(
+
                     "signed_at",
+
                     {
                         ascending: false
                     }
+
                 );
 
 
@@ -785,11 +879,17 @@ async function loadLogbookEntries(
 
                 number.textContent =
                     "LOG #" +
+
                     String(
+
                         data.length - index
+
                     ).padStart(
+
                         3,
+
                         "0"
+
                     );
 
 
@@ -828,13 +928,17 @@ async function loadLogbookEntries(
 
                 const dateObject =
                     new Date(
+
                         entry.signed_at
+
                     );
 
 
                 date.textContent =
                     dateObject.toLocaleDateString(
+
                         "es-ES"
+
                     );
 
 
@@ -883,8 +987,11 @@ async function loadLogbookEntries(
     }catch(error){
 
         console.error(
+
             "Error leyendo logbook:",
+
             error
+
         );
 
 
@@ -912,13 +1019,18 @@ async function loadLogbookEntries(
 // ======================================================
 
 function showLogbookError(
+
     page,
+
     message
+
 ){
 
     const previous =
         page.querySelector(
+
             ".logbookError"
+
         );
 
 
