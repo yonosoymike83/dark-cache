@@ -22,7 +22,7 @@ const Scene02 = {
         "logbook",
 
     ],
-    
+
     hotspots: [
 
         // ==========================================
@@ -42,11 +42,12 @@ const Scene02 = {
 
             click(){
 
-                 openLogbook();
+                openLogbook();
 
             }
 
         },
+
 
         // ==========================================
         // GAME BOY
@@ -65,7 +66,7 @@ const Scene02 = {
 
             click(){
 
-                openGameBoy();
+                handleGameBoyClick(this);
 
             }
 
@@ -74,3 +75,99 @@ const Scene02 = {
     ]
 
 };
+
+
+// ======================================================
+// GAME BOY
+// ======================================================
+
+function handleGameBoyClick(hotspot){
+
+    /*
+     * DialogGameBoy contiene las frases de la Game Boy.
+     *
+     * Todas las frases anteriores se muestran normalmente.
+     *
+     * La última frase NO se muestra como un diálogo normal:
+     * se utiliza directamente como pregunta del SÍ / NO.
+     */
+
+
+    const lastStep =
+        DialogGameBoy.length - 1;
+
+
+    // ==================================================
+    // TODAVÍA QUEDAN FRASES ANTES DE LA PREGUNTA
+    // ==================================================
+
+    if(hotspot.visits < lastStep){
+
+        const currentDialog =
+            DialogGameBoy[hotspot.visits];
+
+
+        hotspot.visits++;
+
+
+        dialog.show(
+
+            [currentDialog]
+
+        );
+
+
+        return;
+
+    }
+
+
+    // ==================================================
+    // PREGUNTA FINAL
+    // ==================================================
+
+    const question =
+        DialogGameBoy[lastStep].text;
+
+
+    dialog.showChoice(
+
+        question,
+
+        "SÍ",
+
+        "NO",
+
+        () => {
+
+            // ------------------------------------------
+            // SÍ
+            // ------------------------------------------
+
+            openGameBoy();
+
+        },
+
+        () => {
+
+            // ------------------------------------------
+            // NO
+            // ------------------------------------------
+
+            dialog.show(
+
+                DialogGameBoyNo
+
+            );
+
+        }
+
+    );
+
+
+    // Evitamos que vuelva a intentar mostrar
+    // la pregunta como si fuera una frase.
+
+    hotspot.visits++;
+
+}
