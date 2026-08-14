@@ -43,7 +43,7 @@ const Scene02 = {
             click(){
 
                 const lastStep =
-                    DialogLogbook.length - 1;
+                    DialogLogbookIntro.length - 1;
 
 
                 // ==========================================
@@ -53,7 +53,7 @@ const Scene02 = {
                 if(this.visits < lastStep){
 
                     const currentDialog =
-                        DialogLogbook[this.visits];
+                        DialogLogbookIntro[this.visits];
 
                     this.visits++;
 
@@ -73,7 +73,7 @@ const Scene02 = {
                 // ==========================================
 
                 const question =
-                    DialogLogbook[lastStep].text;
+                    DialogLogbookIntro[lastStep].text;
 
 
                 dialog.showChoice(
@@ -86,7 +86,7 @@ const Scene02 = {
 
                     () => {
 
-                        // SÍ → abrir logbook
+                        // SÍ → abrir Logbook
 
                         openLogbook();
 
@@ -94,7 +94,7 @@ const Scene02 = {
 
                     () => {
 
-                        // NO → mostrar despedida
+                        // NO → volver a la escena
 
                         dialog.show(
 
@@ -107,7 +107,7 @@ const Scene02 = {
                 );
 
 
-                // Evitar repetir la pregunta
+                // Evitamos repetir la pregunta
 
                 this.visits++;
 
@@ -133,7 +133,74 @@ const Scene02 = {
 
             click(){
 
-                handleGameBoyClick(this);
+                const lastStep =
+                    DialogGameBoy.length - 1;
+
+
+                // ==========================================
+                // TODAVÍA QUEDAN FRASES
+                // ==========================================
+
+                if(this.visits < lastStep){
+
+                    const currentDialog =
+                        DialogGameBoy[this.visits];
+
+                    this.visits++;
+
+                    dialog.show(
+
+                        [currentDialog]
+
+                    );
+
+                    return;
+
+                }
+
+
+                // ==========================================
+                // ÚLTIMA FRASE = PREGUNTA
+                // ==========================================
+
+                const question =
+                    DialogGameBoy[lastStep].text;
+
+
+                dialog.showChoice(
+
+                    question,
+
+                    "SÍ",
+
+                    "NO",
+
+                    () => {
+
+                        // SÍ → mostrar directamente Game Boy
+
+                        showGameBoy();
+
+                    },
+
+                    () => {
+
+                        // NO → volver a la escena
+
+                        dialog.show(
+
+                            DialogGameBoyNo
+
+                        );
+
+                    }
+
+                );
+
+
+                // Evitamos repetir la pregunta
+
+                this.visits++;
 
             }
 
@@ -142,95 +209,3 @@ const Scene02 = {
     ]
 
 };
-
-
-// ======================================================
-// GAME BOY
-// ======================================================
-
-function handleGameBoyClick(hotspot){
-
-    /*
-     * DialogGameBoy contiene las frases.
-     *
-     * La última frase es la pregunta:
-     *
-     * "¿Echamos una partida?"
-     *
-     * En ese mismo clic aparecen SÍ / NO.
-     */
-
-
-    const lastStep =
-        DialogGameBoy.length - 1;
-
-
-    // ==========================================
-    // TODAVÍA QUEDAN FRASES
-    // ==========================================
-
-    if(hotspot.visits < lastStep){
-
-        const currentDialog =
-            DialogGameBoy[hotspot.visits];
-
-
-        hotspot.visits++;
-
-
-        dialog.show(
-
-            [currentDialog]
-
-        );
-
-
-        return;
-
-    }
-
-
-    // ==========================================
-    // ÚLTIMA FRASE = PREGUNTA
-    // ==========================================
-
-    const question =
-        DialogGameBoy[lastStep].text;
-
-
-    dialog.showChoice(
-
-        question,
-
-        "SÍ",
-
-        "NO",
-
-        () => {
-
-            // SÍ → abrir Game Boy
-
-            openGameBoy();
-
-        },
-
-        () => {
-
-            // NO → mostrar despedida
-
-            dialog.show(
-
-                DialogGameBoyNo
-
-            );
-
-        }
-
-    );
-
-
-    // Evitar repetir la pregunta
-
-    hotspot.visits++;
-
-}
