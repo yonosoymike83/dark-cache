@@ -86,15 +86,19 @@ const Scene02 = {
 
                     () => {
 
-                        // SÍ → abrir Logbook
+                        // ==================================
+                        // SÍ → ABRIR DIRECTAMENTE EL LIBRO
+                        // ==================================
 
-                        openLogbook();
+                        showLogbook();
 
                     },
 
                     () => {
 
-                        // NO → volver a la escena
+                        // ==================================
+                        // NO
+                        // ==================================
 
                         dialog.show(
 
@@ -177,7 +181,9 @@ const Scene02 = {
 
                     () => {
 
-                        // SÍ → mostrar directamente Game Boy
+                        // ==================================
+                        // SÍ → ABRIR GAME BOY
+                        // ==================================
 
                         showGameBoy();
 
@@ -185,7 +191,9 @@ const Scene02 = {
 
                     () => {
 
-                        // NO → volver a la escena
+                        // ==================================
+                        // NO
+                        // ==================================
 
                         dialog.show(
 
