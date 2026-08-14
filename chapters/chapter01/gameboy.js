@@ -155,6 +155,15 @@ function showGameBoy(){
     screen.title =
         "Arcade Mystery Cache";
 
+    screen.setAttribute(
+        "scrolling",
+        "no"
+    );
+
+    screen.setAttribute(
+        "allow",
+        "autoplay"
+    );
 
     screenFrame.appendChild(
         screen
