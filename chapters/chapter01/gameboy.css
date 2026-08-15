@@ -532,12 +532,10 @@
 
 
 /* ======================================================
-   TELÉFONO EN HORIZONTAL
+   GAME BOY EN HORIZONTAL
    ====================================================== */
 
 @media (
-    max-height:700px
-) and (
     orientation: landscape
 ) {
 
@@ -547,9 +545,11 @@
 
         width: auto;
 
-        aspect-ratio: .62;
-
         max-height: none;
+
+        max-width: none;
+
+        aspect-ratio: .62;
 
     }
 
