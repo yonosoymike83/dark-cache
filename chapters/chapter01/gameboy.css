@@ -85,11 +85,18 @@
 
     position: relative;
 
-    width: 100%;
+    /*
+       Pantalla ampliada.
+       Antes: 100% x 43%
+    */
 
-    height: 43%;
+    width: 88%;
 
-    padding: 3.5%;
+    height: 46%;
+
+    margin: 0 auto;
+
+    padding: 2.5%;
 
     box-sizing: border-box;
 
@@ -463,11 +470,10 @@
     }
 
 
-    .gameBoyScreenFrame {
-
-        height: 43%;
-
-    }
+    /*
+       NO modificar aquí el tamaño de la pantalla.
+       El 88% / 46% del bloque principal debe mantenerse.
+    */
 
 
     .gameBoyControls {
@@ -503,11 +509,18 @@
 
     }
 
+
     .gameBoyScreenFrame {
 
-        padding: 3%;
+        /*
+           Mantenemos la pantalla grande,
+           pero reducimos ligeramente el marco.
+        */
+
+        padding: 2.5%;
 
     }
+
 
     .gameBoyControls {
 
@@ -538,10 +551,9 @@
 
     }
 
-    .gameBoyScreenFrame {
-
-        height: 43%;
-
-    }
+    /*
+       No establecer height aquí.
+       Se mantiene el 46% de la pantalla.
+    */
 
 }
