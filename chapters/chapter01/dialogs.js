@@ -344,3 +344,26 @@ const DialogGameBoyNo = [
     }
 
 ];
+
+// ======================================================
+// AJEDREZ
+// ======================================================
+
+const DialogChess = [
+
+    {
+        speaker:"",
+        text:"Un viejo tablero de ajedrez descansa sobre la mesa."
+    },
+
+    {
+        speaker:"",
+        text:"Las piezas parecen llevar años esperando a que alguien termine la partida."
+    },
+
+    {
+        speaker:"",
+        text:"Hace mucho que no juego al ajedrez..."
+    }
+
+];
