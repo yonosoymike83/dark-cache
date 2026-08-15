@@ -39,11 +39,6 @@
 
     position: relative;
 
-    /*
-       Mantiene la proporción de una Game Boy clásica
-       pero se adapta al tamaño disponible.
-    */
-
     width: min(
         390px,
         calc(100vw - 20px),
@@ -83,20 +78,26 @@
 
 .gameBoyScreenFrame {
 
-    position: relative;
+    position: absolute;
 
     /*
-       Pantalla ampliada.
-       Antes: 100% x 43%
+       La pantalla ocupa prácticamente todo
+       el ancho interior de la Game Boy.
     */
 
-    width: 88%;
+    left: 5%;
+
+    right: 5%;
+
+    top: 6%;
+
+    width: auto;
 
     height: 46%;
 
-    margin: 0 auto;
+    margin: 0;
 
-    padding: 2.5%;
+    padding: 2%;
 
     box-sizing: border-box;
 
@@ -146,7 +147,21 @@
 
 .gameBoyLogo {
 
-    margin-top: 3%;
+    position: absolute;
+
+    /*
+       Colocado justo debajo de la pantalla.
+    */
+
+    top: 53%;
+
+    left: 0;
+
+    right: 0;
+
+    margin: 0;
+
+    text-align: center;
 
     color: #3f3d32;
 
@@ -203,8 +218,6 @@
 
 }
 
-
-/* Todas las piezas de la cruceta */
 
 .gameBoyDpad div {
 
@@ -470,12 +483,6 @@
     }
 
 
-    /*
-       NO modificar aquí el tamaño de la pantalla.
-       El 88% / 46% del bloque principal debe mantenerse.
-    */
-
-
     .gameBoyControls {
 
         bottom: 15%;
@@ -513,11 +520,16 @@
     .gameBoyScreenFrame {
 
         /*
-           Mantenemos la pantalla grande,
-           pero reducimos ligeramente el marco.
+           Mantener el tamaño grande.
         */
 
-        padding: 2.5%;
+        left: 5%;
+
+        right: 5%;
+
+        width: auto;
+
+        padding: 2%;
 
     }
 
@@ -556,7 +568,11 @@
 
     .gameBoyScreenFrame {
 
-        width: 88%;
+        left: 5%;
+
+        right: 5%;
+
+        width: auto;
 
         height: 46%;
 
