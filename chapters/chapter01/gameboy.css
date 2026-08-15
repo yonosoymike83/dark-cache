@@ -532,28 +532,34 @@
 
 
 /* ======================================================
-   TELÉFONOS MUY BAJOS
+   TELÉFONO EN HORIZONTAL
    ====================================================== */
 
 @media (
-    max-height:600px
+    max-height:700px
 ) and (
     orientation: landscape
 ) {
 
     .gameBoy {
 
-        height: calc(100vh - 20px);
+        height: calc(100vh - 10px);
 
         width: auto;
 
         aspect-ratio: .62;
 
+        max-height: none;
+
     }
 
-    /*
-       No establecer height aquí.
-       Se mantiene el 46% de la pantalla.
-    */
+
+    .gameBoyScreenFrame {
+
+        width: 88%;
+
+        height: 46%;
+
+    }
 
 }
