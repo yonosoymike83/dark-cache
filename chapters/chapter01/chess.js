@@ -68,15 +68,36 @@ function openChess(){
 
             "NO",
 
+
+            // ==============================================
+            // SÍ
+            // ==============================================
+
             () => {
 
-                showChess();
+                // Cerrar completamente el diálogo
+
+                dialog.hide();
+
+
+                // Abrir Chess Mystery
+
+                setTimeout(() => {
+
+                    showChess();
+
+                }, 50);
 
             },
 
+
+            // ==============================================
+            // NO
+            // ==============================================
+
             () => {
 
-                // Volver a la escena
+                dialog.hide();
 
             }
 
@@ -108,10 +129,30 @@ function openChess(){
 
 
 // ======================================================
-// MOSTRAR TABLERO
+// MOSTRAR CHESS MYSTERY
 // ======================================================
 
 function showChess(){
+
+    // ==================================================
+    // EVITAR DUPLICADOS
+    // ==================================================
+
+    const oldOverlay =
+        document.getElementById(
+            "chessOverlay"
+        );
+
+    if(oldOverlay){
+
+        oldOverlay.remove();
+
+    }
+
+
+    // ==================================================
+    // OVERLAY
+    // ==================================================
 
     const overlay =
         document.createElement("div");
@@ -121,7 +162,7 @@ function showChess(){
 
 
     // ==================================================
-    // TABLERO
+    // TABLERO ANTIGUO
     // ==================================================
 
     const board =
@@ -132,7 +173,7 @@ function showChess(){
 
 
     // ==================================================
-    // PANTALLA CHESS MYSTERY
+    // MARCO / PANTALLA
     // ==================================================
 
     const screenFrame =
@@ -142,17 +183,24 @@ function showChess(){
         "chessScreenFrame";
 
 
+    // ==================================================
+    // CHESS MYSTERY
+    // ==================================================
+
     const screen =
         document.createElement("iframe");
 
     screen.className =
         "chessScreen";
 
+
     screen.src =
         "https://yonosoymike83.github.io/chess-mystery/";
 
+
     screen.title =
         "Chess Mystery Cache";
+
 
     screen.setAttribute(
         "scrolling",
@@ -160,20 +208,40 @@ function showChess(){
     );
 
 
+    screen.setAttribute(
+        "frameborder",
+        "0"
+    );
+
+
+    screen.allow =
+        "fullscreen";
+
+
+    // ==================================================
+    // AÑADIR IFRAME AL MARCO
+    // ==================================================
+
     screenFrame.appendChild(
         screen
     );
 
 
     // ==================================================
-    // CERRAR
+    // BOTÓN CERRAR
     // ==================================================
 
     const close =
         document.createElement("button");
 
+
     close.className =
         "chessClose";
+
+
+    close.type =
+        "button";
+
 
     close.textContent =
         "× CERRAR";
@@ -183,9 +251,21 @@ function showChess(){
 
         "click",
 
-        () => {
+        (event) => {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
 
             overlay.remove();
+
+
+            // Reiniciar el estado del diálogo
+
+            chessDialogActive = false;
+
+            chessDialogIndex = 0;
 
         }
 
@@ -193,23 +273,45 @@ function showChess(){
 
 
     // ==================================================
-    // CONSTRUIR
+    // CONSTRUIR TABLERO
     // ==================================================
 
     board.appendChild(
         screenFrame
     );
 
+
     board.appendChild(
         close
     );
+
+
+    // ==================================================
+    // CONSTRUIR OVERLAY
+    // ==================================================
 
     overlay.appendChild(
         board
     );
 
+
+    // ==================================================
+    // AÑADIR A LA PÁGINA
+    // ==================================================
+
     document.body.appendChild(
         overlay
     );
+
+
+    // ==================================================
+    // ASEGURAR VISIBILIDAD
+    // ==================================================
+
+    requestAnimationFrame(() => {
+
+        overlay.style.opacity = "1";
+
+    });
 
 }
