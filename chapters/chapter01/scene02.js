@@ -212,6 +212,103 @@ const Scene02 = {
 
             }
 
+        },
+
+
+        // ==========================================
+        // AJEDREZ
+        // ==========================================
+
+        {
+
+            id: "chess",
+
+            visits: 0,
+
+            x: 20,
+            y: 70,
+            width: 10,
+            height: 15,
+
+            click(){
+
+                const lastStep =
+                    DialogChess.length - 1;
+
+
+                // ==========================================
+                // TODAVÍA QUEDAN FRASES
+                // ==========================================
+
+                if(this.visits < lastStep){
+
+                    const currentDialog =
+                        DialogChess[this.visits];
+
+                    this.visits++;
+
+                    dialog.show(
+
+                        [currentDialog]
+
+                    );
+
+                    return;
+
+                }
+
+
+                // ==========================================
+                // ÚLTIMA FRASE = PREGUNTA
+                // ==========================================
+
+                const question =
+                    "¿Quieres jugar una partida?";
+
+
+                dialog.showChoice(
+
+                    question,
+
+                    "SÍ",
+
+                    "NO",
+
+                    () => {
+
+                        // ==================================
+                        // SÍ → ABRIR CHESS MYSTERY
+                        // ==================================
+
+                        showChess();
+
+                    },
+
+                    () => {
+
+                        // ==================================
+                        // NO
+                        // ==================================
+
+                        if(typeof DialogChessNo !== "undefined"){
+
+                            dialog.show(
+                                DialogChessNo
+                            );
+
+                        }
+
+                    }
+
+                );
+
+
+                // Evitamos repetir la pregunta
+
+                this.visits++;
+
+            }
+
         }
 
     ]
