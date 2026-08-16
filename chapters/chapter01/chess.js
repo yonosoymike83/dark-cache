@@ -68,36 +68,15 @@ function openChess(){
 
             "NO",
 
-
-            // ==============================================
-            // SÍ
-            // ==============================================
-
             () => {
 
-                // Cerrar completamente el diálogo
-
-                dialog.hide();
-
-
-                // Abrir Chess Mystery
-
-                setTimeout(() => {
-
-                    showChess();
-
-                }, 50);
+                showChess();
 
             },
 
-
-            // ==============================================
-            // NO
-            // ==============================================
-
             () => {
 
-                dialog.hide();
+                // Volver a la escena
 
             }
 
@@ -134,26 +113,6 @@ function openChess(){
 
 function showChess(){
 
-    // ==================================================
-    // EVITAR DUPLICADOS
-    // ==================================================
-
-    const oldOverlay =
-        document.getElementById(
-            "chessOverlay"
-        );
-
-    if(oldOverlay){
-
-        oldOverlay.remove();
-
-    }
-
-
-    // ==================================================
-    // OVERLAY
-    // ==================================================
-
     const overlay =
         document.createElement("div");
 
@@ -162,7 +121,7 @@ function showChess(){
 
 
     // ==================================================
-    // TABLERO ANTIGUO
+    // TABLERO
     // ==================================================
 
     const board =
@@ -193,29 +152,16 @@ function showChess(){
     screen.className =
         "chessScreen";
 
-
     screen.src =
         "https://yonosoymike83.github.io/chess-mystery/";
 
-
     screen.title =
         "Chess Mystery Cache";
-
 
     screen.setAttribute(
         "scrolling",
         "no"
     );
-
-
-    screen.setAttribute(
-        "frameborder",
-        "0"
-    );
-
-
-    screen.allow =
-        "fullscreen";
 
 
     // ==================================================
@@ -234,14 +180,8 @@ function showChess(){
     const close =
         document.createElement("button");
 
-
     close.className =
         "chessClose";
-
-
-    close.type =
-        "button";
-
 
     close.textContent =
         "× CERRAR";
@@ -251,21 +191,9 @@ function showChess(){
 
         "click",
 
-        (event) => {
-
-            event.preventDefault();
-
-            event.stopPropagation();
-
+        () => {
 
             overlay.remove();
-
-
-            // Reiniciar el estado del diálogo
-
-            chessDialogActive = false;
-
-            chessDialogIndex = 0;
 
         }
 
@@ -279,7 +207,6 @@ function showChess(){
     board.appendChild(
         screenFrame
     );
-
 
     board.appendChild(
         close
@@ -302,16 +229,5 @@ function showChess(){
     document.body.appendChild(
         overlay
     );
-
-
-    // ==================================================
-    // ASEGURAR VISIBILIDAD
-    // ==================================================
-
-    requestAnimationFrame(() => {
-
-        overlay.style.opacity = "1";
-
-    });
 
 }
