@@ -15,13 +15,17 @@ const Scene02 = {
 
     ambient: null,
 
-    // Hotspots obligatorios para poder pasar a escena 03
+
+    // ==================================================
+    // HOTSPOTS OBLIGATORIOS PARA PASAR A ESCENA 03
+    // ==================================================
 
     requiredHotspots: [
 
         "logbook",
 
     ],
+
 
     hotspots: [
 
@@ -40,6 +44,7 @@ const Scene02 = {
             width: 5.76,
             height: 11.21,
 
+
             click(){
 
                 const lastStep =
@@ -56,6 +61,7 @@ const Scene02 = {
                         DialogLogbookIntro[this.visits];
 
                     this.visits++;
+
 
                     dialog.show(
 
@@ -84,6 +90,7 @@ const Scene02 = {
 
                     "NO",
 
+
                     () => {
 
                         // ==================================
@@ -93,6 +100,7 @@ const Scene02 = {
                         showLogbook();
 
                     },
+
 
                     () => {
 
@@ -135,6 +143,7 @@ const Scene02 = {
             width: 4.01,
             height: 15.76,
 
+
             click(){
 
                 const lastStep =
@@ -151,6 +160,7 @@ const Scene02 = {
                         DialogGameBoy[this.visits];
 
                     this.visits++;
+
 
                     dialog.show(
 
@@ -179,6 +189,7 @@ const Scene02 = {
 
                     "NO",
 
+
                     () => {
 
                         // ==================================
@@ -188,6 +199,7 @@ const Scene02 = {
                         showGameBoy();
 
                     },
+
 
                     () => {
 
@@ -225,10 +237,15 @@ const Scene02 = {
 
             visits: 0,
 
-            x: 20,
-            y: 70,
+            // ==========================================
+            // MODIFICA ESTAS COORDENADAS
+            // ==========================================
+
+            x: 50,
+            y: 50,
             width: 10,
             height: 15,
+
 
             click(){
 
@@ -247,6 +264,7 @@ const Scene02 = {
 
                     this.visits++;
 
+
                     dialog.show(
 
                         [currentDialog]
@@ -262,17 +280,14 @@ const Scene02 = {
                 // ÚLTIMA FRASE = PREGUNTA
                 // ==========================================
 
-                const question =
-                    "¿Quieres jugar una partida?";
-
-
                 dialog.showChoice(
 
-                    question,
+                    "¿Quieres jugar una partida?",
 
                     "SÍ",
 
                     "NO",
+
 
                     () => {
 
@@ -284,26 +299,23 @@ const Scene02 = {
 
                     },
 
+
                     () => {
 
                         // ==================================
-                        // NO
+                        // NO → VOLVER A LA ESCENA
                         // ==================================
 
-                        if(typeof DialogChessNo !== "undefined"){
-
-                            dialog.show(
-                                DialogChessNo
-                            );
-
-                        }
+                        // No hacemos nada.
 
                     }
 
                 );
 
 
-                // Evitamos repetir la pregunta
+                // ==========================================
+                // EVITAR REPETIR LA PREGUNTA
+                // ==========================================
 
                 this.visits++;
 
