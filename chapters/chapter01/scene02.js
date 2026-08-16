@@ -29,6 +29,7 @@ const Scene02 = {
 
     hotspots: [
 
+
         // ==========================================
         // LOGBOOK
         // ==========================================
@@ -237,6 +238,7 @@ const Scene02 = {
 
             visits: 0,
 
+
             // ==========================================
             // MODIFICA ESTAS COORDENADAS
             // ==========================================
@@ -249,27 +251,29 @@ const Scene02 = {
 
             click(){
 
-                const lastStep =
-                    DialogChess.length - 1;
-
 
                 // ==========================================
-                // TODAVÍA QUEDAN FRASES
+                // FRASE 1
                 // ==========================================
 
-                if(this.visits < lastStep){
-
-                    const currentDialog =
-                        DialogChess[this.visits];
+                if(this.visits === 0){
 
                     this.visits++;
 
 
-                    dialog.show(
+                    dialog.show([
 
-                        [currentDialog]
+                        {
 
-                    );
+                            speaker: "",
+
+                            text:
+                                "Un viejo tablero de ajedrez descansa sobre la mesa."
+
+                        }
+
+                    ]);
+
 
                     return;
 
@@ -277,7 +281,63 @@ const Scene02 = {
 
 
                 // ==========================================
-                // ÚLTIMA FRASE = PREGUNTA
+                // FRASE 2
+                // ==========================================
+
+                if(this.visits === 1){
+
+                    this.visits++;
+
+
+                    dialog.show([
+
+                        {
+
+                            speaker: "",
+
+                            text:
+                                "Las piezas parecen llevar años esperando a que alguien termine la partida."
+
+                        }
+
+                    ]);
+
+
+                    return;
+
+                }
+
+
+                // ==========================================
+                // FRASE 3
+                // ==========================================
+
+                if(this.visits === 2){
+
+                    this.visits++;
+
+
+                    dialog.show([
+
+                        {
+
+                            speaker: "",
+
+                            text:
+                                "Hace mucho que no juego al ajedrez..."
+
+                        }
+
+                    ]);
+
+
+                    return;
+
+                }
+
+
+                // ==========================================
+                // PREGUNTA
                 // ==========================================
 
                 dialog.showChoice(
@@ -292,7 +352,7 @@ const Scene02 = {
                     () => {
 
                         // ==================================
-                        // SÍ → ABRIR CHESS MYSTERY
+                        // SÍ → CHESS MYSTERY
                         // ==================================
 
                         showChess();
@@ -311,13 +371,6 @@ const Scene02 = {
                     }
 
                 );
-
-
-                // ==========================================
-                // EVITAR REPETIR LA PREGUNTA
-                // ==========================================
-
-                this.visits++;
 
             }
 
