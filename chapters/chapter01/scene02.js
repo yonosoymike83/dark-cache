@@ -243,10 +243,10 @@ const Scene02 = {
             // MODIFICA ESTAS COORDENADAS
             // ==========================================
 
-            x: 50,
-            y: 50,
-            width: 10,
-            height: 15,
+            x: 7.60,
+            y: 70.83,
+            width: 17.88,
+            height: 7.65,
 
 
             click(){
