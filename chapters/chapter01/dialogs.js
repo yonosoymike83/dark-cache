@@ -367,3 +367,44 @@ const DialogChess = [
     }
 
 ];
+
+const DialogChessNo = [
+
+    {
+        speaker:"",
+        text:"Quizá en otro momento."
+    }
+
+];
+
+// ======================================================
+// GUITARRA
+// ======================================================
+
+const DialogGuitar = [
+
+    {
+        speaker:"",
+        text:"¡Vaya! Una guitarra..."
+    },
+
+    {
+        speaker:"",
+        text:"Hace tiempo que no toco una de estas."
+    },
+
+    {
+        speaker:"",
+        text:"¿Te apetece tocar una canción?"
+    }
+
+];
+
+const DialogGuitarNo = [
+
+    {
+        speaker:"",
+        text:"Quizá en otro momento."
+    }
+
+];
