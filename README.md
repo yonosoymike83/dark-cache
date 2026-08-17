@@ -1,2 +1,3 @@
 # dark-cache
-La Búsqueda del Cache Oscuro. Una aventura gráfica.
+La Búsqueda del Cache Oscuro. 
+Una aventura gráfica.
