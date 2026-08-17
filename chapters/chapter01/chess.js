@@ -38,15 +38,13 @@ function openChess(){
             DialogChess.length
         ){
 
-            dialog.show(
+            dialog.show([
 
-                [
-                    DialogChess[
-                        chessDialogIndex
-                    ]
+                DialogChess[
+                    chessDialogIndex
                 ]
 
-            );
+            ]);
 
             return;
 
@@ -91,28 +89,27 @@ function openChess(){
             () => {
 
                 /*
-                   Primero cerramos el cuadro de elección.
-                   El DialogManager utiliza una animación
-                   de 300 ms para ocultarlo.
-                */
+                 * Dejamos que el cuadro de elección
+                 * desaparezca completamente.
+                 */
 
                 dialog.hide();
 
 
                 /*
-                   Esperamos a que termine la animación
-                   antes de mostrar la nueva frase.
-                */
+                 * El DialogManager tarda 300 ms
+                 * en ocultar el cuadro.
+                 */
 
                 setTimeout(() => {
 
-                    dialog.show(
+                    dialog.show([
 
-                        DialogChessNo
+                        DialogChessNo[0]
 
-                    );
+                    ]);
 
-                }, 350);
+                }, 400);
 
             }
 
@@ -132,13 +129,11 @@ function openChess(){
     chessDialogIndex = 0;
 
 
-    dialog.show(
+    dialog.show([
 
-        [
-            DialogChess[0]
-        ]
+        DialogChess[0]
 
-    );
+    ]);
 
 }
 
@@ -192,10 +187,6 @@ function showChess(){
     screen.className =
         "chessScreen";
 
-
-    // ==================================================
-    // MODO DARK CACHE
-    // ==================================================
 
     screen.src =
         "https://yonosoymike83.github.io/chess-mystery/?darkcache=true";
