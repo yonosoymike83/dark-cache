@@ -60,6 +60,10 @@ function openChess(){
         chessDialogActive = false;
 
 
+        // ==================================================
+        // PREGUNTA
+        // ==================================================
+
         dialog.showChoice(
 
             "¿Quieres jugar una partida?",
@@ -68,31 +72,56 @@ function openChess(){
 
             "NO",
 
+
+            // ==================================================
+            // SÍ
+            // ==================================================
+
             () => {
 
                 showChess();
 
             },
 
+
+            // ==================================================
+            // NO
+            // ==================================================
+
             () => {
 
+                /*
+                   Primero cerramos el cuadro de elección.
+                   El DialogManager utiliza una animación
+                   de 300 ms para ocultarlo.
+                */
+
                 dialog.hide();
+
+
+                /*
+                   Esperamos a que termine la animación
+                   antes de mostrar la nueva frase.
+                */
 
                 setTimeout(() => {
 
                     dialog.show(
+
                         DialogChessNo
+
                     );
 
                 }, 350);
 
-             }
+            }
 
         );
 
         return;
 
     }
+
 
     // ==================================================
     // PRIMER CLIC
@@ -119,6 +148,10 @@ function openChess(){
 // ======================================================
 
 function showChess(){
+
+    // ==================================================
+    // OVERLAY
+    // ==================================================
 
     const overlay =
         document.createElement("div");
