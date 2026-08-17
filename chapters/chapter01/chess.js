@@ -76,18 +76,23 @@ function openChess(){
 
             () => {
 
-                 dialog.show(
-                     DialogChessNo
-                 );
+                dialog.hide();
 
-            }
+                setTimeout(() => {
+
+                    dialog.show(
+                        DialogChessNo
+                    );
+
+                }, 350);
+
+             }
 
         );
 
         return;
 
     }
-
 
     // ==================================================
     // PRIMER CLIC
