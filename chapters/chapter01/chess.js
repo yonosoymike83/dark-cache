@@ -152,11 +152,18 @@ function showChess(){
     screen.className =
         "chessScreen";
 
+
+    // ==================================================
+    // MODO DARK CACHE
+    // ==================================================
+
     screen.src =
-        "https://yonosoymike83.github.io/chess-mystery/";
+        "https://yonosoymike83.github.io/chess-mystery/?darkcache=true";
+
 
     screen.title =
         "Chess Mystery Cache";
+
 
     screen.setAttribute(
         "scrolling",
