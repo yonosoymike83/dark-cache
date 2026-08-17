@@ -76,7 +76,9 @@ function openChess(){
 
             () => {
 
-                // Volver a la escena
+                 dialog.show(
+                     DialogChessNo
+                 );
 
             }
 
