@@ -38,13 +38,15 @@ function openChess(){
             DialogChess.length
         ){
 
-            dialog.show([
+            dialog.show(
 
-                DialogChess[
-                    chessDialogIndex
+                [
+                    DialogChess[
+                        chessDialogIndex
+                    ]
                 ]
 
-            ]);
+            );
 
             return;
 
@@ -70,42 +72,52 @@ function openChess(){
 
             "NO",
 
-            // ==============================================
+            // ==================================================
             // SÍ
-            // ==============================================
+            // ==================================================
 
             () => {
+
+                chessDialogActive = false;
+
+                chessDialogIndex = 0;
 
                 showChess();
 
             },
 
 
-            // ==============================================
+            // ==================================================
             // NO
-            // ==============================================
+            // ==================================================
 
             () => {
 
-                /*
-                   DialogManager ya ha eliminado los botones
-                   y ha iniciado el cierre del cuadro.
+                chessDialogActive = false;
 
-                   Cancelamos únicamente el temporizador
-                   de ocultación para poder mostrar la nueva
-                   frase.
-                */
-
-                clearTimeout(
-                    dialog.hideTimer
-                );
+                chessDialogIndex = 0;
 
 
-                dialog.show(
+                // ----------------------------------------------
+                // Cerrar diálogo actual
+                // ----------------------------------------------
 
-                    DialogChessNo
+                dialog.hide();
 
-                );
+
+                // ----------------------------------------------
+                // Esperar a que termine la animación de cierre
+                // ----------------------------------------------
+
+                setTimeout(() => {
+
+                    dialog.show(
+
+                        DialogChessNo
+
+                    );
+
+                }, 400);
 
             }
 
@@ -125,11 +137,13 @@ function openChess(){
     chessDialogIndex = 0;
 
 
-    dialog.show([
+    dialog.show(
 
-        DialogChess[0]
+        [
+            DialogChess[0]
+        ]
 
-    ]);
+    );
 
 }
 
