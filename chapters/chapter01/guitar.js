@@ -7,12 +7,67 @@ let guitarDialogActive = false;
 
 let guitarDialogIndex = 0;
 
+let guitarDialogCompleted = false;
+
 
 // ======================================================
 // ABRIR / CONTINUAR GUITARRA
 // ======================================================
 
 function openGuitar(){
+
+    // ==================================================
+    // SI YA HEMOS VISTO TODAS LAS FRASES
+    // ==================================================
+
+    if(guitarDialogCompleted){
+
+        const question =
+            DialogGuitar[
+                DialogGuitar.length - 1
+            ].text;
+
+
+        dialog.showChoice(
+
+            question,
+
+            "SÍ",
+
+            "NO",
+
+
+            // ==========================================
+            // SÍ → GUITAR MYSTERY
+            // ==========================================
+
+            () => {
+
+                showGuitar();
+
+            },
+
+
+            // ==========================================
+            // NO → RESPUESTA
+            // ==========================================
+
+            () => {
+
+                dialog.show(
+
+                    DialogGuitarNo
+
+                );
+
+            }
+
+        );
+
+        return;
+
+    }
+
 
     // ==================================================
     // DIÁLOGO YA ABIERTO
@@ -67,6 +122,8 @@ function openGuitar(){
         // ----------------------------------------------
 
         guitarDialogActive = false;
+
+        guitarDialogCompleted = true;
 
 
         const question =
