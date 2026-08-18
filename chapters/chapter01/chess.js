@@ -70,10 +70,9 @@ function openChess(){
 
             "NO",
 
-
-            // ==================================================
+            // ==============================================
             // SÍ
-            // ==================================================
+            // ==============================================
 
             () => {
 
@@ -82,34 +81,31 @@ function openChess(){
             },
 
 
-            // ==================================================
+            // ==============================================
             // NO
-            // ==================================================
+            // ==============================================
 
             () => {
 
                 /*
-                 * Dejamos que el cuadro de elección
-                 * desaparezca completamente.
-                 */
+                   DialogManager ya ha eliminado los botones
+                   y ha iniciado el cierre del cuadro.
 
-                dialog.hide();
+                   Cancelamos únicamente el temporizador
+                   de ocultación para poder mostrar la nueva
+                   frase.
+                */
+
+                clearTimeout(
+                    dialog.hideTimer
+                );
 
 
-                /*
-                 * El DialogManager tarda 300 ms
-                 * en ocultar el cuadro.
-                 */
+                dialog.show(
 
-                setTimeout(() => {
+                    DialogChessNo
 
-                    dialog.show([
-
-                        DialogChessNo[0]
-
-                    ]);
-
-                }, 400);
+                );
 
             }
 
@@ -145,7 +141,7 @@ function openChess(){
 function showChess(){
 
     // ==================================================
-    // OVERLAY
+    // CREAR OVERLAY
     // ==================================================
 
     const overlay =
@@ -187,6 +183,10 @@ function showChess(){
     screen.className =
         "chessScreen";
 
+
+    // ==================================================
+    // MODO DARK CACHE
+    // ==================================================
 
     screen.src =
         "https://yonosoymike83.github.io/chess-mystery/?darkcache=true";
