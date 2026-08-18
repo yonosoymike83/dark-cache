@@ -240,8 +240,8 @@ const Scene02 = {
 
             x: 73.27,
             y: 3.45,
-            width: 1.20,
-            height: 2.44,
+            width: 5.20,
+            height: 10.44,
 
 
             click(){
