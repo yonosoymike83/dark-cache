@@ -1,7 +1,7 @@
 /* ======================================================
    DARK CACHE
    GUITAR MYSTERY
-   AMPLIFICADOR VINTAGE PIXEL RETRO
+   MARSHALL STYLE - PIXEL RETRO
    ====================================================== */
 
 
@@ -49,42 +49,73 @@
 
     height:
         min(
-            620px,
+            700px,
             calc(100vh - 20px)
         );
 
     box-sizing: border-box;
 
-    /* IMPORTANTE:
-       anulamos completamente el diseño
-       anterior de la guitarra */
-
-    clip-path: none !important;
-
-    border-radius:
-        8px !important;
-
     background:
 
         linear-gradient(
             180deg,
-            #292929 0%,
-            #1c1c1c 45%,
-            #111111 100%
+            #151515 0%,
+            #090909 100%
         );
 
     border:
-        8px solid #080808;
+        7px solid #080808;
+
+    border-radius:
+        7px;
 
     box-shadow:
 
-        10px 10px 0 #050505,
+        10px 10px 0 #000,
 
-        inset 4px 4px 0
+        inset 3px 3px 0
         rgba(255,255,255,.08),
 
-        inset -5px -5px 0
-        rgba(0,0,0,.65);
+        inset -4px -4px 0
+        rgba(0,0,0,.8);
+
+    overflow:
+        hidden;
+
+}
+
+
+/* ======================================================
+   MARCO EXTERIOR DORADO
+   ====================================================== */
+
+.guitarFrame::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 2.5%;
+
+    border:
+        3px solid #b9954a;
+
+    border-radius:
+        4px;
+
+    box-shadow:
+
+        inset 0 0 0 2px
+        #332817,
+
+        0 0 0 1px
+        #050505;
+
+    pointer-events:
+        none;
+
+    z-index:
+        20;
 
 }
 
@@ -93,20 +124,20 @@
    PANEL SUPERIOR
    ====================================================== */
 
-.guitarFrame::before {
+.guitarFrame::after {
 
     content:
         "DARK CACHE     GUITAR";
 
     position: absolute;
 
-    left: 4%;
+    left: 5%;
 
-    right: 4%;
+    right: 5%;
 
-    top: 4%;
+    top: 5%;
 
-    height: 15%;
+    height: 21%;
 
     display: flex;
 
@@ -120,19 +151,21 @@
 
         linear-gradient(
             180deg,
-            #d6d6d6 0%,
-            #999999 45%,
-            #555555 100%
+            #292929 0%,
+            #151515 100%
         );
 
     border:
-        4px solid #090909;
+        4px solid #111;
+
+    border-bottom:
+        4px solid #b08b42;
 
     border-radius:
         3px;
 
     color:
-        #181818;
+        #e2c47a;
 
     font-family:
         'Silkscreen',
@@ -149,86 +182,37 @@
         2px;
 
     text-shadow:
-        1px 1px 0 #eeeeee;
+        2px 2px 0 #000;
 
     box-shadow:
 
         inset 2px 2px 0
-        rgba(255,255,255,.5),
+        rgba(255,255,255,.06),
 
         inset -3px -3px 0
-        rgba(0,0,0,.5);
+        rgba(0,0,0,.7);
 
-    z-index: 3;
-
-}
-
-
-/* ======================================================
-   PANEL DE CONTROLES
-   ====================================================== */
-
-.guitarFrame::after {
-
-    content:
-        "GAIN      BASS      MID      TREBLE      VOLUME";
-
-    position: absolute;
-
-    left: 7%;
-
-    right: 7%;
-
-    top: 7%;
-
-    height: 9%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    color:
-        #222222;
-
-    font-family:
-        'Silkscreen',
-        monospace;
-
-    font-size:
-        clamp(
-            .35rem,
-            1vw,
-            .55rem
-        );
-
-    letter-spacing:
-        1px;
-
-    z-index: 4;
-
-    pointer-events:
-        none;
+    z-index:
+        3;
 
 }
 
 
 /* ======================================================
-   ZONA DEL ALTAVOZ
+   ZONA DE ALTAVOZ
    ====================================================== */
 
 .guitarScreenFrame {
 
     position: absolute;
 
-    left: 6%;
+    left: 5%;
 
-    right: 6%;
+    right: 5%;
 
-    top: 23%;
+    top: 29%;
 
-    bottom: 13%;
+    bottom: 11%;
 
     width: auto;
 
@@ -236,40 +220,38 @@
 
     box-sizing: border-box;
 
-    padding: 3%;
+    padding:
+        2.5%;
 
     background:
 
         repeating-linear-gradient(
             90deg,
-            #171717 0px,
-            #171717 3px,
-            #111111 3px,
-            #111111 6px
+            #292929 0px,
+            #292929 2px,
+            #1b1b1b 2px,
+            #1b1b1b 5px
         );
 
     border:
-        6px solid #090909;
+        5px solid #090909;
 
     border-radius:
         3px;
 
     box-shadow:
 
-        inset 5px 5px 0
-        #050505,
+        inset 4px 4px 0 #080808,
 
-        inset -5px -5px 0
-        #333333,
+        inset -4px -4px 0 #3a3a3a,
 
-        0 0 0 3px
-        #444444;
+        0 0 0 3px #a38345;
 
     overflow:
         hidden;
 
     z-index:
-        2;
+        5;
 
 }
 
@@ -286,18 +268,18 @@
 
     inset: 1.5%;
 
-    border:
-        3px solid #303030;
-
     background:
 
         repeating-linear-gradient(
             0deg,
             rgba(255,255,255,.035) 0px,
-            rgba(255,255,255,.035) 2px,
-            transparent 2px,
-            transparent 5px
+            rgba(255,255,255,.035) 1px,
+            transparent 1px,
+            transparent 4px
         );
+
+    border:
+        2px solid #252525;
 
     pointer-events:
         none;
@@ -321,22 +303,22 @@
 
     left: 50%;
 
-    top: 2%;
+    top: 1.5%;
 
     transform:
         translateX(-50%);
 
     padding:
-        3px 10px;
+        4px 14px;
 
     background:
-        #171717;
+        #161616;
 
     border:
-        2px solid #555555;
+        2px solid #555;
 
     color:
-        #d2d2d2;
+        #eee;
 
     font-family:
         'Silkscreen',
@@ -346,17 +328,20 @@
         clamp(
             .35rem,
             1vw,
-            .55rem
+            .58rem
         );
 
     letter-spacing:
-        1px;
+        2px;
 
     white-space:
         nowrap;
 
+    box-shadow:
+        2px 2px 0 #050505;
+
     z-index:
-        6;
+        8;
 
     pointer-events:
         none;
@@ -385,13 +370,30 @@
     border: 0;
 
     background:
-        #111111;
+        #111;
 
     overflow:
         hidden;
 
     z-index:
-        1;
+        2;
+
+}
+
+
+/* ======================================================
+   CONTROLES SIMULADOS
+   ====================================================== */
+
+/*
+   Los controles se generan visualmente mediante
+   el propio panel superior.
+*/
+
+.guitarFrame {
+
+    --gold:
+        #c5a45a;
 
 }
 
@@ -406,13 +408,12 @@
 
     left: 50%;
 
-    bottom: 3%;
+    bottom: 2.5%;
 
     transform:
         translateX(-50%);
 
-    z-index:
-        20;
+    z-index: 30;
 
     min-width:
         130px;
@@ -424,13 +425,13 @@
         border-box;
 
     background:
-        #222222;
+        #222;
 
     border:
-        2px solid #777777;
+        2px solid #888;
 
     color:
-        #ffffff;
+        #fff;
 
     font-family:
         'Silkscreen',
@@ -446,25 +447,29 @@
         transparent;
 
     box-shadow:
-        3px 3px 0 #050505;
+
+        3px 3px 0 #050505,
+
+        inset 1px 1px 0
+        rgba(255,255,255,.15);
 
 }
 
 
 /* ======================================================
-   BOTÓN CERRAR - HOVER
+   HOVER
    ====================================================== */
 
 .guitarClose:hover {
 
     background:
-        #333333;
+        #333;
 
 }
 
 
 /* ======================================================
-   BOTÓN CERRAR - PULSADO
+   PULSADO
    ====================================================== */
 
 .guitarClose:active {
@@ -499,24 +504,26 @@
             calc(100vw - 10px);
 
         height:
-            min(
-                620px,
-                calc(100vh - 10px)
-            );
+            calc(100vh - 10px);
 
         border-width:
             5px;
-
-        clip-path:
-            none !important;
-
-        border-radius:
-            8px !important;
 
     }
 
 
     .guitarFrame::before {
+
+        inset:
+            2.5%;
+
+        border-width:
+            2px;
+
+    }
+
+
+    .guitarFrame::after {
 
         left:
             5%;
@@ -525,30 +532,16 @@
             5%;
 
         top:
-            4%;
+            5%;
 
         height:
-            15%;
+            21%;
 
         font-size:
-            .52rem;
+            .48rem;
 
         letter-spacing:
             1px;
-
-    }
-
-
-    .guitarFrame::after {
-
-        top:
-            7%;
-
-        font-size:
-            .30rem;
-
-        letter-spacing:
-            .5px;
 
     }
 
@@ -562,16 +555,30 @@
             5%;
 
         top:
-            23%;
+            29%;
 
         bottom:
-            13%;
+            11%;
 
         padding:
             3%;
 
         border-width:
             4px;
+
+    }
+
+
+    .guitarScreenFrame::after {
+
+        font-size:
+            .35rem;
+
+        padding:
+            3px 8px;
+
+        letter-spacing:
+            1px;
 
     }
 
@@ -601,29 +608,13 @@
 
 @media(max-width:380px){
 
-    .guitarFrame {
-
-        clip-path:
-            none !important;
-
-    }
-
-
-    .guitarFrame::before {
-
-        font-size:
-            .43rem;
-
-    }
-
-
     .guitarFrame::after {
 
         content:
-            "GAIN   BASS   MID   TREBLE   VOL";
+            "DARK CACHE • GUITAR";
 
         font-size:
-            .25rem;
+            .42rem;
 
     }
 
@@ -631,10 +622,18 @@
     .guitarScreenFrame {
 
         top:
-            23%;
+            29%;
 
         bottom:
-            14%;
+            12%;
+
+    }
+
+
+    .guitarScreenFrame::after {
+
+        font-size:
+            .30rem;
 
     }
 
@@ -653,7 +652,7 @@
    HORIZONTAL
    ====================================================== */
 
-@media(orientation: landscape){
+@media(orientation:landscape){
 
     .guitarFrame {
 
@@ -666,16 +665,13 @@
         height:
             calc(100vh - 12px);
 
-        clip-path:
-            none !important;
-
     }
 
 }
 
 
 /* ======================================================
-   HORIZONTAL MUY BAJO
+   HORIZONTAL BAJO
    ====================================================== */
 
 @media(
@@ -692,13 +688,27 @@
     }
 
 
+    .guitarFrame::after {
+
+        top:
+            4%;
+
+        height:
+            20%;
+
+        font-size:
+            .45rem;
+
+    }
+
+
     .guitarScreenFrame {
 
         top:
-            22%;
+            27%;
 
         bottom:
-            14%;
+            12%;
 
     }
 
