@@ -240,7 +240,7 @@ const Scene02 = {
 
 
             // ==========================================
-            // MODIFICA ESTAS COORDENADAS
+            // COORDENADAS DEL TABLERO
             // ==========================================
 
             x: 7.60,
@@ -251,126 +251,11 @@ const Scene02 = {
 
             click(){
 
-
                 // ==========================================
-                // FRASE 1
-                // ==========================================
-
-                if(this.visits === 0){
-
-                    this.visits++;
-
-
-                    dialog.show([
-
-                        {
-
-                            speaker: "",
-
-                            text:
-                                "Un viejo tablero de ajedrez descansa sobre la mesa."
-
-                        }
-
-                    ]);
-
-
-                    return;
-
-                }
-
-
-                // ==========================================
-                // FRASE 2
+                // TODA LA LÓGICA DEL AJEDREZ ESTÁ EN chess.js
                 // ==========================================
 
-                if(this.visits === 1){
-
-                    this.visits++;
-
-
-                    dialog.show([
-
-                        {
-
-                            speaker: "",
-
-                            text:
-                                "Las piezas parecen llevar años esperando a que alguien termine la partida."
-
-                        }
-
-                    ]);
-
-
-                    return;
-
-                }
-
-
-                // ==========================================
-                // FRASE 3
-                // ==========================================
-
-                if(this.visits === 2){
-
-                    this.visits++;
-
-
-                    dialog.show([
-
-                        {
-
-                            speaker: "",
-
-                            text:
-                                "Hace mucho que no juego al ajedrez..."
-
-                        }
-
-                    ]);
-
-
-                    return;
-
-                }
-
-
-                // ==========================================
-                // PREGUNTA
-                // ==========================================
-
-                dialog.showChoice(
-
-                    "¿Quieres jugar una partida?",
-
-                    "SÍ",
-
-                    "NO",
-
-
-                    () => {
-
-                        // ==================================
-                        // SÍ → CHESS MYSTERY
-                        // ==================================
-
-                        showChess();
-
-                    },
-
-
-                    () => {
-
-                        // ==================================
-                        // NO → VOLVER A LA ESCENA
-                        // ==================================
-
-                        // No hacemos nada.
-
-                    }
-
-                );
+                openChess();
 
             }
 
