@@ -7,18 +7,24 @@ let chessDialogActive = false;
 
 let chessDialogIndex = 0;
 
+let chessChoiceShown = false;
+
 
 // ======================================================
-// ABRIR AJEDREZ
+// ABRIR / CONTINUAR AJEDREZ
 // ======================================================
 
 function openChess(){
 
     // ==================================================
-    // SI EL DIÁLOGO YA ESTÁ ABIERTO
+    // DIÁLOGO YA ABIERTO
     // ==================================================
 
     if(chessDialogActive){
+
+        // ----------------------------------------------
+        // Detener escritura
+        // ----------------------------------------------
 
         clearInterval(
             dialog.typingTimer
@@ -26,16 +32,21 @@ function openChess(){
 
         dialog.isTyping = false;
 
+
+        // ----------------------------------------------
+        // Siguiente frase
+        // ----------------------------------------------
+
         chessDialogIndex++;
 
 
-        // --------------------------------------------------
-        // QUEDAN FRASES
-        // --------------------------------------------------
+        // ----------------------------------------------
+        // TODAVÍA QUEDAN FRASES ANTES DE LA PREGUNTA
+        // ----------------------------------------------
 
         if(
             chessDialogIndex <
-            DialogChess.length
+            DialogChess.length - 1
         ){
 
             dialog.show(
@@ -53,137 +64,66 @@ function openChess(){
         }
 
 
-        // --------------------------------------------------
-        // DIÁLOGO TERMINADO
-        // --------------------------------------------------
+        // ----------------------------------------------
+        // ÚLTIMA FRASE = PREGUNTA
+        // ----------------------------------------------
 
-        chessDialogActive = false;
+        if(!chessChoiceShown){
 
-
-        // ==================================================
-        // PREGUNTA
-        // ==================================================
-
-        dialog.showChoice(
-
-            "¿Quieres jugar una partida?",
-
-            "SÍ",
-
-            "NO",
-
-            // ==============================================
-            // SÍ
-            // ==============================================
-
-            () => {
-
-                showChess();
-
-            },
-
-            // ==============================================
-            // NO
-            // ==============================================
-
-            () => {
-
-                chessDialogActive = false;
-
-                chessDialogIndex = 0;
-
-                dialog.hide();
-
-            }
-
-        );
+            chessChoiceShown = true;
 
 
-        // ==================================================
-        // CORREGIR EVENTO DEL BOTÓN NO
-        // ==================================================
-
-        setTimeout(() => {
-
-            const choices =
-                document.getElementById(
-                    "dialogChoices"
-                );
+            const question =
+                DialogChess[
+                    DialogChess.length - 1
+                ].text;
 
 
-            if(!choices){
+            dialog.showChoice(
 
-                return;
+                question,
 
-            }
+                "SÍ",
 
-
-            const options =
-                choices.children;
+                "NO",
 
 
-            if(options.length < 2){
+                // ======================================
+                // SÍ
+                // ======================================
 
-                return;
-
-            }
-
-
-            const no =
-                options[1];
-
-
-            // ----------------------------------------------
-            // Evitar que el listener original interfiera
-            // ----------------------------------------------
-
-            no.addEventListener(
-
-                "pointerdown",
-
-                (event) => {
-
-                    event.preventDefault();
-
-                    event.stopPropagation();
-
-                    event.stopImmediatePropagation();
-
-
-                    // ------------------------------------------
-                    // Estado
-                    // ------------------------------------------
+                () => {
 
                     chessDialogActive = false;
 
+                    chessChoiceShown = false;
+
                     chessDialogIndex = 0;
 
-
-                    // ------------------------------------------
-                    // Eliminar botones
-                    // ------------------------------------------
-
-                    dialog.removeChoices();
-
-
-                    // ------------------------------------------
-                    // Mostrar respuesta
-                    // ------------------------------------------
-
-                    dialog.show(
-
-                        DialogChessNo
-
-                    );
+                    showChess();
 
                 },
 
-                true
+
+                // ======================================
+                // NO
+                // ======================================
+
+                () => {
+
+                    chessDialogActive = false;
+
+                    chessChoiceShown = false;
+
+                    chessDialogIndex = 0;
+
+                    dialog.hide();
+
+                }
 
             );
 
-        }, 50);
-
+        }
 
         return;
 
@@ -195,6 +135,8 @@ function openChess(){
     // ==================================================
 
     chessDialogActive = true;
+
+    chessChoiceShown = false;
 
     chessDialogIndex = 0;
 
@@ -217,7 +159,7 @@ function openChess(){
 function showChess(){
 
     // ==================================================
-    // CREAR OVERLAY
+    // OVERLAY
     // ==================================================
 
     const overlay =
@@ -260,10 +202,6 @@ function showChess(){
         "chessScreen";
 
 
-    // ==================================================
-    // MODO DARK CACHE
-    // ==================================================
-
     screen.src =
         "https://yonosoymike83.github.io/chess-mystery/?darkcache=true";
 
@@ -279,7 +217,7 @@ function showChess(){
 
 
     // ==================================================
-    // AÑADIR IFRAME AL MARCO
+    // AÑADIR PANTALLA AL MARCO
     // ==================================================
 
     screenFrame.appendChild(
