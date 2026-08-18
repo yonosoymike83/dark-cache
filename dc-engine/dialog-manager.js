@@ -58,16 +58,12 @@ class DialogManager {
 
     show(dialog, onFinish = null) {
 
-        // Cancelar cualquier ocultación pendiente
-
         clearTimeout(
             this.hideTimer
         );
 
         this.hideTimer = null;
 
-
-        // Cancelar escritura anterior
 
         clearInterval(
             this.typingTimer
@@ -78,12 +74,8 @@ class DialogManager {
         this.isTyping = false;
 
 
-        // Eliminar botones anteriores
-
         this.removeChoices();
 
-
-        // Guardar diálogo
 
         this.dialog = dialog;
 
@@ -91,8 +83,6 @@ class DialogManager {
 
         this.onFinish = onFinish;
 
-
-        // Mostrar cuadro
 
         this.box.style.display =
             "block";
@@ -216,10 +206,6 @@ class DialogManager {
 
     next() {
 
-        // --------------------------------------------------
-        // Si todavía está escribiendo
-        // --------------------------------------------------
-
         if(this.isTyping){
 
             clearInterval(
@@ -239,10 +225,6 @@ class DialogManager {
 
         }
 
-
-        // --------------------------------------------------
-        // Siguiente frase
-        // --------------------------------------------------
 
         this.index++;
 
@@ -289,8 +271,6 @@ class DialogManager {
         onNo
     ){
 
-        // Cancelar ocultación pendiente
-
         clearTimeout(
             this.hideTimer
         );
@@ -298,8 +278,6 @@ class DialogManager {
         this.hideTimer =
             null;
 
-
-        // Cancelar escritura
 
         clearInterval(
             this.typingTimer
@@ -312,12 +290,8 @@ class DialogManager {
             false;
 
 
-        // Eliminar elecciones anteriores
-
         this.removeChoices();
 
-
-        // Mostrar cuadro
 
         this.box.style.display =
             "block";
@@ -482,9 +456,6 @@ class DialogManager {
                 this.removeChoices();
 
 
-                // Ocultar antes de abrir la Game Boy,
-                // Chess, etc.
-
                 this.hide();
 
 
@@ -515,22 +486,12 @@ class DialogManager {
                 this.removeChoices();
 
 
-                /*
-                   IMPORTANTE:
+                this.hide();
 
-                   NO llamamos a hide() aquí.
-
-                   El callback puede abrir inmediatamente
-                   otro diálogo mediante dialog.show().
-                */
 
                 if(onNo){
 
                     onNo();
-
-                }else{
-
-                    this.hide();
 
                 }
 
