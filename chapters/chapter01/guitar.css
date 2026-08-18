@@ -1,0 +1,691 @@
+/* ======================================================
+   DARK CACHE
+   GUITAR MYSTERY
+   LES PAUL - PIXEL RETRO
+   ====================================================== */
+
+
+/* ======================================================
+   OVERLAY
+   ====================================================== */
+
+#guitarOverlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 11000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    padding: 8px;
+
+    background:
+        rgba(0,0,0,.92);
+
+}
+
+
+/* ======================================================
+   CUERPO DE LA GUITARRA
+   ====================================================== */
+
+.guitar {
+
+    position: relative;
+
+    width:
+        min(
+            720px,
+            calc(100vw - 16px),
+            calc(100vh - 16px)
+        );
+
+    aspect-ratio: 1 / 1;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    background:
+
+        /* acabado madera */
+        linear-gradient(
+            135deg,
+            #8a431f 0%,
+            #c46b27 22%,
+            #9b481d 48%,
+            #d27b2c 72%,
+            #713216 100%
+        );
+
+    border:
+        8px solid #24130b;
+
+    border-radius:
+        43% 57% 45% 55%
+        /
+        38% 38% 62% 62%;
+
+    box-shadow:
+
+        8px 8px 0 #080808,
+
+        inset 5px 5px 0
+        rgba(255,255,255,.16),
+
+        inset -8px -8px 0
+        rgba(0,0,0,.4);
+
+}
+
+
+/* ======================================================
+   BORDE PIXELADO INTERIOR
+   ====================================================== */
+
+.guitar::before {
+
+    content:"";
+
+    position:absolute;
+
+    inset:2.5%;
+
+    border:
+        5px solid #e2a24d;
+
+    border-radius:
+        42% 58% 44% 56%
+        /
+        37% 38% 62% 63%;
+
+    box-shadow:
+
+        inset 0 0 0 4px
+        rgba(54,24,10,.65),
+
+        inset 0 0 0 8px
+        rgba(255,206,116,.18);
+
+    pointer-events:none;
+
+    z-index:1;
+
+}
+
+
+/* ======================================================
+   GOLPEADOR
+   ====================================================== */
+
+.guitar::after {
+
+    content:"";
+
+    position:absolute;
+
+    width:34%;
+
+    height:57%;
+
+    right:9%;
+
+    top:21%;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #f1dfae,
+            #d6c18d
+        );
+
+    border:
+        5px solid #4b2a16;
+
+    border-radius:
+        8% 52% 45% 12%
+        /
+        10% 40% 55% 15%;
+
+    box-shadow:
+
+        inset 3px 3px 0
+        rgba(255,255,255,.3),
+
+        inset -4px -4px 0
+        rgba(0,0,0,.18);
+
+    transform:
+        rotate(4deg);
+
+    pointer-events:none;
+
+    z-index:2;
+
+}
+
+
+/* ======================================================
+   ZONA CENTRAL DEL MÁSTIL / GUITAR MYSTERY
+   ====================================================== */
+
+.guitarScreenFrame {
+
+    position:absolute;
+
+    left:50%;
+
+    top:12%;
+
+    width:27%;
+
+    height:70%;
+
+    transform:
+        translateX(-50%);
+
+    box-sizing:border-box;
+
+    background:#120c08;
+
+    border:
+        5px solid #3a2112;
+
+    border-radius:5px;
+
+    box-shadow:
+
+        inset 4px 4px 0 #070504,
+
+        inset -4px -4px 0 #6c3e20,
+
+        0 0 0 3px
+        rgba(32,15,7,.75);
+
+    overflow:hidden;
+
+    z-index:8;
+
+}
+
+
+/* ======================================================
+   BORDE INTERIOR DE LA PANTALLA
+   ====================================================== */
+
+.guitarScreenFrame::before {
+
+    content:"";
+
+    position:absolute;
+
+    inset:2%;
+
+    border:
+        2px solid
+        rgba(215,160,82,.55);
+
+    pointer-events:none;
+
+    z-index:3;
+
+}
+
+
+/* ======================================================
+   GUITAR MYSTERY
+   ====================================================== */
+
+.guitarScreen {
+
+    position:absolute;
+
+    inset:0;
+
+    display:block;
+
+    width:100%;
+
+    height:100%;
+
+    margin:0;
+
+    padding:0;
+
+    border:0;
+
+    background:#111;
+
+    overflow:hidden;
+
+    z-index:1;
+
+}
+
+
+/* ======================================================
+   PASTILLA SUPERIOR
+   ====================================================== */
+
+.guitar .pickupNeck {
+
+    position:absolute;
+
+    left:35%;
+
+    top:16%;
+
+    width:30%;
+
+    height:5%;
+
+    background:#171717;
+
+    border:
+        3px solid #080808;
+
+    box-shadow:
+
+        inset 0 2px 0 #555,
+
+        inset 0 -2px 0 #000;
+
+    z-index:6;
+
+}
+
+
+/* ======================================================
+   PASTILLA INFERIOR
+   ====================================================== */
+
+.guitar .pickupBridge {
+
+    position:absolute;
+
+    left:35%;
+
+    top:69%;
+
+    width:30%;
+
+    height:5%;
+
+    background:#171717;
+
+    border:
+        3px solid #080808;
+
+    box-shadow:
+
+        inset 0 2px 0 #555,
+
+        inset 0 -2px 0 #000;
+
+    z-index:6;
+
+}
+
+
+/* ======================================================
+   PUENTE
+   ====================================================== */
+
+.guitar .guitarBridge {
+
+    position:absolute;
+
+    left:34%;
+
+    top:75%;
+
+    width:32%;
+
+    height:3%;
+
+    background:#b8a77d;
+
+    border:
+        3px solid #38271a;
+
+    box-shadow:
+
+        inset 0 2px 0 #eee,
+
+        inset 0 -2px 0 #67583e;
+
+    z-index:6;
+
+}
+
+
+/* ======================================================
+   CONTROLES
+   ====================================================== */
+
+.guitar .guitarControls {
+
+    position:absolute;
+
+    right:9%;
+
+    bottom:11%;
+
+    width:24%;
+
+    height:18%;
+
+    z-index:7;
+
+}
+
+
+/* ======================================================
+   POTENCIÓMETROS
+   ====================================================== */
+
+.guitar .knob {
+
+    position:absolute;
+
+    width:25%;
+
+    aspect-ratio:1;
+
+    background:
+
+        radial-gradient(
+            circle at 35% 30%,
+            #f4d88b 0 12%,
+            #bd812b 13% 65%,
+            #5d3216 66% 100%
+        );
+
+    border:
+        3px solid #32190c;
+
+    border-radius:50%;
+
+    box-shadow:
+
+        2px 2px 0 #160b05;
+
+}
+
+
+/* posiciones */
+
+.guitar .knob:nth-child(1) {
+
+    left:0;
+
+    top:0;
+
+}
+
+
+.guitar .knob:nth-child(2) {
+
+    right:0;
+
+    top:0;
+
+}
+
+
+.guitar .knob:nth-child(3) {
+
+    left:0;
+
+    bottom:0;
+
+}
+
+
+.guitar .knob:nth-child(4) {
+
+    right:0;
+
+    bottom:0;
+
+}
+
+
+/* ======================================================
+   DETALLE TIPO INTERRUPTOR
+   ====================================================== */
+
+.guitar .guitarSwitch {
+
+    position:absolute;
+
+    left:15%;
+
+    top:17%;
+
+    width:5%;
+
+    height:12%;
+
+    background:#d8c18c;
+
+    border:
+        3px solid #382516;
+
+    transform:
+        rotate(-20deg);
+
+    z-index:7;
+
+}
+
+
+/* ======================================================
+   BOTÓN CERRAR
+   ====================================================== */
+
+.guitarClose {
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:3%;
+
+    transform:
+        translateX(-50%);
+
+    z-index:20;
+
+    padding:
+        7px 18px;
+
+    background:#222;
+
+    border:
+        1px solid #777;
+
+    color:white;
+
+    font-family:
+        'Silkscreen',
+        monospace;
+
+    font-size:.48rem;
+
+    cursor:pointer;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+    box-shadow:
+
+        3px 3px 0 #111;
+
+}
+
+
+/* ======================================================
+   HOVER BOTÓN
+   ====================================================== */
+
+.guitarClose:hover {
+
+    background:#333;
+
+}
+
+
+/* ======================================================
+   MÓVIL
+   ====================================================== */
+
+@media(max-width:700px){
+
+    #guitarOverlay {
+
+        padding:4px;
+
+    }
+
+
+    .guitar {
+
+        width:
+            min(
+                calc(100vw - 8px),
+                calc(100vh - 8px)
+            );
+
+        border-width:5px;
+
+    }
+
+
+    .guitarScreenFrame {
+
+        top:11%;
+
+        width:28%;
+
+        height:71%;
+
+        border-width:4px;
+
+    }
+
+
+    .guitarClose {
+
+        bottom:2%;
+
+        padding:
+            6px 12px;
+
+    }
+
+}
+
+
+/* ======================================================
+   TELÉFONO MUY ESTRECHO
+   ====================================================== */
+
+@media(max-width:380px){
+
+    .guitar {
+
+        width:
+            calc(100vw - 6px);
+
+    }
+
+
+    .guitarScreenFrame {
+
+        top:10%;
+
+        width:29%;
+
+        height:72%;
+
+    }
+
+}
+
+
+/* ======================================================
+   HORIZONTAL
+   ====================================================== */
+
+@media(
+    orientation:landscape
+){
+
+    .guitar {
+
+        height:
+            calc(100vh - 8px);
+
+        width:auto;
+
+        max-width:none;
+
+        aspect-ratio:
+            1 / 1;
+
+    }
+
+}
+
+
+/* ======================================================
+   HORIZONTAL BAJO
+   ====================================================== */
+
+@media(
+    orientation:landscape
+) and (
+    max-height:500px
+){
+
+    .guitar {
+
+        height:
+            calc(100vh - 6px);
+
+    }
+
+
+    .guitarScreenFrame {
+
+        top:9%;
+
+        width:28%;
+
+        height:73%;
+
+    }
+
+
+    .guitarClose {
+
+        bottom:2%;
+
+        padding:
+            5px 12px;
+
+        font-size:.45rem;
+
+    }
+
+}
