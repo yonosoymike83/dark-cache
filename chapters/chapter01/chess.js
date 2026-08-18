@@ -72,23 +72,123 @@ function openChess(){
 
             "NO",
 
+            // ==============================================
+            // SÍ
+            // ==============================================
+
             () => {
 
                 showChess();
 
             },
 
+            // ==============================================
+            // NO
+            // ==============================================
+
             () => {
 
-                alert("NO funciona");
+                chessDialogActive = false;
+
+                chessDialogIndex = 0;
+
+                dialog.hide();
 
             }
 
         );
 
+
+        // ==================================================
+        // CORREGIR EVENTO DEL BOTÓN NO
+        // ==================================================
+
+        setTimeout(() => {
+
+            const choices =
+                document.getElementById(
+                    "dialogChoices"
+                );
+
+
+            if(!choices){
+
+                return;
+
+            }
+
+
+            const options =
+                choices.children;
+
+
+            if(options.length < 2){
+
+                return;
+
+            }
+
+
+            const no =
+                options[1];
+
+
+            // ----------------------------------------------
+            // Evitar que el listener original interfiera
+            // ----------------------------------------------
+
+            no.addEventListener(
+
+                "pointerdown",
+
+                (event) => {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+                    event.stopImmediatePropagation();
+
+
+                    // ------------------------------------------
+                    // Estado
+                    // ------------------------------------------
+
+                    chessDialogActive = false;
+
+                    chessDialogIndex = 0;
+
+
+                    // ------------------------------------------
+                    // Eliminar botones
+                    // ------------------------------------------
+
+                    dialog.removeChoices();
+
+
+                    // ------------------------------------------
+                    // Mostrar respuesta
+                    // ------------------------------------------
+
+                    dialog.show(
+
+                        DialogChessNo
+
+                    );
+
+                },
+
+                true
+
+            );
+
+        }, 50);
+
+
         return;
 
     }
+
 
     // ==================================================
     // PRIMER CLIC
