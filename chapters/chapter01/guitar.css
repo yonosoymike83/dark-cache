@@ -129,7 +129,7 @@
         "Lucida Handwriting",
         cursive;
 
-    font-size:clamp(1.8rem,5vw,3.2rem);
+    font-size:clamp(2.8rem,7vw,4.5rem);
 
     font-weight:bold;
     font-style:italic;
@@ -325,8 +325,8 @@
         top: 5%;
         height: 13%;
 
-        font-size: clamp(1.15rem,5vw,2rem);
-        letter-spacing: -1px;
+        font-size: clamp(2.2rem,10vw,3.5rem);
+        letter-spacing: -2px;
     }
 
 
